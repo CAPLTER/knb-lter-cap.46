@@ -1,0 +1,5 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum
+site_code,,,,survey location identifier,survey location identifier,character,,
+location_type,,,,,survey site type,factor,,
+description,,,,general description of survey location,general description of survey location,character,,
+address,,,,approximate address of survey location,approximate address of survey location,character,,
