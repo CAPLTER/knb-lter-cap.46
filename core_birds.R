@@ -80,57 +80,45 @@ getSlots("creator")
   getSlots("userId")
 
 # libraries ----
-library("EML")
-library('RPostgreSQL')
-library('RMySQL')
-library('tidyverse')
-library("tools")
-library("readr")
-library("readxl")
-library("stringr")
+library(EML)
+library(RPostgreSQL)
+library(RMySQL)
+library(tidyverse)
+library(tools)
+library(readr)
+library(readxl)
+library(stringr)
 
 # functions and working dir ----
-source('~/Dropbox (ASU)/localRepos/dataPublishing/writeAttributesFn.R')
-source('~/Dropbox (ASU)/localRepos/dataPublishing/createKMLFn.R')
-source('~/Dropbox (ASU)/localRepos/dataPublishing/createdataTableFn.R')
-source('~/Dropbox (ASU)/localRepos/dataPublishing/createDataTableFromFileFn.R')
-source('~/Dropbox (ASU)/localRepos/dataPublishing/address_publisher_contact_language_rights.R')
-source('~/Dropbox (ASU)/localRepos/dataPublishing/createOtherEntityFn.R')
-setwd("~/db_asu/tempeTownLake/data_ready_to_process")
+# source('~/localRepos/reml-helper-tools/createdataTableFn.R')
+source('~/localRepos/reml-helper-tools/writeAttributesFn.R')
+source('~/localRepos/reml-helper-tools/createDataTableFromFileFn.R')
+source('~/localRepos/reml-helper-tools/createKMLFn.R')
+source('~/localRepos/reml-helper-tools/address_publisher_contact_language_rights.R')
+source('~/localRepos/reml-helper-tools/createOtherEntityFn.R')
+source('~/localRepos/reml-helper-tools/createPeople.R')
+source('~/localRepos/reml-helper-tools/createFactorsDataframe.R')
 
 # DB connections ----
-con <- dbConnect(MySQL(),
-                 user='srearl',
-                 password=.rs.askForPassword("Enter password:"),
-                 dbname='lter34birds',
-                 host='stegosaurus.gios.asu.edu')
+  con <- dbConnect(MySQL(),
+                   user='srearl',
+                   password=.rs.askForPassword("Enter password:"),
+                   dbname='lter34birds',
+                   host='mysql.research.gios.asu.edu')
+  
+  prod <- dbConnect(MySQL(),
+                    user='srearl',
+                    password=.rs.askForPassword("Enter password:"),
+                    dbname='gios2_production',
+                    host='mysql.prod.aws.gios.asu.edu')
 
-prod <- dbConnect(MySQL(),
-                 user='srearl',
-                 password=.rs.askForPassword("Enter password:"),
-                 dbname='gios2_production',
-                 host='mysql.prod.aws.gios.asu.edu')
-
-# pg <- dbConnect(dbDriver("PostgreSQL"),
-#                 user="srearl",
-#                 dbname="working",
-#                 host="localhost",
-#                 password=.rs.askForPassword("Enter password:"))
-# 
-# pg <- dbConnect(dbDriver("PostgreSQL"),
-#                 user="srearl",
-#                 dbname="caplter",
-#                 host="stegosaurus.gios.asu.edu",
-#                 password=.rs.askForPassword("Enter password:"))
 
 # dataset details to set first ----
 projectid <- 46
-packageIdent <- 'knb-lter-cap.46.12'
-pubDate <- '2016-12-14'
+packageIdent <- 'knb-lter-cap.46.13'
+pubDate <- '2017-05-17'
 
-# data processing ----
-
-# CORE BIRDS
+# core birds ----
 
 # 2016-12-02. The meaning of 'flying' in the birds table is unclear. There are
 # 1962 records where flying = 1. All of these except for two records have
@@ -181,6 +169,7 @@ WHERE
   sites.sample LIKE '200 point' OR
   sites.sample LIKE 'riparian' OR 
   sites.sample LIKE 'north desert village' OR
+  sites.sample LIKE 'capiv' OR
   (sites.sample LIKE 'SRBP' AND sites.site_code LIKE CONCAT('%','CORE'))
 ORDER BY survey_date
 LIMIT 500000;")
@@ -188,19 +177,30 @@ LIMIT 500000;")
 core_birds[core_birds == ''] <- NA # lots of missing values, convert to NA
 
 # pulling this code out separately owing to its verbosity for a singular 
-# purpose: getting the intials of the observers and presenting those instead of
-# the full name
+# purpose: getting the the first two letters of the first and last names of each
+# observers, and presenting those instead of the full name
 core_birds <- core_birds %>% 
-  mutate(observer = toupper(observer)) %>% 
   separate(observer, c("name1", "name2"), " ", remove = T) %>% 
-  mutate(init1 = str_extract(name1, "\\b\\w")) %>% 
-  mutate(init2 = str_extract(name2, "\\b\\w")) %>% 
-  unite(observer_initials, init1, init2, sep = "", remove = T) 
+  mutate(namePart1 = toTitleCase(str_extract(name1, "\\b\\w{2}"))) %>% 
+  mutate(namePart2 = toTitleCase(str_extract(name2, "\\b\\w{2}"))) %>% 
+  unite(observer_name_part, namePart1, namePart2, sep = "", remove = T)
+
+# note that here, I am taking sites that are new to CAPIV (listed as CAPIV in
+# lter34birds.sites.location_type) and mutating the location_type to either
+# DesertFertilization or to PASS based on the site_code group. It may be more
+# appropriate to make this designation in the database (instead of just listing
+# it as CAPIV), but I also like having that it was added for CAPIV, so let us
+# leave it in the database for now and just make this distinction in R for
+# publishing.
+CAPIV_PASS <- c("AA9B", "AA9C", "AA9", "Q15B", "Q15C", "TRSA", "TRSB", "TRSC", "W15B", "W15C", "Q15", "R18B", "R18C", "R18", "IBWA", "IBWB", "IBWC", "X17B", "X17C", "X17", "711A", "711B", "711C", "V14B", "V14C", "U18B", "U18C", "U18", "U21B", "U21", "PWRA", "PWRB", "PWRC", "U21C")
+CAPIV_DesFert <- c("DBG", "WTM", "PWP", "SMW", "SRR", "UMP")
 
 core_birds <- core_birds %>% 
   mutate(survey_date = as.Date(survey_date)) %>% 
   mutate(location_type = replace(location_type, location_type == "200 point", "ESCA")) %>% 
   mutate(location_type = replace(location_type, location_type == "North Desert Village", "NDV")) %>% 
+  mutate(location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization")) %>% 
+  mutate(location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS")) %>% 
   mutate(location_type = as.factor(location_type)) %>% 
   mutate(wind_dir = as.factor(wind_dir)) %>% 
   mutate(wind = as.factor(wind)) %>% 
@@ -211,14 +211,16 @@ core_birds <- core_birds %>%
   mutate(seen = as.factor(seen)) %>% 
   mutate(heard = as.factor(heard)) %>% 
   mutate(direction = as.factor(direction)) %>% 
-  select(site_code:time_end, observer_initials, wind_speed:QCcomment)
+  select(site_code:time_end, observer_name_part, wind_speed:QCcomment)
   
-writeAttributes(core_birds) # write data frame attributes to a csv in current dir to edit metadata
+# writeAttributes(core_birds) # write data frame attributes to a csv in current dir to edit metadata
 core_birds_desc <- "bird survey sampling details (site, date, time, observer, site conditions, and notes) and birds surveyed (type, number, distance from observer, behavior)"
   
 location_type <- c(ESCA = "colocated with Ecological Survey of Central Arizona (ESCA)",
                    NDV = "North Desert Village, ASU Polytechnic Campus",
                    Riparian = "Riparian habitat",
+                   PASS = "Phoenix Area Social Survey (PASS) study neighborhoods",
+                   DesertFertilization = "Phoenix area mountain parks that are part of the Desert Fertilization study",
                    SRBP = "Salt River Biological Project")
 wind_dir <- c(NE = "north east",
               S = "south",
@@ -257,80 +259,57 @@ direction <- c(NW = "north west",
                SW = "south west",
                E = "east")
 
-listOfFactors <- sapply(core_birds, is.factor)
-trueList <- which(listOfFactors)
-
-core_birds_factors <- data.frame()
-for(i in 1:length(trueList)) {
-factor_elements <- get(names(trueList)[i])
-temp_frame <- rbind(
-  data.frame(
-    attributeName = names(trueList)[i],
-    code = names(factor_elements),
-    definition = unname(factor_elements)
-  ))
-core_birds_factors <- rbind(core_birds_factors, temp_frame)
-}
+core_birds_factors <- factorsToFrame(core_birds)
 
 core_birds_DT <- createDTFF(dfname = core_birds,
                             factors = core_birds_factors,
                             description = core_birds_desc)
 
-# CORE_BIRD_SITES 
-core_bird_sites <- dbGetQuery(con, "
-SELECT
-  sites.site_code,
-  sites.sample AS location_type,
-  sites.description,
-  sites.address
-FROM lter34birds.sites
-WHERE 
-  sample LIKE '200 point' OR
-  sample LIKE 'riparian' OR
-  sample LIKE 'north desert village' OR
-  (sites.sample LIKE 'SRBP' AND sites.site_code LIKE CONCAT('%','CORE'));")
+# core_bird_sites ----
 
-core_bird_sites <- core_bird_sites %>%
-  mutate(location_type = replace(location_type, location_type == "200 point", "ESCA")) %>% 
-  mutate(location_type = replace(location_type, location_type == "North Desert Village", "NDV")) %>% 
-  mutate(location_type = as.factor(location_type))
-  
-writeAttributes(core_bird_sites) # write data frame attributes to a csv in current dir to edit metadata
-core_bird_sites_desc <- "bird survey location identifier, location type, general description, and approximate address of bird survey locations"
+# not sure this is really worth doing having now seen the lack of information
+# associated with CAPIV sites, but even with the older sites, what really are we
+# getting with this information, especially since it is never updated? Not going
+# to include this as of version 13. If you do use this in the future, I have not
+# run it since adding some code so double-check everything!
 
-location_type <- c(ESCA = "colocated with Ecological Survey of Central Arizona (ESCA)",
-                   NDV = "North Desert Village, ASU Polytechnic Campus",
-                   Riparian = "Riparian habitat",
-                   SRBP = "Salt River Biological Project")
-
-listOfFactors <- sapply(core_bird_sites, is.factor)
-trueList <- which(listOfFactors)
-
-core_bird_sites_factors <- data.frame()
-for(i in 1:length(trueList)) {
-factor_elements <- get(names(trueList)[i])
-temp_frame <- rbind(
-  data.frame(
-    attributeName = names(trueList)[i],
-    code = names(factor_elements),
-    definition = unname(factor_elements)
-  ))
-core_bird_sites_factors <- rbind(core_bird_sites_factors, temp_frame)
-}
-
-core_bird_sites_DT <- createDTFF(dfname = core_bird_sites,
-                                 factors = core_bird_sites_factors,
-                                 description = core_bird_sites_desc)
+# core_bird_sites <- dbGetQuery(con, "
+# SELECT
+#   sites.site_code,
+#   sites.sample AS location_type,
+#   sites.description,
+#   sites.address
+# FROM lter34birds.sites
+# WHERE 
+#   sample LIKE '200 point' OR
+#   sample LIKE 'riparian' OR
+#   sample LIKE 'north desert village' OR
+#   sites.sample LIKE 'capiv' OR
+#   (sites.sample LIKE 'SRBP' AND sites.site_code LIKE CONCAT('%','CORE'));")
+# 
+# core_bird_sites <- core_bird_sites %>%
+#   mutate(location_type = replace(location_type, location_type == "200 point", "ESCA")) %>% 
+#   mutate(location_type = replace(location_type, location_type == "North Desert Village", "NDV")) %>% 
+#   mutate(location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization")) %>% 
+#   mutate(location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS")) %>% 
+#   mutate(location_type = as.factor(location_type))
+#   
+# # writeAttributes(core_bird_sites) # write data frame attributes to a csv in current dir to edit metadata
+# # location_type factor already defined above
+# core_bird_sites_desc <- "bird survey location identifier, location type, general description, and approximate address of bird survey locations"
+# 
+# core_bird_sites_factors <- factorsToFrame(core_bird_sites)
+# 
+# core_bird_sites_DT <- createDTFF(dfname = core_bird_sites,
+#                                  factors = core_bird_sites_factors,
+#                                  description = core_bird_sites_desc)
 
 # spatial data ----
 
 # Get the bird survey locations. Here we are extracting these data from the 
 # database as opposed to using an existing shapefile as I am presenting only the
 # most up-to-date location information (as opposed to the locations and their 
-# changes through time). Double-check the query, it worked with the small number
-# of SRBP sites with updated locations at the time these were pulled but not sure
-# its accuracy when the data are more complicated (e.g., a given location having
-# moved multiple times) and note that I am using only year to reflect the most 
+# changes through time). Note that I am using only year to reflect the most 
 # recent location, if a site moved twice in a year, month would have to be 
 # considered as well. Also note that I had to include blh.end_date_year in the
 # query to be able to include it in the HAVING clause.
@@ -345,28 +324,86 @@ core_bird_sites_DT <- createDTFF(dfname = core_bird_sites,
 # also the most up-to-date SRBP core sites (core sites only!). I will update 160
 # with a reference to this data set.
 
+# the purpose of this nightmare query is to:
+# (1) use the NOT NULL record if any end_date_year in a site group is NOT NULL
+# (2) use the MAX end_date_year record if all records in a site group have an
+# end_date_year
+
 core_bird_locations <- dbGetQuery(con, "
-SELECT 
+(SELECT
+  any_null.count_any_null,
   s.site_code,
   CASE
-    WHEN s.sample LIKE '200 point' THEN 'ESCA'
-    WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
-    ELSE s.sample
+  WHEN s.sample LIKE '200 point' THEN 'ESCA'
+  WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
+  ELSE s.sample
   END AS location_type,
   blh.lat,
   blh.`long`,
   blh.end_date_year
 FROM lter34birds.birds_location_histories blh
 JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+LEFT JOIN 
+(
+  SELECT
+  s.site_code,
+  COUNT(s.site_code) AS count_any_null
+  FROM lter34birds.birds_location_histories blh
+  JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+  WHERE blh.end_date_year IS NULL
+  GROUP BY s.site_code
+) AS any_null ON (any_null.site_code = s.site_code)
 WHERE 
+(
   s.sample LIKE '200 point' OR
   s.sample LIKE 'riparian' OR
+  s.sample LIKE 'capiv' OR
   s.sample LIKE 'north desert village' OR
   (s.sample LIKE 'SRBP' AND s.site_code LIKE CONCAT('%','CORE'))
-GROUP BY s.site_code
-HAVING blh.end_date_year = MAX(blh.end_date_year) OR blh.end_date_year IS NULL
-ORDER BY location_type, site_code;") %>% 
-  select(-end_date_year)
+  ) AND
+  any_null.count_any_null >= 1 AND
+  blh.end_date_year IS NULL)
+UNION
+(SELECT
+  any_null.count_any_null,
+  s.site_code,
+  CASE
+  WHEN s.sample LIKE '200 point' THEN 'ESCA'
+  WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
+  ELSE s.sample
+  END AS location_type,
+  blh.lat,
+  blh.`long`,
+  MAX(blh.end_date_year)
+FROM lter34birds.birds_location_histories blh
+JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+LEFT JOIN 
+(
+  SELECT
+  s.site_code,
+  COUNT(s.site_code) AS count_any_null
+  FROM lter34birds.birds_location_histories blh
+  JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+  WHERE blh.end_date_year IS NULL
+  GROUP BY s.site_code
+  ) AS any_null ON (any_null.site_code = s.site_code)
+WHERE 
+  (
+  s.sample LIKE '200 point' OR
+  s.sample LIKE 'riparian' OR
+  s.sample LIKE 'capiv' OR
+  s.sample LIKE 'north desert village' OR
+  (s.sample LIKE 'SRBP' AND s.site_code LIKE CONCAT('%','CORE'))
+  ) AND
+  any_null.count_any_null IS NULL
+GROUP BY s.site_code)
+ORDER BY location_type, site_code;")
+  
+core_bird_locations <- core_bird_locations %>%  
+  mutate(location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization")) %>% 
+  mutate(location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS")) %>% 
+  select(-count_any_null, end_date_year) %>% 
+  arrange(location_type, site_code)
 
 # convert tabular data to kml
 library("sp")
@@ -378,181 +415,30 @@ proj4string(core_bird_locations) <- CRS("+init=epsg:4326")
 writeOGR(core_bird_locations, "core_bird_locations.kml", layer = "core_bird_locations", driver = "KML")
 
 kml_desc <- "bird survey locations"
-core_bird_locations <- createKML(kmlobject = 'core_bird_locations.kml',
-                                 description = kml_desc)
+core_bird_locations_OE <- createKML(kmlobject = 'core_bird_locations.kml',
+                                    description = kml_desc)
 
 
 # title and abstract ----
 title <- 'Point-count bird censusing: long-term monitoring of bird abundance and diversity in central Arizona-Phoenix, ongoing since 2000'
 
-abstract <- 
-"Over the past half-century, the greater Phoenix metropolitan area (GPMA) has been one of the fastest growing regions in the US, experiencing rapid urban expansion in addition to urban intensification. This backdrop provides an ideal setting to monitor biodiversity changes in response to urbanization, and the CAP LTER has been using a standardized point-count protocol to monitor the bird community in the GPMA and surrounding Sonoran desert region since 2000. 
-
-The bird survey locations in this CAP LTER core monitoring program include three general groups of sites. Forty bird survey locations were selected from a subset of the CAP LTER's Ecological Survey of Central Arizona (ESCA; formerly named Survey200) long-term monitoring sites. ESCA sites were located using a tessellation-stratified dual-density sampling design, and, as such, span a diversity of habitats including urban, suburban, rural, commercial areas, parks, agricultural fields, and native Sonoran desert. Earlier versions of this data package included data from ESCA. However, while positioned in close proximity, the bird survey locations do not necessarily overlap with the 30m X 30m plot that constitutes an ESCA sampling location, and leveraging data from these two monitoring programs should be addressed carefully. ESCA data have corresponding survey location names, and those data are available through the CAP LTER and LTER network data portals. Additional bird survey locations were positioned in treatment areas of the North Desert Village (NDV). This was a site of intense study on the Arizona State University Polytechnic Campus in which the CAP LTER converted the landscaping of small neighborhoods to reflect the dominant landscaping preferences employed throughout the GPMA. NDV landscape types include: oasis (NDV-O), xeric (NDV-X), mesic (NDV-M), control (NDV-C), and native (NDV-N). Finally, while the forty bird survey locations that were selected to coincide with ESCA sampling locations span a wide diversity of habitats throughout the GPMA, because of the generally random nature of selecting those sites, they did not reflect riparian habitats. Riparian areas are important bird habitat but constitute a very small area of the GPMA. To address this deficiency, bird survey locations were established specifically in twelve riparian habitats. Riparian habitat sub-types include: (1) ephemeral-engineered (EE, n=4), (2) ephemeral-natural (EN, n=2), (3) perennial-engineered (PE, n=3), and (4) perennial-natural (PN, n=3). 
-
-In a given season, each bird survey location is visited independently by three birders who count all birds seen or heard within a 15-minute window. The frequency of surveys has varied through the life of the project. The first year of the project (2000) was generally a pilot year in which each site was visited approximately twice by a varying number of birders. The monitoring became more formalized beginning in 2001, and each site was visited in each of four seasons by three birders. The frequency of visits was reduced to three seasons in 2005, and to two season (spring, winter) beginning in 2006." 
-
+abstract <- as(set_TextType("knb-lter-46_abstract.md"), "abstract") 
 
 # people ----
 
-# Eyal
-
-eyal <- dbGetQuery(prod, "
-SELECT
-	people.first_name,
-	people.last_name,
-	people.email,
-	people_address.institution,
-	people_address.department
-FROM gios2_production.people
-JOIN gios2_production.people_address ON (people.person_id = people_address.person_id)
-WHERE people.last_name LIKE 'shochat'
-;")
-
-eyal_name <- new('individualName',
-                 givenName = eyal$first_name,
-                 surName = eyal$last_name)
-
-eyalShochat <- new('creator',
-                   individualName = eyal_name,
-                   organizationName = eyal$institution,
-                   electronicMailAddress = eyal$email)
-
-# Madhu
-
-madhu <- dbGetQuery(prod, "
-SELECT
-	people.first_name,
-	people.last_name,
-	people.email,
-	people_address.institution,
-	people_address.department
-FROM gios2_production.people
-JOIN gios2_production.people_address ON (people.person_id = people_address.person_id)
-WHERE people.last_name LIKE 'katti'
-;")
-
-madhu_name <- new('individualName',
-                  givenName = mahdu$first_name,
-                  surName = mahdu$last_name)
-
-madhu_orcid <- new('userId',
-                   'http://orcid.org/0000-0003-3076-3562',
-                   directory = 'orcid.org')
-
-madhuKatti <- new('creator',
-                   individualName = madhu_name,
-                   organizationName = madhu$institution,
-                   electronicMailAddress = madhu$email,
-                   userId = madhu_orcid)
-
-# Paige
-
-paige <- dbGetQuery(prod, "
-SELECT
-	people.first_name,
-	people.last_name,
-	people.email,
-	people_address.institution,
-	people_address.department
-FROM gios2_production.people
-JOIN gios2_production.people_address ON (people.person_id = people_address.person_id)
-WHERE 
-  people.last_name LIKE 'warren' AND
-  people.first_name LIKE 'paige';")
-
-paige_name <- new('individualName',
-                  givenName = paige$first_name,
-                  surName = paige$last_name)
-
-paigeWarren <- new('creator',
-                   individualName = paige_name,
-                   organizationName = paige$institution,
-                   electronicMailAddress = paige$email)
-
-# Dan
-
-dan <- dbGetQuery(prod, "
-SELECT
-	people.first_name,
-	people.last_name,
-	people.email,
-	people_address.institution,
-	people_address.department
-FROM gios2_production.people
-JOIN gios2_production.people_address ON (people.person_id = people_address.person_id)
-WHERE 
-  people.last_name LIKE 'childers' AND
-  people.first_name LIKE 'dan'
-;")
-
-dan_name <- new('individualName',
-                givenName = dan$first_name,
-                surName = dan$last_name)
-
-danChilders <- new('creator',
-                   individualName = dan_name,
-                   organizationName = dan$institution,
-                   electronicMailAddress = dan$email)
-
-# Heather
-
-heather <- dbGetQuery(prod, "
-SELECT
-	people.first_name,
-	people.last_name,
-	people.email,
-	people_address.institution,
-	people_address.department
-FROM gios2_production.people
-JOIN gios2_production.people_address ON (people.person_id = people_address.person_id)
-WHERE 
-  people.last_name LIKE 'bateman'
-;")
-
-heather_name <- new('individualName',
-                    givenName = heather$first_name,
-                    surName = heather$last_name)
-
-heatherBateman <- new('creator',
-                      individualName = heather_name,
-                      organizationName = heather$institution,
-                      electronicMailAddress = heather$email)
-
-# Stevan
-
-stevan <- dbGetQuery(prod, "
-SELECT
-	people.first_name,
-	people.last_name,
-	people.email,
-	people_address.institution,
-	people_address.department
-FROM gios2_production.people
-JOIN gios2_production.people_address ON (people.person_id = people_address.person_id)
-WHERE people.last_name LIKE 'earl'
-;")
-
-stevan_name <- new('individualName',
-                   givenName = stevan$first_name,
-                   surName = stevan$last_name)
-
-stevan_orcid <- new('userId',
-                    'http://orcid.org/0000-0002-4465-452X',
-                    directory = 'orcid.org')
-
-stevanEarl <- new('metadataProvider',
-                   individualName = stevan_name,
-                   organizationName = stevan$institution,
-                   electronicMailAddress = stevan$email,
-                   userId = stevan_orcid)
-
+eyalShochat <- addCreator('e', 'shochat')
+madhuKatti <- addCreator('m', 'katti')
+paigeWarren <- addCreator('p', 'warren')
+danChilders <- addCreator('d', 'childers')
+heatherBateman <- addCreator('h', 'bateman')
 
 creators <- c(as(heatherBateman, 'creator'),
               as(danChilders, 'creator'),
               as(madhuKatti, 'creator'),
               as(eyalShochat, 'creator'),
               as(paigeWarren, 'creator'))
+
+stevanEarl <- addMetadataProvider('s', 'earl')
 
 metadataProvider <-c(as(stevanEarl, 'metadataProvider'))
 
@@ -672,3 +558,6 @@ eml <- new("eml",
 
 # write the xml to file ----
 write_eml(eml, "knb-lter-cap.46.12.xml")
+write_eml(abstract, "abstract.xml")
+write_eml(core_birds_DT, "core_birds.xml")
+write_eml(core_bird_locations_OE, "core_bird_locations.xml")
