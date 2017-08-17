@@ -88,6 +88,7 @@ library(tools)
 library(readr)
 library(readxl)
 library(stringr)
+library(aws.s3)
 
 # functions and working dir ----
 # source('~/localRepos/reml-helper-tools/createdataTableFn.R')
@@ -99,24 +100,29 @@ source('~/localRepos/reml-helper-tools/createOtherEntityFn.R')
 source('~/localRepos/reml-helper-tools/createPeople.R')
 source('~/localRepos/reml-helper-tools/createFactorsDataframe.R')
 
-# DB connections ----
-  con <- dbConnect(MySQL(),
-                   user='srearl',
-                   password=.rs.askForPassword("Enter password:"),
-                   dbname='lter34birds',
-                   host='mysql.research.gios.asu.edu')
+# connections ----
   
-  prod <- dbConnect(MySQL(),
-                    user='srearl',
-                    password=.rs.askForPassword("Enter password:"),
-                    dbname='gios2_production',
-                    host='mysql.prod.aws.gios.asu.edu')
+# Amazon
+source('~/Documents/localSettings/aws.s3')
+  
+# mysql
+con <- dbConnect(MySQL(),
+                 user='srearl',
+                 password=.rs.askForPassword("Enter password:"),
+                 dbname='lter34birds',
+                 host='mysql.research.gios.asu.edu')
+
+prod <- dbConnect(MySQL(),
+                  user='srearl',
+                  password=.rs.askForPassword("Enter password:"),
+                  dbname='gios2_production',
+                  host='mysql.prod.aws.gios.asu.edu')
 
 
 # dataset details to set first ----
 projectid <- 46
-packageIdent <- 'knb-lter-cap.46.13'
-pubDate <- '2017-05-17'
+packageIdent <- 'knb-lter-cap.46.14'
+pubDate <- '2017-08-17'
 
 # core birds ----
 
@@ -399,10 +405,16 @@ WHERE
 GROUP BY s.site_code)
 ORDER BY location_type, site_code;")
   
+# make sure the output contains only the essential elements that need to be
+# included in a kml, and be sure to check the kml - had a problem in an earlier
+# version where only some of the site codes were beging written to the kml. Not
+# certain why but it could have been due to the fact that count_any_null and
+# end_date_year were in foct not being excluded, so there were a lot more
+# spatial entities than site codes.
 core_bird_locations <- core_bird_locations %>%  
   mutate(location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization")) %>% 
   mutate(location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS")) %>% 
-  select(-count_any_null, end_date_year) %>% 
+  select(-count_any_null, -end_date_year) %>% 
   arrange(location_type, site_code)
 
 # convert tabular data to kml
@@ -417,6 +429,10 @@ writeOGR(core_bird_locations, "core_bird_locations.kml", layer = "core_bird_loca
 kml_desc <- "bird survey locations"
 core_bird_locations_OE <- createKML(kmlobject = 'core_bird_locations.kml',
                                     description = kml_desc)
+
+bucketlist()
+put_object(file = '46_core_bird_locations_500433d02ee19d938b4b4bc48928c6df.kml', object = '/datasets/cap/46_core_bird_locations_500433d02ee19d938b4b4bc48928c6df.kml', bucket = 'gios-data')
+
 
 
 # title and abstract ----
