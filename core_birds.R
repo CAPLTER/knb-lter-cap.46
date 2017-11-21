@@ -106,23 +106,14 @@ source('~/localRepos/reml-helper-tools/createFactorsDataframe.R')
 source('~/Documents/localSettings/aws.s3')
   
 # mysql
-con <- dbConnect(MySQL(),
-                 user='srearl',
-                 password=.rs.askForPassword("Enter password:"),
-                 dbname='lter34birds',
-                 host='mysql.research.gios.asu.edu')
-
-prod <- dbConnect(MySQL(),
-                  user='srearl',
-                  password=.rs.askForPassword("Enter password:"),
-                  dbname='gios2_production',
-                  host='mysql.prod.aws.gios.asu.edu')
+source('~/Documents/localSettings/mysql_research.R')
+prod <- mysql_research
 
 
 # dataset details to set first ----
 projectid <- 46
-packageIdent <- 'knb-lter-cap.46.14'
-pubDate <- '2017-08-17'
+packageIdent <- 'knb-lter-cap.46.15'
+pubDate <- '2017-11-22'
 
 # core birds ----
 
@@ -137,7 +128,7 @@ pubDate <- '2017-08-17'
 # going to omit flying from the publication of these data as I think it is more
 # confusing than helpful (and I cannot explain its meaning).
 
-core_birds <- dbGetQuery(con, "
+core_birds <- dbGetQuery(prod, "
 SELECT
   sites.site_code,
   sites.sample AS location_type,
@@ -577,3 +568,50 @@ write_eml(eml, "knb-lter-cap.46.12.xml")
 write_eml(abstract, "abstract.xml")
 write_eml(core_birds_DT, "core_birds.xml")
 write_eml(core_bird_locations_OE, "core_bird_locations.xml")
+
+
+# S3 functions ----
+
+# misc commands
+
+# get list of buckets
+# bucketlist()
+# 
+# add an object to S3 - datasets
+# put_object(file = '649_maintenance_log_dd68e293482738ac6f05303d473687a2.csv',
+#            object = '/datasets/cap/649_maintenance_log_dd68e293482738ac6f05303d473687a2.csv',
+#            bucket = 'gios-data')
+# 
+# add an object to S3 - metadata
+# put_object(file = '~/Dropbox/development/knb-lter-cap.650.1/knb-lter-cap.650.1.xml',
+#            object = '/metadata/knb-lter-cap.650.1.xml',
+#            bucket = 'gios-data')
+# 
+# get files in the gios-data bucket with the prefix datasets/cap/650
+# get_bucket(bucket = 'gios-data',
+#            prefix = 'datasets/cap/650')
+
+# data file to S3
+dataToAmz <- function(fileToUpload) {
+  
+  put_object(file = fileToUpload,
+             object = paste0('/datasets/cap/', basename(fileToUpload)),
+             bucket = 'gios-data') 
+  
+}
+
+# example
+dataToAmz('~/localRepos/knb-lter-cap.46/46_core_birds_ee23527b9fad8b2ead1a6f0b4471ab1e.csv')
+
+
+# metadata file to S3
+emlToAmz <- function(fileToUpload) {
+  
+  put_object(file = fileToUpload,
+             object = paste0('/metadata/', basename(fileToUpload)),
+             bucket = 'gios-data') 
+  
+}
+
+# example
+emlToAmz('~/localRepos/cap-data/cap-data-eml/knb-lter-cap.46.15.xml')
