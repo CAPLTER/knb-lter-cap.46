@@ -1,0 +1,506 @@
+---
+title: "remlTemplate"
+author: "SRE"
+date: Sys.Date()
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r eml-2.1.1, include=FALSE}
+options("emld_db" = "eml-2.1.1")
+```
+
+```{r libraries}
+library(EML)
+library(RPostgreSQL)
+library(RMySQL)
+library(tidyverse)
+library(tools)
+library(readxl)
+library(aws.s3)
+library(capeml)
+library(gioseml)
+```
+
+```{r dataset_details}
+projectid <- 46
+packageIdent <- 'knb-lter-cap.46.16'
+pubDate <- as.character(Sys.Date())
+```
+
+```{r helper_functions}
+source('~/localRepos/reml-helper-tools/amazon_file_upload.R')
+```
+
+```{r connections::amazon}
+source('~/Documents/localSettings/aws.s3')
+```
+
+```{r connections::postgres::local, eval=FALSE}
+source('~/Documents/localSettings/pg_local.R')
+pg <- pg_local
+```
+
+```{r connections::postgres::prod, eval=T }
+source('~/Documents/localSettings/pg_prod.R')
+pg <- pg_prod
+```
+
+```{r connections::mysql::prod, eval=T }
+source('~/Documents/localSettings/mysql_prod.R')
+mysql_prod <- mysql_prod_connect()
+```
+
+```{r core_birds, eval=TRUE}
+
+# 2016-12-02. The meaning of 'flying' in the birds table is unclear. There are
+# 1962 records where flying = 1. All of these except for two records have
+# distance = FT. However, not all records where distance = FT have a distance =
+# 1 (any any value for that matter). Adding confusion, in her metadata, Corinna
+# has listed that flying = NULL is true, but then what would be the meaning of
+# flying = 0, and that would mean that most birds were flying. I am not certain,
+# but my impression is that flying was a precursor to FT. A "flying" option is
+# not on the current datasheet, nor on an earlier one revised in 2004. I am
+# going to omit flying from the publication of these data as I think it is more
+# confusing than helpful (and I cannot explain its meaning).
+
+core_birds <- dbGetQuery(mysql_prod, "
+SELECT
+  sites.site_code,
+  sites.sample AS location_type,
+  surveys.survey_date,
+  surveys.time_start,
+  surveys.time_end,
+  surveys.observer,
+  surveys.wind_speed,
+  surveys.wind_dir,
+  surveys.air_temp,
+  surveys.cloud_cover,
+  surveys.notes AS survey_notes,
+  surveys.human_activity_notes,
+  surveys.wind,
+  surveys.precipitation,
+  surveys.disturbances,
+  surveys.sight_obstruct,
+  surveys.noise_level,
+  surveys.site_condition,
+  surveys.non_bird_species,
+  bird_taxons.code,
+  bird_taxons.common_name,
+  birds.distance,
+  birds.bird_count,
+  birds.notes AS observation_notes,
+  birds.seen,
+  birds.heard,
+  birds.direction,
+  birds.QCcomment
+FROM lter34birds.surveys
+JOIN lter34birds.sites ON (surveys.site_id = sites.site_id)
+JOIN lter34birds.birds ON (surveys.survey_id = birds.survey_id)
+JOIN lter34birds.bird_taxons ON (birds.bird_taxon_id = bird_taxons.id)
+WHERE 
+  sites.sample LIKE '200 point' OR
+  sites.sample LIKE 'riparian' OR 
+  sites.sample LIKE 'north desert village' OR
+  sites.sample LIKE 'capiv' OR
+  (sites.sample LIKE 'SRBP' AND sites.site_code LIKE CONCAT('%','CORE'))
+ORDER BY survey_date
+LIMIT 500000;")
+
+core_birds[core_birds == ''] <- NA # lots of missing values, convert to NA
+
+# pulling this code out separately owing to its verbosity for a singular 
+# purpose: getting the the first two letters of the first and last names of each
+# observers, and presenting those instead of the full name
+
+core_birds <- core_birds %>% 
+  separate(observer, c("name1", "name2", "name3"), " ", remove = T) %>% 
+  mutate(
+    namePart1 = toTitleCase(str_extract(name1, "\\b\\w{2}")),
+    namePart2 = toTitleCase(str_extract(name2, "\\b\\w{2}")),
+    namePart3 = toTitleCase(str_extract(name3, "\\b\\w{2}"))
+  ) %>% 
+  mutate(
+    observer_name_part = case_when(
+      grepl("NA", namePart3) ~ paste0(namePart1, namePart2),
+      !grepl("NA", namePart3) ~ paste0(namePart1, namePart2, namePart3)
+    )
+  )
+
+# note that here, I am taking sites that are new to CAPIV (listed as CAPIV in
+# lter34birds.sites.location_type) and mutating the location_type to either
+# DesertFertilization or to PASS based on the site_code group. It may be more
+# appropriate to make this designation in the database (instead of just listing
+# it as CAPIV), but I also like having that it was added for CAPIV, so let us
+# leave it in the database for now and just make this distinction in R for
+# publishing.
+CAPIV_PASS <- c("AA9B", "AA9C", "AA9", "Q15B", "Q15C", "TRSA", "TRSB", "TRSC", "W15B", "W15C", "Q15", "R18B", "R18C", "R18", "IBWA", "IBWB", "IBWC", "X17B", "X17C", "X17", "711A", "711B", "711C", "V14B", "V14C", "U18B", "U18C", "U18", "U21B", "U21", "PWRA", "PWRB", "PWRC", "U21C")
+CAPIV_DesFert <- c("DBG", "WTM", "PWP", "SMW", "SRR", "UMP")
+
+core_birds <- core_birds %>% 
+  mutate(
+    survey_date = as.Date(survey_date),
+    location_type = replace(location_type, location_type == "200 point", "ESCA"),
+    location_type = replace(location_type, location_type == "North Desert Village", "NDV"),
+    location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization"),
+    location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS"),
+    location_type = as.factor(location_type),
+    wind_dir = as.factor(wind_dir),
+    wind = as.factor(wind),
+    precipitation = as.factor(precipitation),
+    disturbances = as.factor(disturbances),
+    noise_level = as.factor(noise_level),
+    distance = as.factor(distance),
+    seen = as.factor(seen),
+    heard = as.factor(heard),
+    direction = as.factor(direction)
+  ) %>% 
+  select(site_code:time_end, observer_name_part, wind_speed:QCcomment)
+
+write_attributes(core_birds)
+write_factors(core_birds)
+
+core_birds_desc <- "bird survey sampling details (site, date, time, observer, site conditions, and notes) and birds surveyed (type, number, distance from observer, behavior)"
+
+core_birds_DT <- create_dataTable(dfname = core_birds,
+                                  description = core_birds_desc)
+
+```
+
+```{r core_bird_locations, eval=TRUE}
+
+# Get the bird survey locations. Here we are extracting these data from the 
+# database as opposed to using an existing shapefile as I am presenting only the
+# most up-to-date location information (as opposed to the locations and their 
+# changes through time). Note that I am using only year to reflect the most 
+# recent location, if a site moved twice in a year, month would have to be 
+# considered as well. Also note that I had to include blh.end_date_year in the
+# query to be able to include it in the HAVING clause.
+
+# These spatial data reflect the locations updated by Shero in spring 2013. 
+# However, these data lacked M-9, which is an old site (2000-2001) but
+# referenced in these bird data (note that I have excluded the volunteer sites,
+# which are all of those really odd, early sites). The previous published
+# spatial data (knb-lter-cap.160) included M-9 but did not reflect any updates
+# through 2013. I merged M-9 from the 160 dataset with the updated through 2013
+# data, and exported it to KML for inclusion here. These spatial data include
+# also the most up-to-date SRBP core sites (core sites only!). I will update 160
+# with a reference to this data set.
+
+# the purpose of this nightmare query is to:
+# (1) use the NOT NULL record if any end_date_year in a site group is NOT NULL
+# (2) use the MAX end_date_year record if all records in a site group have an
+# end_date_year
+
+core_bird_locations <- dbGetQuery(mysql_prod, "
+(SELECT
+  any_null.count_any_null,
+  s.site_code,
+  CASE
+  WHEN s.sample LIKE '200 point' THEN 'ESCA'
+  WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
+  ELSE s.sample
+  END AS location_type,
+  blh.lat,
+  blh.`long`,
+  blh.end_date_year
+FROM lter34birds.birds_location_histories blh
+JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+LEFT JOIN 
+(
+  SELECT
+  s.site_code,
+  COUNT(s.site_code) AS count_any_null
+  FROM lter34birds.birds_location_histories blh
+  JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+  WHERE blh.end_date_year IS NULL
+  GROUP BY s.site_code
+) AS any_null ON (any_null.site_code = s.site_code)
+WHERE 
+(
+  s.sample LIKE '200 point' OR
+  s.sample LIKE 'riparian' OR
+  s.sample LIKE 'capiv' OR
+  s.sample LIKE 'north desert village' OR
+  (s.sample LIKE 'SRBP' AND s.site_code LIKE CONCAT('%','CORE'))
+  ) AND
+  any_null.count_any_null >= 1 AND
+  blh.end_date_year IS NULL)
+UNION
+(SELECT
+  any_null.count_any_null,
+  s.site_code,
+  CASE
+  WHEN s.sample LIKE '200 point' THEN 'ESCA'
+  WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
+  ELSE s.sample
+  END AS location_type,
+  blh.lat,
+  blh.`long`,
+  MAX(blh.end_date_year)
+FROM lter34birds.birds_location_histories blh
+JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+LEFT JOIN 
+(
+  SELECT
+  s.site_code,
+  COUNT(s.site_code) AS count_any_null
+  FROM lter34birds.birds_location_histories blh
+  JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+  WHERE blh.end_date_year IS NULL
+  GROUP BY s.site_code
+  ) AS any_null ON (any_null.site_code = s.site_code)
+WHERE 
+  (
+  s.sample LIKE '200 point' OR
+  s.sample LIKE 'riparian' OR
+  s.sample LIKE 'capiv' OR
+  s.sample LIKE 'north desert village' OR
+  (s.sample LIKE 'SRBP' AND s.site_code LIKE CONCAT('%','CORE'))
+  ) AND
+  any_null.count_any_null IS NULL
+GROUP BY s.site_code)
+ORDER BY location_type, site_code;")
+  
+# make sure the output contains only the essential elements that need to be
+# included in a kml, and be sure to check the kml - had a problem in an earlier
+# version where only some of the site codes were being written to the kml. Not
+# certain why but it could have been due to the fact that count_any_null and
+# end_date_year were in foct not being excluded, so there were a lot more
+# spatial entities than site codes.
+core_bird_locations <- core_bird_locations %>%  
+  mutate(
+    location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization"),
+    location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS")
+  ) %>% 
+  select(-count_any_null, -end_date_year) %>% 
+  arrange(location_type, site_code)
+
+# convert tabular data to kml
+library(sp)
+library(rgdal)
+
+coordinates(core_bird_locations) <- c("long", "lat")
+proj4string(core_bird_locations) <- CRS("+init=epsg:4326")
+
+writeOGR(core_bird_locations, "core_bird_locations.kml", layer = "core_bird_locations", driver = "KML")
+
+core_bird_locations <- create_otherEntity(targetFile = 'core_bird_locations.kml',
+                                          description = 'bird survey locations')
+
+```
+
+```{r title}
+
+title <- 'Point-count bird censusing: long-term monitoring of bird abundance and diversity in central Arizona-Phoenix, ongoing since 2000'
+```
+
+```{r abstract}
+
+abstract <- set_TextType("abstract.md")
+```
+
+```{r people}
+
+# see gioseml for examples of creating people resources from scratch
+
+mysql_prod <- mysql_prod_connect()
+
+eyal <- create_role(firstName = "eyal", lastName = "shochat", roleType = "creator")
+madhu <- create_role(firstName = "ma", lastName = "katti", roleType = "creator")
+dan <- create_role(firstName = "dan", lastName = "childers", roleType = "creator")
+heather <- create_role(firstName = "hea", lastName = "bateman", roleType = "creator")
+
+creators <- list(eyal, madhu, dan, heather )
+
+stevan <- create_role(firstName = "stevan", lastName = "earl", roleType = "metadata")
+metadataProvider <- list(stevan)
+
+```
+
+```{r keywords}
+
+# CAP IRTs for reference (be sure to include these as appropriate):
+# https://sustainability.asu.edu/caplter/research/
+
+write_keywords()
+keywords <- create_keywordSet('keywords.csv')
+
+```
+
+```{r methods}
+
+methods <- set_methods("methods.md")
+```
+
+```{r coverages}
+
+begindate <- as.character(min(core_birds$survey_date))
+enddate <- as.character(max(core_birds$survey_date))
+geographicDescription <- "CAP LTER study area"
+coverage <- set_coverage(begin = begindate,
+                         end = enddate,
+                         # sci_names = c("Salix spp",
+                         #               "Ambrosia deltoidea"),
+                         geographicDescription = geographicDescription,
+                         west = -112.742, east = -111.622,
+                         north = +33.8814, south = +33.2187)
+
+```
+
+```{r taxonomic_coverage}
+
+# dataset_taxa <- dataset %>%  
+#   distinct(taxa_column) %>% 
+#   filter(!is.na(taxa_column)) %>% 
+#   pull(taxa_column)
+```
+
+```{r set_taxonomic_coverage}
+
+# all_taxa <- identify_resolvable_taxa(dataset_taxa)
+# resolved_taxa <- c(all_taxa[!is.na(all_taxa$resolve),]$taxon)
+# taxaCoverage <- set_taxonomicCoverage(resolved_taxa, expand = T, db = 'itis')
+
+# set taxonomicCoverage element
+# coverage@taxonomicCoverage <- c(taxaCoverage)
+```
+
+```{r construct_dataset}
+
+# from capeml package:
+# address
+# publisher
+# contact
+# rights
+# distribution
+
+# generate a list of EML dataTables
+listOfDataTables <- lapply(ls(pattern = "_DT"), function(DT) { get(DT) } )
+
+# print list of dataTables as a safety step
+print(ls(pattern = "_DT"))
+
+# DATASET
+dataset <- eml$dataset(
+  title = title,
+  creator = creators,
+  pubDate = pubDate,
+  metadataProvider = metadataProvider,
+  intellectualRights = capRights,
+  abstract = abstract,
+  keywordSet = keywords,
+  coverage = coverage,
+  contact = giosContact,
+  publisher = giosPublisher,
+  methods = methods,
+  distribution = create_distribution(packageIdent),
+  dataTable = listOfDataTables)
+
+# add associatedParty if relevant
+# dataset$associatedParty <- list() 
+
+# add other entities if relevant
+# dataset$otherEntity <- list(otherEntityOne, otherEntityTwo)
+
+# print list of otherEntities as a safety step
+print(ls(pattern = "OE_"))
+
+# generate a list of EML otherEntities
+listOfOtherEntities <- lapply(ls(pattern = "OE_"), function(OE) { get(OE) } )
+
+# add otherEntities to dataset
+dataset$otherEntity <- listOfOtherEntities 
+
+```
+
+```{r custom_units, eval=FALSE}
+
+custom_units <- rbind(
+  data.frame(id = "milligramPerKilogram",
+             unitType = "massPerMass",
+             parentSI = "gramsPerGram",
+             multiplierToSI = 0.000001,
+             description = "millgram of element per kilogram of material"))
+unitList <- set_unitList(custom_units)
+
+```
+
+```{r construct_eml, eval=TRUE}
+
+if(exists('unitList')) {
+  
+  eml <- eml$eml(
+    access = lterAccess,
+    dataset = dataset,
+    additionalMetadata = unitList,
+    packageId = packageIdent,
+    system = "knb",
+    scope = "system"
+  )
+  
+} else {
+  
+  eml <- eml$eml(
+    access = lterAccess,
+    dataset = dataset,
+    packageId = packageIdent,
+    system = "knb",
+    scope = "system"
+  )
+}
+
+```
+
+```{r write_eml}
+
+# write the eml to file
+write_eml(eml, paste0(packageIdent, ".xml"))
+```
+
+```{r preview_data_file_to_upload}
+
+# preview data set files that will be uploaded to S3
+list.files(pattern = paste0(projectid, "_"))
+```
+
+```{r upload_data_S3}
+
+# upload files to S3
+lapply(list.files(pattern = paste0(projectid, "_")), dataToAmz)
+```
+
+```{r clean_up}
+
+# remove data files
+dataFilesToRemove <- dir(pattern = paste0(projectid, "_"))
+file.remove(dataFilesToRemove)
+
+# EML to S3
+if(length(list.files(pattern = "*.xml")) == 1) {
+  emlToAmz(list.files(pattern = "*.xml")) } else {
+    print("more than one xml file found")
+  }
+
+# EML to cap-data-eml and remove file from project
+tryCatch({
+  
+  if(length(list.files(pattern = "*.xml")) == 1) {
+    file.copy(list.files(pattern = "*.xml"), "/home/srearl/localRepos/cap-metadata/cap-data-eml/")
+    file.remove(list.files(pattern = "*.xml")) } else {
+      print("more than one xml file found")
+    }
+},
+warning = function(warn) {
+  print(paste("WARNING: ", warn))
+},
+error = function(err) {
+  print(paste("ERROR: ", err))
+  
+}) # close try catch
+```
