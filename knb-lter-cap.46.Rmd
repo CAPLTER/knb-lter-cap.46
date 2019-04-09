@@ -6,7 +6,49 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 ### README and notes
+
+2019-04-04 knb-lter-cap.46.16
+
+- abstract & methods formatting
+
+The abstract & methods are unchanged between knb-lter-cap.46.15 and .16, so I
+simply copied the xml from version 15 into the output for version 16 rather than
+going through and fixing all of the markdown list issues that break the eml.
+Hopefully, EML 2.2 will be released by the time we visit version 17 such that we
+can address the markdown properly and without having to format by hand after
+construction.
+
+- taxonomicCoverage
+
+New approach is to use taxonomyCleanr to build the taxonomicCoverage. Note that
+at the time of this writing (and building knb-lter-cap.46.16), taxonomyCleanr
+had not been ported to rOpenSci EML v2, so I used a modified version.
+
+*Note* that the `taxa_map.csv` built with the `create_taxa_map()` function and
+resolving taxonomic IDs (i.e., `resolve_comm_taxa()`) only needs to be run once
+per version/session -- the taxonomicCoverage can be built as many times as
+needed with `resolve_comm_taxa()` once the `taxa_map.csv` has been generated and
+the taxonomic IDs resolved.
+
+- empty missing values
+
+The problem of NAs as missing values and the empty missingValue code that
+rOpenSci EML v2 produces has not been resolved at this time of this writing and
+constructing knb-lter-cap.46.16 (see https://github.com/CAPLTER/capeml/issues/4
+for more details). In the meantime, using a vim script to remove empty
+`missingValue` nodes from the eml.
+
+- end of line errors
+
+Carriage returns are not being interpreted properly. This is not an R problem as
+this is an issue even when the data are pulled straight from MySQL independently
+of R. I updated the lter34birds database to remove carriage returns from the
+offending fields (surveys.notes, surveys.human_activity_notes, birds.notes),
+which addressed the problem. However, it is possible that carriage returns could
+be used in future entries so be sure to check for this in the final output
+(using vim to search for `\r` is probably easiest).
 
 2016-12-02
 
@@ -21,6 +63,8 @@ datasheet, nor on an earlier one revised in 2004. I am going to omit flying from
 the publication of these data as I think it is more confusing than helpful (and
 I cannot explain its meaning).
 
+
+## options and setup
 
 ```{r knitr-setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -40,6 +84,7 @@ library(readxl)
 library(aws.s3)
 library(capeml)
 library(gioseml)
+library(taxonomyCleanr)
 ```
 
 ```{r dataset_details}
@@ -61,15 +106,18 @@ source('~/Documents/localSettings/pg_local.R')
 pg <- pg_local
 ```
 
-```{r connections::postgres::prod, eval=T }
+```{r connections::postgres::prod, eval=FALSE}
 source('~/Documents/localSettings/pg_prod.R')
 pg <- pg_prod
 ```
 
-```{r connections::mysql::prod, eval=T }
+```{r connections::mysql::prod, eval=TRUE}
 source('~/Documents/localSettings/mysql_prod.R')
 mysql_prod <- mysql_prod_connect()
 ```
+
+
+# core birds observations
 
 ```{r core_birds-SQL, eval=TRUE}
 
@@ -233,13 +281,13 @@ the purpose of this nightmare query is to:
 2. use the MAX end_date_year record if all records in a site group have an
 end_date_year
 
-```{r mysql_prod, eval=T }
+```{r connections::mysql::prod (again), eval=T }
 
 # call to mysql_prod_connect repeated here for convenience
 mysql_prod <- mysql_prod_connect()
 ```
 
-```{r core_bird_locations, eval=TRUE}
+```{r core_bird_locations-SQL, eval=TRUE}
 
 core_bird_locations <- dbGetQuery(mysql_prod, "
 (SELECT
@@ -310,13 +358,18 @@ WHERE
   any_null.count_any_null IS NULL
 GROUP BY s.site_code)
 ORDER BY location_type, site_code;")
-  
-# make sure the output contains only the essential elements that need to be
-# included in a kml, and be sure to check the kml - had a problem in an earlier
-# version where only some of the site codes were being written to the kml. Not
-# certain why but it could have been due to the fact that count_any_null and
-# end_date_year were in foct not being excluded, so there were a lot more
-# spatial entities than site codes.
+
+```
+
+**Ensure** that the output contains only the essential elements that need to be
+included in a kml, and be sure to check the kml - had a problem in an earlier
+version where only some of the site codes were being written to the kml. Not
+certain why but it could have been due to the fact that count_any_null and
+end_date_year were in fact not being excluded, so there were a lot more spatial
+entities than site codes.
+
+```{r core_bird_locations-processing, eval=TRUE}
+
 core_bird_locations <- core_bird_locations %>%  
   mutate(
     location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization"),
@@ -325,19 +378,41 @@ core_bird_locations <- core_bird_locations %>%
   select(-count_any_null, -end_date_year) %>% 
   arrange(location_type, site_code)
 
-# convert tabular data to kml
-library(sp)
-library(rgdal)
+```
 
-coordinates(core_bird_locations) <- c("long", "lat")
-proj4string(core_bird_locations) <- CRS("+init=epsg:4326")
+### convert tabular data to kml
 
-writeOGR(core_bird_locations, "core_bird_locations.kml", layer = "core_bird_locations", driver = "KML")
+```{r core_bird_locations-convert-to-spatial, eval=TRUE}
+
+# using sp and rgdal
+# library(sp)
+# library(rgdal)
+# 
+# coordinates(core_bird_locations) <- c("long", "lat")
+# proj4string(core_bird_locations) <- CRS("+init=epsg:4326")
+# 
+# writeOGR(core_bird_locations, "core_bird_locations.kml", layer = "core_bird_locations", driver = "KML")
+
+# using sf - allows us to assign site_code to the kml's Name field
+library(sf)
+core_bird_locations <- st_as_sf(x = core_bird_locations,
+                                coords = c("long", "lat"),
+                                crs = 4326) %>% 
+  mutate(Name = site_code)
+
+st_write(core_bird_locations, driver = 'kml', dsn = "core_bird_locations.kml")
+
+```
+
+```{r core_bird_locations-DT, eval=TRUE}
 
 core_bird_locations <- create_otherEntity(targetFile = 'core_bird_locations.kml',
                                           description = 'bird survey locations')
 
 ```
+
+
+## project metadata
 
 ```{r title}
 
@@ -349,11 +424,15 @@ title <- 'Point-count bird censusing: long-term monitoring of bird abundance and
 abstract <- set_TextType("abstract.md")
 ```
 
+```{r connections::mysql::prod (yet again), eval=T }
+
+# call to mysql_prod_connect repeated here for convenience
+mysql_prod <- mysql_prod_connect()
+```
+
 ```{r people}
 
 # see gioseml for examples of creating people resources from scratch
-
-mysql_prod <- mysql_prod_connect()
 
 eyal <- create_role(firstName = "eyal", lastName = "shochat", roleType = "creator")
 madhu <- create_role(firstName = "ma", lastName = "katti", roleType = "creator")
@@ -397,26 +476,61 @@ coverage <- set_coverage(begin = begindate,
 
 ```
 
-```{r taxonomic_coverage}
+The following two chunks use the rOpenSci EML v1 approach for building a taxonomic coverage. Beginning with knb-lter-cap.46.16, we used a modified version of taxonomyCleanr to build the taxonomic coverage. Using taxonomyCleanr will likely be the most appropriate approach going forward, so these chunks can be deleted if in fact things go that way.
 
-taxaColumn <- quo(common_name)
+```{r taxonomic_coverage, eval=FALSE}
 
-datasetTaxa <- core_birds %>%
-  distinct(!!taxaColumn) %>%
-  filter(!is.na(!!taxaColumn)) %>%
-  pull(!!taxaColumn)
+# taxaColumn <- quo(common_name)
+# 
+# datasetTaxa <- core_birds %>%
+#   distinct(!!taxaColumn) %>%
+#   filter(!is.na(!!taxaColumn)) %>%
+#   pull(!!taxaColumn)
 
 ```
 
-```{r set_taxonomic_coverage}
+```{r set_taxonomic_coverage, eval=FALSE}
 
-allTaxa <- identify_resolvable_taxa(taxa_list = datasetTaxa,
-                                    nameType = "common")
-resolvedTaxa <- c(allTaxa[!is.na(allTaxa$resolve),]$taxon)
-taxaCoverage <- set_taxonomicCoverage(resolvedTaxa, expand = T, db = 'itis')
+# allTaxa <- identify_resolvable_taxa(taxa_list = datasetTaxa,
+#                                     nameType = "common")
+# resolvedTaxa <- c(allTaxa[!is.na(allTaxa$resolve),]$taxon)
+# taxaCoverage <- set_taxonomicCoverage(resolvedTaxa, expand = T, db = 'itis')
 
 # set taxonomicCoverage element
-coverage@taxonomicCoverage <- c(taxaCoverage)
+# coverage@taxonomicCoverage <- c(taxaCoverage)
+```
+
+New approach is to use taxonomyCleanr to build the taxonomicCoverage. Note that
+at the time of this writing (and building knb-lter-cap.46.16), taxonomyCleanr
+had not been ported to rOpenSci EML v2, so I used a modified version.
+
+*Note* that the `taxa_map.csv` built with the `create_taxa_map()` function and
+resolving taxonomic IDs (i.e., `resolve_comm_taxa()`) only needs to be run once
+per version/session -- the taxonomicCoverage can be built as many times as
+needed with `resolve_comm_taxa()` once the `taxa_map.csv` has been generated and
+the taxonomic IDs resolved.
+
+```{r taxonomyCleanr, eval=TRUE}
+
+my_path <- getwd() # taxonomyCleanr requires a path (to build the taxa_map)
+
+# create or update map. A taxa_map.csv is the heart of taxonomyCleanr. This
+# function will build the taxa_map.csv and put it in the path identified with
+# my_path.
+create_taxa_map(path = my_path, x = core_birds, col = "common_name") 
+
+# resolve_comm_taxa will resolve the taxa by attempting to match the taxon's
+# common name - note that this function applies only to common names. There is a
+# separate function for matching scientific names. In this case, data.source 3
+# is ITIS, which is the only authority taxonomyCleanr will allow for common
+# names.
+resolve_comm_taxa(path = my_path, data.sources = 3) # in this case, 3 is ITIS
+
+# build the EML taxonomomic coverage
+taxaCoverage <- make_taxonomicCoverage(path = my_path)
+
+# add taxonomic to other coverages
+coverage$taxonomicCoverage <- taxaCoverage
 ```
 
 ```{r construct_dataset}
@@ -454,16 +568,7 @@ dataset <- eml$dataset(
 # dataset$associatedParty <- list() 
 
 # add other entities if relevant
-# dataset$otherEntity <- list(otherEntityOne, otherEntityTwo)
-
-# print list of otherEntities as a safety step
-print(ls(pattern = "OE_"))
-
-# generate a list of EML otherEntities
-listOfOtherEntities <- lapply(ls(pattern = "OE_"), function(OE) { get(OE) } )
-
-# add otherEntities to dataset
-dataset$otherEntity <- listOfOtherEntities 
+dataset$otherEntity <- list(core_bird_locations)
 
 ```
 
@@ -509,6 +614,16 @@ if(exists('unitList')) {
 
 # write the eml to file
 write_eml(eml, paste0(packageIdent, ".xml"))
+```
+
+The problem of NAs as missing values and the empty missingValue code that
+rOpenSci EML v2 produces has not been resolved at this time of this writing and
+constructing knb-lter-cap.46.16 (see https://github.com/CAPLTER/capeml/issues/4
+for more details). In the meantime, using a vim script to remove empty
+`missingValue` nodes from the eml.
+
+```{r remove empty missing value elements}
+system(paste("vim -s fixMissingValueCodes.vim ", paste0(packageIdent, ".xml")))
 ```
 
 ```{r preview_data_file_to_upload}

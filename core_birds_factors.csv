@@ -1,43 +1,43 @@
 attributeName,code,definition
-location_type,DesertFertilization,"Phoenix area mountain parks that are part of the Desert Fertilization study"
-location_type,ESCA,"colocated with Ecological Survey of Central Arizona (ESCA)"
+location_type,DesertFertilization,Phoenix area mountain parks that are part of the Desert Fertilization study
+location_type,ESCA,colocated with Ecological Survey of Central Arizona (ESCA)
 location_type,NDV,"North Desert Village, ASU Polytechnic Campus"
-location_type,PASS,"Phoenix Area Social Survey (PASS) study neighborhoods"
-location_type,Riparian,"Riparian habitat"
-location_type,SRBP,"Salt River Biological Project"
-wind_dir,E,"east"
-wind_dir,N,"north"
-wind_dir,NE,"north east"
-wind_dir,NW,"nort west"
-wind_dir,S,"south"
-wind_dir,SE,"south east"
-wind_dir,SW,"south west"
-wind_dir,W,"west"
-wind,gusts,"wind gusts"
-wind,light,"light wind"
-wind,none,"no perceptible wind"
-precipitation,light_rain,"light rain"
-precipitation,none,"no precipitation"
-disturbances,0,"no perceptible disturbance to observer or in the vicinity during the survey"
-disturbances,1,"disturbance occurred during the survey"
-noise_level,high,"high level of noise during the survey"
-noise_level,low,"low level noise during the survey"
-noise_level,none,"no noise during survey"
-distance,>40,"bird observed forty or more meters from observer"
-distance,0-5,"bird observed within zero to five meters of observer"
-distance,10-20,"bird observed ten to twenty meters from observer"
-distance,20-40,"bird observed twenty to forty meters from observer"
-distance,5-10,"bird observed five to ten meters from observer"
+location_type,PASS,Phoenix Area Social Survey (PASS) study neighborhoods
+location_type,Riparian,Riparian habitat
+location_type,SRBP,Salt River Biological Project
+wind_dir,E,east
+wind_dir,N,north
+wind_dir,NE,north east
+wind_dir,NW,nort west
+wind_dir,S,south
+wind_dir,SE,south east
+wind_dir,SW,south west
+wind_dir,W,west
+wind,gusts,wind gusts
+wind,light,light wind
+wind,none,no perceptible wind
+precipitation,light_rain,light rain
+precipitation,none,no precipitation
+disturbances,0,no perceptible disturbance to observer or in the vicinity during the survey
+disturbances,1,disturbance occurred during the survey
+noise_level,high,high level of noise during the survey
+noise_level,low,low level noise during the survey
+noise_level,none,no noise during survey
+distance,>40,bird observed forty or more meters from observer
+distance,0-5,bird observed within zero to five meters of observer
+distance,10-20,bird observed ten to twenty meters from observer
+distance,20-40,bird observed twenty to forty meters from observer
+distance,5-10,bird observed five to ten meters from observer
 distance,FT,"bird is seen flying through the count area below the tallest structure or vegetation, and not observed taking off or landing"
-seen,0,"bird not identified by sight"
-seen,1,"bird identified by sight"
-heard,0,"bird not identified by sound"
-heard,1,"bird identified by sound"
-direction,E,"east"
-direction,N,"north"
-direction,NE,"north east"
-direction,NW,"north west"
-direction,S,"south"
-direction,SE,"south east"
-direction,SW,"south west"
-direction,W,"west"
+seen,0,bird not identified by sight
+seen,1,bird identified by sight
+heard,0,bird not identified by sound
+heard,1,bird identified by sound
+direction,E,east
+direction,N,north
+direction,NE,north east
+direction,NW,north west
+direction,S,south
+direction,SE,south east
+direction,SW,south west
+direction,W,west

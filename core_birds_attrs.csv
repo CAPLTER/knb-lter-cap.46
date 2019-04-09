@@ -1,29 +1,29 @@
-attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum
-site_code,,,,survey location identifier,survey location identifier,character,,
-location_type,,,,,survey site type,factor,,
-survey_date,YYYY-MM-DD,,,,survey date,Date,,
-time_start,hh:mm:ss,,,,survey start time,Date,,
-time_end,hh:mm:ss,,,,survey end time,Date,,
-observer_name_part,,,,truncated name of surveyor,truncated name of surveyor,character,,
-wind_speed,,kilometersPerHour,real,,wind speed,numeric,,
-wind_dir,,,,,wind direction,factor,,
-air_temp,,celsius,real,,air temperature,numeric,,
-cloud_cover,,dimensionless,real,,percent cloud cover,numeric,,
-survey_notes,,,,notes regarding survey,notes regarding survey,character,,
-human_activity_notes,,,,notes regarding any human activity during the survey,notes regarding any human activity during the survey,character,,
-wind,,,,,qualitative assessment of wind speed during the survey,factor,,
-precipitation,,,,,qualitative assessment of precipitation during the survey,factor,,
-disturbances,,,,,indication of a disturbance to the surveyor at the survey location during the survey,factor,,
-sight_obstruct,,dimensionless,real,,percent of the view obstructed,numeric,,
-noise_level,,,,,qualitative assessment of noise level during the survey,factor,,
-site_condition,,,,notes regarding the condition of the survey location,notes regarding the condition of the survey location,character,,
-non_bird_species,,,,notes regarding non-bird fauna observed during the survey,notes regarding non-bird fauna observed during the survey,character,,
-code,,,,four-letter alpha code of observed taxon,four-letter alpha code of observed taxon,character,,
-common_name,,,,common name of observed taxon,common name of observed taxon,character,,
-distance,,,,,relative distance or position of observed bird(s) relative to the observer,factor,,
-bird_count,,number,real,,quantity of the observed taxon,numeric,,
-observation_notes,,,,notes regarding bird observation,notes regarding bird observation,character,,
-seen,,,,,indication of whether the bird was seen,factor,,
-heard,,,,,indication of whether the bird was heard,factor,,
-direction,,,,,direction of the bird,factor,,
-QCcomment,,,,quality control comments,quality control comments,character,,
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+site_code,,,,survey location identifier,survey location identifier,character,,,,
+location_type,,,,,survey site type,factor,,,,
+survey_date,YYYY-MM-DD,,,,survey date,Date,,,,
+time_start,HH:MM:SS,,,survey start time,survey start time,character,,,,
+time_end,HH:MM:SS,,,survey end time,survey end time,character,,,,
+observer_name_part,,,,truncated name of surveyor,truncated name of surveyor,character,,,,
+wind_speed,,kilometersPerHour,whole,,wind speed,numeric,0,97,NA,missing value
+wind_dir,,,,,wind direction,factor,,,NA,missing value
+air_temp,,celsius,integer,,air temperature,numeric,-16,51,NA,missing value
+cloud_cover,,dimensionless,whole,,percent cloud cover,numeric,0,100,NA,missing value
+survey_notes,,,,notes regarding survey,notes regarding survey,character,,,NA,missing value
+human_activity_notes,,,,notes regarding any human activity during the survey,notes regarding any human activity during the survey,character,,,NA,missing value
+wind,,,,,qualitative assessment of wind speed during the survey,factor,,,NA,missing value
+precipitation,,,,,qualitative assessment of precipitation during the survey,factor,,,NA,missing value
+disturbances,,,,,indication of a disturbance to the surveyor at the survey location during the survey,factor,,,NA,missing value
+sight_obstruct,,dimensionless,whole,,percent of the view obstructed,numeric,0,270,NA,missing value
+noise_level,,,,,qualitative assessment of noise level during the survey,factor,,,NA,missing value
+site_condition,,,,notes regarding the condition of the survey location,notes regarding the condition of the survey location,character,,,NA,missing value
+non_bird_species,,,,notes regarding non-bird fauna observed during the survey,notes regarding non-bird fauna observed during the survey,character,,,NA,missing value
+code,,,,four-letter alpha code of observed taxon,four-letter alpha code of observed taxon,character,,,,
+common_name,,,,common name of observed taxon,common name of observed taxon,character,,,,
+distance,,,,,relative distance or position of observed bird(s) relative to the observer,factor,,,NA,missing value
+bird_count,,number,natural,,quantity of the observed taxon,numeric,1,3200,NA,missing value
+observation_notes,,,,notes regarding bird observation,notes regarding bird observation,character,,,NA,missing value
+seen,,,,,indication of whether the bird was seen,factor,,,,
+heard,,,,,indication of whether the bird was heard,factor,,,,
+direction,,,,,direction of the bird,factor,,,NA,missing value
+QCcomment,,,,quality control comments,quality control comments,character,,,NA,missing value
