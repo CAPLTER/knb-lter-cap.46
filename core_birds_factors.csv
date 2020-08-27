@@ -1,4 +1,5 @@
 attributeName,code,definition
+location_type,CAPIV,new sites or sites reclassified for CAP IV
 location_type,DesertFertilization,Phoenix area mountain parks that are part of the Desert Fertilization study
 location_type,ESCA,colocated with Ecological Survey of Central Arizona (ESCA)
 location_type,NDV,"North Desert Village, ASU Polytechnic Campus"

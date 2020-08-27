@@ -1,298 +1,295 @@
 taxa_raw,taxa_trimmed,taxa_replacement,taxa_removed,taxa_clean,rank,authority,authority_id,score,difference
-Mourning Dove,NA,NA,NA,Mourning Dove,Common,ITIS,177125,NA,NA
-Great-tailed Grackle,NA,NA,NA,Great-tailed Grackle,Common,ITIS,179109,NA,NA
-House Sparrow,NA,NA,NA,House Sparrow,Common,ITIS,179628,NA,NA
-White-winged Dove,NA,NA,NA,White-winged Dove,Common,ITIS,177121,NA,NA
-Killdeer,NA,NA,NA,Killdeer,Common,ITIS,176520,NA,NA
-House Finch,NA,NA,NA,House Finch,Common,ITIS,997805,NA,NA
-Northern Rough-winged Swallow,NA,NA,NA,Northern Rough-winged Swallow,Common,ITIS,178443,NA,NA
-Anna's Hummingbird,NA,NA,NA,Anna's Hummingbird,Common,ITIS,178036,NA,NA
-European Starling,NA,NA,NA,European Starling,Common,ITIS,179637,NA,NA
-Inca Dove,NA,NA,NA,Inca Dove,Common,ITIS,177162,NA,NA
-Loggerhead Shrike,NA,NA,NA,Loggerhead Shrike,Common,ITIS,178515,NA,NA
-White-throated Swift,NA,NA,NA,White-throated Swift,Common,ITIS,178014,NA,NA
-Ash-throated Flycatcher,NA,NA,NA,Ash-throated Flycatcher,Common,ITIS,178316,NA,NA
-Cactus Wren,NA,NA,NA,Cactus Wren,Common,ITIS,178587,NA,NA
-Black-throated Sparrow,NA,NA,NA,Black-throated Sparrow,Common,ITIS,179395,NA,NA
-Lesser Nighthawk,NA,NA,NA,Lesser Nighthawk,Common,ITIS,177988,NA,NA
-Say's Phoebe,NA,NA,NA,Say's Phoebe,Common,ITIS,178333,NA,NA
-Gila Woodpecker,NA,NA,NA,Gila Woodpecker,Common,ITIS,178198,NA,NA
-Gilded Flicker,NA,NA,NA,Gilded Flicker,Common,ITIS,554081,NA,NA
-Black-tailed Gnatcatcher,NA,NA,NA,Black-tailed Gnatcatcher,Common,ITIS,179857,NA,NA
-Gambel's Quail,NA,NA,NA,Gambel's Quail,Common,ITIS,175877,NA,NA
-Curve-billed Thrasher,NA,NA,NA,Curve-billed Thrasher,Common,ITIS,178637,NA,NA
-Turkey Vulture,NA,NA,NA,Turkey Vulture,Common,ITIS,175265,NA,NA
-Verdin,NA,NA,NA,Verdin,Common,ITIS,178759,NA,NA
-Northern Mockingbird,NA,NA,NA,Northern Mockingbird,Common,ITIS,178620,NA,NA
-Red-tailed Hawk,NA,NA,NA,Red-tailed Hawk,Common,ITIS,175350,NA,NA
-Rock Pigeon,NA,NA,NA,Rock Pigeon,Common,ITIS,177071,NA,NA
-Red-winged Blackbird,NA,NA,NA,Red-winged Blackbird,Common,ITIS,179045,NA,NA
-Rosy-faced Lovebird,NA,NA,NA,Rosy-faced Lovebird,Common,ITIS,177626,NA,NA
-Costa's Hummingbird,NA,NA,NA,Costa's Hummingbird,Common,ITIS,178035,NA,NA
-Unidentified Warbler,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Abert's Towhee,NA,NA,NA,Abert's Towhee,Common,ITIS,997739,NA,NA
-Phainopepla,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Western Kingbird,NA,NA,NA,Western Kingbird,Common,ITIS,178287,NA,NA
-American Goldfinch,NA,NA,NA,American Goldfinch,Common,ITIS,179249,NA,NA
-Mallard,NA,NA,NA,Mallard,Common,ITIS,175063,NA,NA
-American Kestrel,NA,NA,NA,American Kestrel,Common,ITIS,175622,NA,NA
-Great Blue Heron,NA,NA,NA,Great Blue Heron,Common,ITIS,174773,NA,NA
-Western Wood-Pewee,NA,NA,NA,Western Wood-Pewee,Common,ITIS,178360,NA,NA
-Brown-headed Cowbird,NA,NA,NA,Brown-headed Cowbird,Common,ITIS,179112,NA,NA
-Audubon's Warbler,NA,NA,NA,Audubon's Warbler,Common,ITIS,950047,NA,NA
-White-crowned Sparrow,NA,NA,NA,White-crowned Sparrow,Common,ITIS,179455,NA,NA
-Rock Wren,NA,NA,NA,Rock Wren,Common,ITIS,178614,NA,NA
-Green-tailed Towhee,NA,NA,NA,Green-tailed Towhee,Common,ITIS,179310,NA,NA
-Canada Goose,NA,NA,NA,Canada Goose,Common,ITIS,174999,NA,NA
-Western Scrub-Jay,NA,NA,NA,Western Scrub-Jay,Common,ITIS,554128,NA,NA
-Song Sparrow,NA,NA,NA,Song Sparrow,Common,ITIS,179492,NA,NA
-Nashville Warbler,NA,NA,NA,Nashville Warbler,Common,ITIS,950018,NA,NA
-Unidentified Parrot,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Violet-green Swallow,NA,NA,NA,Violet-green Swallow,Common,ITIS,178427,NA,NA
-Brewer's Blackbird,NA,NA,NA,Brewer's Blackbird,Common,ITIS,179094,NA,NA
-Northern Flicker,NA,NA,NA,Northern Flicker,Common,ITIS,178154,NA,NA
-Black-chinned Hummingbird,NA,NA,NA,Black-chinned Hummingbird,Common,ITIS,178033,NA,NA
-Yellow-headed Blackbird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Western Meadowlark,NA,NA,NA,Western Meadowlark,Common,ITIS,179039,NA,NA
-Greater Roadrunner,NA,NA,NA,Greater Roadrunner,Common,ITIS,177836,NA,NA
-Oregon Junco,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Northern Harrier,NA,NA,NA,Northern Harrier,Common,ITIS,175430,NA,NA
-Savannah Sparrow,NA,NA,NA,Savannah Sparrow,Common,ITIS,179314,NA,NA
-Brewer's Sparrow,NA,NA,NA,Brewer's Sparrow,Common,ITIS,179440,NA,NA
-Unidentified Hawk,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Sparrow,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Lesser Goldfinch,NA,NA,NA,Lesser Goldfinch,Common,ITIS,179254,NA,NA
-Tree Swallow,NA,NA,NA,Tree Swallow,Common,ITIS,178431,NA,NA
-Common Raven,NA,NA,NA,Common Raven,Common,ITIS,179725,NA,NA
-Vermilion Flycatcher,NA,NA,NA,Vermilion Flycatcher,Common,ITIS,178371,NA,NA
-Blue-gray Gnatcatcher,NA,NA,NA,Blue-gray Gnatcatcher,Common,ITIS,179853,NA,NA
-Black Phoebe,NA,NA,NA,Black Phoebe,Common,ITIS,178330,NA,NA
-Gadwall,NA,NA,NA,Gadwall,Common,ITIS,175073,NA,NA
-Unidentified Vireo,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Ladder-backed Woodpecker,NA,NA,NA,Ladder-backed Woodpecker,Common,ITIS,178260,NA,NA
-Sage Sparrow,NA,NA,NA,Sage Sparrow,Common,ITIS,997724,NA,NA
-Cooper's Hawk,NA,NA,NA,Cooper's Hawk,Common,ITIS,175309,NA,NA
-Orange-crowned Warbler,NA,NA,NA,Orange-crowned Warbler,Common,ITIS,950015,NA,NA
-Common Ground-Dove,NA,NA,NA,Common Ground-Dove,Common,ITIS,177152,NA,NA
-Harris' Hawk,NA,NA,NA,Harris' Hawk,Common,ITIS,175397,NA,NA
-Dark-Eyed Junco,NA,NA,NA,Dark-Eyed Junco,Common,ITIS,179410,NA,NA
-Swainson's Hawk,NA,NA,NA,Swainson's Hawk,Common,ITIS,175367,NA,NA
-Horned Lark,NA,NA,NA,Horned Lark,Common,ITIS,554256,NA,NA
-American Coot,NA,NA,NA,American Coot,Common,ITIS,176292,NA,NA
-Northern Cardinal,NA,NA,NA,Northern Cardinal,Common,ITIS,179124,NA,NA
-Common gallinule,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Great Egret,NA,NA,NA,Great Egret,Common,ITIS,554135,NA,NA
-Green Heron,NA,NA,NA,Green Heron,Common,ITIS,174793,NA,NA
-Pied-billed Grebe,NA,NA,NA,Pied-billed Grebe,Common,ITIS,174505,NA,NA
-Marsh Wren,NA,NA,NA,Marsh Wren,Common,ITIS,178608,NA,NA
-Snowy Egret,NA,NA,NA,Snowy Egret,Common,ITIS,174813,NA,NA
-Belted Kingfisher,NA,NA,NA,Belted Kingfisher,Common,ITIS,178106,NA,NA
-Double-crested Cormorant,NA,NA,NA,Double-crested Cormorant,Common,ITIS,174717,NA,NA
-Osprey,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Cattle Egret,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Black-crowned Night-Heron,NA,NA,NA,Black-crowned Night-Heron,Common,ITIS,174832,NA,NA
-Hermit Thrush,NA,NA,NA,Hermit Thrush,Common,ITIS,179779,NA,NA
-Unidentified Flycatcher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Redhead,NA,NA,NA,Redhead,Common,ITIS,175125,NA,NA
-Black-necked Stilt,NA,NA,NA,Black-necked Stilt,Common,ITIS,176726,NA,NA
-American Wigeon,NA,NA,NA,American Wigeon,Common,ITIS,175094,NA,NA
-Red-naped Sapsucker,NA,NA,NA,Red-naped Sapsucker,Common,ITIS,178211,NA,NA
-Mountain Bluebird,NA,NA,NA,Mountain Bluebird,Common,ITIS,179811,NA,NA
-Greater Yellowlegs,NA,NA,NA,Greater Yellowlegs,Common,ITIS,176619,NA,NA
-Brown Creeper,NA,NA,NA,Brown Creeper,Common,ITIS,178803,NA,NA
-Spotted Towhee,NA,NA,NA,Spotted Towhee,Common,ITIS,554380,NA,NA
-Unidentified Hummingbird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Western Bluebird,NA,NA,NA,Western Bluebird,Common,ITIS,179806,NA,NA
-Cassin's Vireo,NA,NA,NA,Cassin's Vireo,Common,ITIS,554456,NA,NA
-Slate-colored Junco,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Ruby-crowned Kinglet,NA,NA,NA,Ruby-crowned Kinglet,Common,ITIS,179870,NA,NA
-Ring-billed Gull,NA,NA,NA,Ring-billed Gull,Common,ITIS,176830,NA,NA
-Ring-necked Duck,NA,NA,NA,Ring-necked Duck,Common,ITIS,175128,NA,NA
-Least Sandpiper,NA,NA,NA,Least Sandpiper,Common,ITIS,176656,NA,NA
-Lincoln's Sparrow,NA,NA,NA,Lincoln's Sparrow,Common,ITIS,179484,NA,NA
-Domestic Duck,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Brown Thrasher,NA,NA,NA,Brown Thrasher,Common,ITIS,178627,NA,NA
-Bushtit,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Common Yellowthroat,NA,NA,NA,Common Yellowthroat,Common,ITIS,178944,NA,NA
-Blue-winged Teal,NA,NA,NA,Blue-winged Teal,Common,ITIS,175086,NA,NA
-Common Loon,NA,NA,NA,Common Loon,Common,ITIS,174469,NA,NA
-American Green-winged Teal,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Peregrine Falcon,NA,NA,NA,Peregrine Falcon,Common,ITIS,175604,NA,NA
-American Avocet,NA,NA,NA,American Avocet,Common,ITIS,176721,NA,NA
-Long-billed Dowitcher,NA,NA,NA,Long-billed Dowitcher,Common,ITIS,176679,NA,NA
-Canyon Wren,NA,NA,NA,Canyon Wren,Common,ITIS,178609,NA,NA
-Western Sandpiper,NA,NA,NA,Western Sandpiper,Common,ITIS,176668,NA,NA
-Lark Sparrow,NA,NA,NA,Lark Sparrow,Common,ITIS,179371,NA,NA
-Northern Pintail,NA,NA,NA,Northern Pintail,Common,ITIS,175074,NA,NA
-Northern Shoveler,NA,NA,NA,Northern Shoveler,Common,ITIS,175096,NA,NA
-Chestnut-collared Longspur,NA,NA,NA,Chestnut-collared Longspur,Common,ITIS,179530,NA,NA
-American Bittern,NA,NA,NA,American Bittern,Common,ITIS,174856,NA,NA
-Rough-Legged Hawk,NA,NA,NA,Rough-Legged Hawk,Common,ITIS,175373,NA,NA
-Cordilleran Flycatcher,NA,NA,NA,Cordilleran Flycatcher,Common,ITIS,554255,NA,NA
-Gray-headed Junco,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Downy Woodpecker,NA,NA,NA,Downy Woodpecker,Common,ITIS,178259,NA,NA
-Unidentified Woodpecker,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Wilson's Warbler,NA,NA,NA,Wilson's Warbler,Common,ITIS,950080,NA,NA
-Common Black Hawk,NA,NA,NA,Common Black Hawk,Common,ITIS,175402,NA,NA
-Blue Jay,NA,NA,NA,Blue Jay,Common,ITIS,179680,NA,NA
-Burrowing Owl,NA,NA,NA,Burrowing Owl,Common,ITIS,177946,NA,NA
-Little Blue Heron,NA,NA,NA,Little Blue Heron,Common,ITIS,174827,NA,NA
-Unidentified Cormorant,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Towhee,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Raptor,NA,NA,NA,NA,NA,NA,NA,NA,NA
-White-breasted Nuthatch,NA,NA,NA,White-breasted Nuthatch,Common,ITIS,178775,NA,NA
-Black Vulture,NA,NA,NA,Black Vulture,Common,ITIS,175272,NA,NA
-Yellow Warbler,NA,NA,NA,Yellow Warbler,Common,ITIS,950039,NA,NA
-Bald Eagle,NA,NA,NA,Bald Eagle,Common,ITIS,175420,NA,NA
-Cinnamon Teal,NA,NA,NA,Cinnamon Teal,Common,ITIS,175089,NA,NA
-Cliff Swallow,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Barn Swallow,NA,NA,NA,Barn Swallow,Common,ITIS,178448,NA,NA
-Bell's Vireo,NA,NA,NA,Bell's Vireo,Common,ITIS,179003,NA,NA
-Bewick's Wren,NA,NA,NA,Bewick's Wren,Common,ITIS,178562,NA,NA
-Bendire's Thrasher,NA,NA,NA,Bendire's Thrasher,Common,ITIS,178636,NA,NA
-Lucy's Warbler,NA,NA,NA,Lucy's Warbler,Common,ITIS,950017,NA,NA
-Eurasian Collared-Dove,NA,NA,NA,Eurasian Collared-Dove,Common,ITIS,177139,NA,NA
-Eared Grebe,NA,NA,NA,Eared Grebe,Common,ITIS,174485,NA,NA
-Brown-crested Flycatcher,NA,NA,NA,Brown-crested Flycatcher,Common,ITIS,178312,NA,NA
-Chipping Sparrow,NA,NA,NA,Chipping Sparrow,Common,ITIS,179435,NA,NA
-Lazuli Bunting,NA,NA,NA,Lazuli Bunting,Common,ITIS,179151,NA,NA
-Rufous-crowned Sparrow,NA,NA,NA,Rufous-crowned Sparrow,Common,ITIS,179377,NA,NA
-Unidentified Gnatcatcher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-White-faced Ibis,NA,NA,NA,White-faced Ibis,Common,ITIS,174926,NA,NA
-Cassin's Kingbird,NA,NA,NA,Cassin's Kingbird,Common,ITIS,178288,NA,NA
-Bullock's Oriole,NA,NA,NA,Bullock's Oriole,Common,ITIS,554267,NA,NA
-Wilson's Phalarope,NA,NA,NA,Wilson's Phalarope,Common,ITIS,176736,NA,NA
-Bank Swallow,NA,NA,NA,Bank Swallow,Common,ITIS,178436,NA,NA
-Long-billed Curlew,NA,NA,NA,Long-billed Curlew,Common,ITIS,176593,NA,NA
-Neotropic Cormorant,NA,NA,NA,Neotropic Cormorant,Common,ITIS,554375,NA,NA
-Hooded Oriole,NA,NA,NA,Hooded Oriole,Common,ITIS,179070,NA,NA
-Western Grebe,NA,NA,NA,Western Grebe,Common,ITIS,174503,NA,NA
-Bronzed Cowbird,NA,NA,NA,Bronzed Cowbird,Common,ITIS,179116,NA,NA
-Summer Tanager,NA,NA,NA,Summer Tanager,Common,ITIS,179888,NA,NA
-Pacific Slope Flycatcher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Duck,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Canyon Towhee,NA,NA,NA,Canyon Towhee,Common,ITIS,997737,NA,NA
-Cedar Waxwing,NA,NA,NA,Cedar Waxwing,Common,ITIS,178532,NA,NA
-Unidentified Thrasher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Prairie Falcon,NA,NA,NA,Prairie Falcon,Common,ITIS,175603,NA,NA
-Merlin,NA,NA,NA,Merlin,Common,ITIS,175613,NA,NA
-American Robin,NA,NA,NA,American Robin,Common,ITIS,179759,NA,NA
-Spotted Sandpiper,NA,NA,NA,Spotted Sandpiper,Common,ITIS,726049,NA,NA
-American Pipit,NA,NA,NA,American Pipit,Common,ITIS,554127,NA,NA
-Yellow-rumped Warbler,NA,NA,NA,Yellow-rumped Warbler,Common,ITIS,950046,NA,NA
-Unidentified Empidonax Flycatcher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Flicker,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Owl,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Yellowlegs,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Bufflehead,NA,NA,NA,Bufflehead,Common,ITIS,175145,NA,NA
-Unidentified Bird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Sandpiper,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Wilson's Snipe,NA,NA,NA,Wilson's Snipe,Common,ITIS,726048,NA,NA
-Ruddy Duck,NA,NA,NA,Ruddy Duck,Common,ITIS,175175,NA,NA
-Unidentified Dowitcher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Blackbird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Common Merganser,NA,NA,NA,Common Merganser,Common,ITIS,175185,NA,NA
-Unidentified Egret,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Ferruginous Hawk,NA,NA,NA,Ferruginous Hawk,Common,ITIS,175377,NA,NA
-Unidentified Gull,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Swallow,NA,NA,NA,NA,NA,NA,NA,NA,NA
-MacGillivray's Warbler,NA,NA,NA,MacGillivray's Warbler,Common,ITIS,950023,NA,NA
-Great Horned Owl,NA,NA,NA,Great Horned Owl,Common,ITIS,177884,NA,NA
-Virginia's Warbler,NA,NA,NA,Virginia's Warbler,Common,ITIS,950019,NA,NA
-Unidentified Yellow-rumped Warbler,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Townsend's Warbler,NA,NA,NA,Townsend's Warbler,Common,ITIS,950058,NA,NA
-Hermit Warbler,NA,NA,NA,Hermit Warbler,Common,ITIS,950059,NA,NA
-Black-headed Grosbeak,NA,NA,NA,Black-headed Grosbeak,Common,ITIS,179140,NA,NA
-Vaux's Swift,NA,NA,NA,Vaux's Swift,Common,ITIS,178002,NA,NA
-Unidentified Wader,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Tanager,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Black-chinned Sparrow,NA,NA,NA,Black-chinned Sparrow,Common,ITIS,179448,NA,NA
-Western Tanager,NA,NA,NA,Western Tanager,Common,ITIS,179882,NA,NA
-Unidentified Kingbird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Black-bellied Whistling Duck,NA,NA,NA,Black-bellied Whistling Duck,Common,ITIS,175044,NA,NA
-Rufous Hummingbird,NA,NA,NA,Rufous Hummingbird,Common,ITIS,178040,NA,NA
-Black-throated Gray Warbler,NA,NA,NA,Black-throated Gray Warbler,Common,ITIS,950057,NA,NA
-Lawrence's Goldfinch,NA,NA,NA,Lawrence's Goldfinch,Common,ITIS,179257,NA,NA
-Scott's Oriole,NA,NA,NA,Scott's Oriole,Common,ITIS,179082,NA,NA
-Gray Flycatcher,NA,NA,NA,Gray Flycatcher,Common,ITIS,178347,NA,NA
-Unidentified Falcon,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Cowbird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Sharp-shinned Hawk,NA,NA,NA,Sharp-shinned Hawk,Common,ITIS,175304,NA,NA
-Steller's Jay,NA,NA,NA,Steller's Jay,Common,ITIS,179685,NA,NA
-Unidentified Meadowlark,NA,NA,NA,NA,NA,NA,NA,NA,NA
-White-throated Sparrow,NA,NA,NA,White-throated Sparrow,Common,ITIS,179462,NA,NA
-Lesser Scaup,NA,NA,NA,Lesser Scaup,Common,ITIS,175134,NA,NA
-Green-winged Teal,NA,NA,NA,Green-winged Teal,Common,ITIS,175081,NA,NA
-Lesser Yellowlegs,NA,NA,NA,Lesser Yellowlegs,Common,ITIS,176620,NA,NA
-Sora,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Jay,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Canvasback,NA,NA,NA,Canvasback,Common,ITIS,175129,NA,NA
-Black-and-white Warbler,NA,NA,NA,Black-and-white Warbler,Common,ITIS,178844,NA,NA
-House Wren,NA,NA,NA,House Wren,Common,ITIS,178541,NA,NA
-Crissal Thrasher,NA,NA,NA,Crissal Thrasher,Common,ITIS,178652,NA,NA
-Swamp Sparrow,NA,NA,NA,Swamp Sparrow,Common,ITIS,179488,NA,NA
-Unidentified Wren,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Virginia Rail,NA,NA,NA,Virginia Rail,Common,ITIS,176221,NA,NA
-Lark Bunting,NA,NA,NA,Lark Bunting,Common,ITIS,179312,NA,NA
-Vesper Sparrow,NA,NA,NA,Vesper Sparrow,Common,ITIS,179366,NA,NA
-Unidentified Oriole,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Common Nighthawk,NA,NA,NA,Common Nighthawk,Common,ITIS,177979,NA,NA
-Blue Grosbeak,NA,NA,NA,Blue Grosbeak,Common,ITIS,726198,NA,NA
-Ovenbird,NA,NA,NA,Ovenbird,Common,ITIS,726205,NA,NA
-American White Pelican,NA,NA,NA,American White Pelican,Common,ITIS,174684,NA,NA
-Sage Thrasher,NA,NA,NA,Sage Thrasher,Common,ITIS,178654,NA,NA
-Zone-tailed Hawk,NA,NA,NA,Zone-tailed Hawk,Common,ITIS,175368,NA,NA
-Cockatiel,NA,NA,NA,Cockatiel,Common,ITIS,177497,NA,NA
-African Collared-Dove,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Yellow-breasted Chat,NA,NA,NA,Yellow-breasted Chat,Common,ITIS,178964,NA,NA
-Common Goldeneye,NA,NA,NA,Common Goldeneye,Common,ITIS,175141,NA,NA
-Unidentified Accipiter Hawk,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Dove,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Mountain Chickadee,NA,NA,NA,Mountain Chickadee,Common,ITIS,554385,NA,NA
-Hooded Merganser,NA,NA,NA,Hooded Merganser,Common,ITIS,175183,NA,NA
-Hammond's Flycatcher,NA,NA,NA,Hammond's Flycatcher,Common,ITIS,554254,NA,NA
-Bridled Titmouse,NA,NA,NA,Bridled Titmouse,Common,ITIS,554141,NA,NA
-Plumbeous Vireo,NA,NA,NA,Plumbeous Vireo,Common,ITIS,554477,NA,NA
-Unidentified Buteo,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified House Sparrow or Finch,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Pyrrhuloxia,NA,NA,NA,Pyrrhuloxia,Common,ITIS,179132,NA,NA
-Pink-sided Junco,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Warbling Vireo,NA,NA,NA,Warbling Vireo,Common,ITIS,179023,NA,NA
-Chinese Goose,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Brown Pelican,NA,NA,NA,Brown Pelican,Common,ITIS,174685,NA,NA
-Glossy Ibis,NA,NA,NA,Glossy Ibis,Common,ITIS,174924,NA,NA
-Yellow-throated Warbler,NA,NA,NA,Yellow-throated Warbler,Common,ITIS,950049,NA,NA
-Franklin's Gull,NA,NA,NA,Franklin's Gull,Common,ITIS,824082,NA,NA
-Wood Stork,NA,NA,NA,Wood Stork,Common,ITIS,174897,NA,NA
-Hairy Woodpecker,NA,NA,NA,Hairy Woodpecker,Common,ITIS,178262,NA,NA
-Lewis' Woodpecker,NA,NA,NA,Lewis' Woodpecker,Common,ITIS,178196,NA,NA
-Snow Goose,NA,NA,NA,Snow Goose,Common,ITIS,175038,NA,NA
-Unidentified Swift,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Parakeet,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Acorn Woodpecker,NA,NA,NA,Acorn Woodpecker,Common,ITIS,178189,NA,NA
-Unidentified Goose,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Magnolia Warbler,NA,NA,NA,Magnolia Warbler,Common,ITIS,950035,NA,NA
-Domestic Goose,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Stilt,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Townsend's Solitaire,NA,NA,NA,Townsend's Solitaire,Common,ITIS,179824,NA,NA
-Pine Siskin,NA,NA,NA,Pine Siskin,Common,ITIS,179246,NA,NA
-American Crow,NA,NA,NA,American Crow,Common,ITIS,179731,NA,NA
-Common Poorwill,NA,NA,NA,Common Poorwill,Common,ITIS,555544,NA,NA
-Unidentified Heron,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Gray Vireo,NA,NA,NA,Gray Vireo,Common,ITIS,179008,NA,NA
-Unidentified Myiarchus Flycatcher,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Willet,NA,NA,NA,Willet,Common,ITIS,824147,NA,NA
-Pacific/Winter Wren,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Northern Parula,NA,NA,NA,Northern Parula,Common,ITIS,950033,NA,NA
-Unidentified Shorebird,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Broad-tailed Hummingbird,NA,NA,NA,Broad-tailed Hummingbird,Common,ITIS,178038,NA,NA
-Unidentified Calidris Sandpiper,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Waterfowl,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Unidentified Chordeiles Nighthawk,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Clay-colored Sparrow,NA,NA,NA,Clay-colored Sparrow,Common,ITIS,179439,NA,NA
-Unidentified Egret/Heron,NA,NA,NA,NA,NA,NA,NA,NA,NA
-Willow Flycatcher,NA,NA,NA,Willow Flycatcher,Common,ITIS,178341,NA,NA
-Yellow-billed Cuckoo,NA,NA,NA,Yellow-billed Cuckoo,Common,ITIS,177831,NA,NA
-Red-shouldered Hawk,NA,NA,NA,Red-shouldered Hawk,Common,ITIS,175359,NA,NA
-Monk Parakeet,NA,NA,NA,Monk Parakeet,Common,ITIS,177723,NA,NA
-Purple Martin,NA,NA,NA,Purple Martin,Common,ITIS,178464,NA,NA
+Mourning Dove,,,,Mourning Dove,Common,ITIS,177125,Mourning Dove,
+Great-tailed Grackle,,,,Great-tailed Grackle,Common,ITIS,179109,Great-tailed Grackle,
+House Sparrow,,,,House Sparrow,Common,ITIS,179628,House Sparrow,
+White-winged Dove,,,,White-winged Dove,Common,ITIS,177121,White-winged Dove,
+Killdeer,,,,Killdeer,Common,ITIS,176520,Killdeer,
+House Finch,,,,House Finch,Common,ITIS,997805,House Finch,
+Northern Rough-winged Swallow,,,,Northern Rough-winged Swallow,Common,ITIS,178443,Northern Rough-winged Swallow,
+Anna's Hummingbird,,,,Anna's Hummingbird,Common,ITIS,178036,Anna's Hummingbird,
+European Starling,,,,European Starling,Common,ITIS,179637,European Starling,
+Inca Dove,,,,Inca Dove,Common,ITIS,177162,Inca Dove,
+Loggerhead Shrike,,,,Loggerhead Shrike,Common,ITIS,178515,Loggerhead Shrike,
+White-throated Swift,,,,White-throated Swift,Common,ITIS,178014,White-throated Swift,
+Ash-throated Flycatcher,,,,Ash-throated Flycatcher,Common,ITIS,178316,Ash-throated Flycatcher,
+Cactus Wren,,,,Cactus Wren,Common,ITIS,178587,Cactus Wren,
+Black-throated Sparrow,,,,Black-throated Sparrow,Common,ITIS,179395,Black-throated Sparrow,
+Lesser Nighthawk,,,,Lesser Nighthawk,Common,ITIS,177988,Lesser Nighthawk,
+Say's Phoebe,,,,Say's Phoebe,Common,ITIS,178333,Say's Phoebe,
+Gila Woodpecker,,,,Gila Woodpecker,Common,ITIS,178198,Gila Woodpecker,
+Gilded Flicker,,,,Gilded Flicker,Common,ITIS,554081,Gilded Flicker,
+Black-tailed Gnatcatcher,,,,Black-tailed Gnatcatcher,Common,ITIS,179857,Black-tailed Gnatcatcher,
+Gambel's Quail,,,,Gambel's Quail,Common,ITIS,175877,Gambel's Quail,
+Curve-billed Thrasher,,,,Curve-billed Thrasher,Common,ITIS,178637,Curve-billed Thrasher,
+Turkey Vulture,,,,Turkey Vulture,Common,ITIS,175265,Turkey Vulture,
+Verdin,,,,Verdin,Common,ITIS,178759,Verdin,
+Northern Mockingbird,,,,Northern Mockingbird,Common,ITIS,178620,Northern Mockingbird,
+Red-tailed Hawk,,,,Red-tailed Hawk,Common,ITIS,175350,Red-tailed Hawk,
+Rock Pigeon,,,,Rock Pigeon,Common,ITIS,177071,Rock Pigeon,
+Red-winged Blackbird,,,,Red-winged Blackbird,Common,ITIS,179045,Red-winged Blackbird,
+Rosy-faced Lovebird,,,,Rosy-faced Lovebird,Common,ITIS,177626,Rosy-faced Lovebird,
+Costa's Hummingbird,,,,Costa's Hummingbird,Common,ITIS,178035,Costa's Hummingbird,
+Unidentified Warbler,,,,,,,,,
+Abert's Towhee,,,,Abert's Towhee,Common,ITIS,997739,Abert's Towhee,
+Phainopepla,,,,,,,,,
+Western Kingbird,,,,Western Kingbird,Common,ITIS,178287,Western Kingbird,
+American Goldfinch,,,,American Goldfinch,Common,ITIS,179249,American Goldfinch,
+Mallard,,,,Mallard,Common,ITIS,175063,Mallard,
+American Kestrel,,,,American Kestrel,Common,ITIS,175622,American Kestrel,
+Great Blue Heron,,,,Great Blue Heron,Common,ITIS,174773,Great Blue Heron,
+Western Wood-Pewee,,,,Western Wood-Pewee,Common,ITIS,178360,Western Wood-Pewee,
+Brown-headed Cowbird,,,,Brown-headed Cowbird,Common,ITIS,179112,Brown-headed Cowbird,
+Audubon's Warbler,,,,Audubon's Warbler,Common,ITIS,950047,Audubon's Warbler,
+White-crowned Sparrow,,,,White-crowned Sparrow,Common,ITIS,179455,White-crowned Sparrow,
+Rock Wren,,,,Rock Wren,Common,ITIS,178614,Rock Wren,
+Green-tailed Towhee,,,,Green-tailed Towhee,Common,ITIS,179310,Green-tailed Towhee,
+Canada Goose,,,,Canada Goose,Common,ITIS,174999,Canada Goose,
+Woodhouse's Scrub-Jay,,,,,,,,,
+Song Sparrow,,,,Song Sparrow,Common,ITIS,179492,Song Sparrow,
+Nashville Warbler,,,,Nashville Warbler,Common,ITIS,950018,Nashville Warbler,
+Unidentified Parrot,,,,,,,,,
+Violet-green Swallow,,,,Violet-green Swallow,Common,ITIS,178427,Violet-green Swallow,
+Brewer's Blackbird,,,,Brewer's Blackbird,Common,ITIS,179094,Brewer's Blackbird,
+Northern Flicker,,,,Northern Flicker,Common,ITIS,178154,Northern Flicker,
+Black-chinned Hummingbird,,,,Black-chinned Hummingbird,Common,ITIS,178033,Black-chinned Hummingbird,
+Yellow-headed Blackbird,,,,,,,,,
+Western Meadowlark,,,,Western Meadowlark,Common,ITIS,179039,Western Meadowlark,
+Greater Roadrunner,,,,Greater Roadrunner,Common,ITIS,177836,Greater Roadrunner,
+Oregon Junco,,,,,,,,,
+Northern Harrier,,,,Northern Harrier,Common,ITIS,175430,Northern Harrier,
+Savannah Sparrow,,,,Savannah Sparrow,Common,ITIS,179314,Savannah Sparrow,
+Brewer's Sparrow,,,,Brewer's Sparrow,Common,ITIS,179440,Brewer's Sparrow,
+Unidentified Hawk,,,,,,,,,
+Unidentified Sparrow,,,,,,,,,
+Lesser Goldfinch,,,,Lesser Goldfinch,Common,ITIS,179254,Lesser Goldfinch,
+Tree Swallow,,,,Tree Swallow,Common,ITIS,178431,Tree Swallow,
+Common Raven,,,,Common Raven,Common,ITIS,179725,Common Raven,
+Vermilion Flycatcher,,,,Vermilion Flycatcher,Common,ITIS,178371,Vermilion Flycatcher,
+Blue-gray Gnatcatcher,,,,Blue-gray Gnatcatcher,Common,ITIS,179853,Blue-gray Gnatcatcher,
+Black Phoebe,,,,Black Phoebe,Common,ITIS,178330,Black Phoebe,
+Gadwall,,,,Gadwall,Common,ITIS,175073,Gadwall,
+Unidentified Vireo,,,,,,,,,
+Ladder-backed Woodpecker,,,,Ladder-backed Woodpecker,Common,ITIS,178260,Ladder-backed Woodpecker,
+Sage Sparrow,,,,Sage Sparrow,Common,ITIS,997724,Sage Sparrow,
+Cooper's Hawk,,,,Cooper's Hawk,Common,ITIS,175309,Cooper's Hawk,
+Orange-crowned Warbler,,,,Orange-crowned Warbler,Common,ITIS,950015,Orange-crowned Warbler,
+Common Ground-Dove,,,,Common Ground-Dove,Common,ITIS,177152,Common Ground-Dove,
+Harris's Hawk,,,,Harris's Hawk,Common,ITIS,175397,Harris's Hawk,
+Dark-eyed Junco,,,,Dark-eyed Junco,Common,ITIS,179410,Dark-eyed Junco,
+Swainson's Hawk,,,,Swainson's Hawk,Common,ITIS,175367,Swainson's Hawk,
+Horned Lark,,,,Horned Lark,Common,ITIS,554256,Horned Lark,
+American Coot,,,,American Coot,Common,ITIS,176292,American Coot,
+Northern Cardinal,,,,Northern Cardinal,Common,ITIS,179124,Northern Cardinal,
+Common Gallinule,,,,,,,,,
+Great Egret,,,,Great Egret,Common,ITIS,554135,Great Egret,
+Green Heron,,,,Green Heron,Common,ITIS,174793,Green Heron,
+Pied-billed Grebe,,,,Pied-billed Grebe,Common,ITIS,174505,Pied-billed Grebe,
+Marsh Wren,,,,Marsh Wren,Common,ITIS,178608,Marsh Wren,
+Snowy Egret,,,,Snowy Egret,Common,ITIS,174813,Snowy Egret,
+Belted Kingfisher,,,,Belted Kingfisher,Common,ITIS,178106,Belted Kingfisher,
+Double-crested Cormorant,,,,Double-crested Cormorant,Common,ITIS,174717,Double-crested Cormorant,
+Osprey,,,,,,,,,
+Cattle Egret,,,,,,,,,
+Black-crowned Night-Heron,,,,Black-crowned Night-Heron,Common,ITIS,174832,Black-crowned Night-Heron,
+Hermit Thrush,,,,Hermit Thrush,Common,ITIS,179779,Hermit Thrush,
+Unidentified Flycatcher,,,,,,,,,
+Redhead,,,,Redhead,Common,ITIS,175125,Redhead,
+Black-necked Stilt,,,,Black-necked Stilt,Common,ITIS,176726,Black-necked Stilt,
+American Wigeon,,,,American Wigeon,Common,ITIS,175094,American Wigeon,
+Red-naped Sapsucker,,,,Red-naped Sapsucker,Common,ITIS,178211,Red-naped Sapsucker,
+Mountain Bluebird,,,,Mountain Bluebird,Common,ITIS,179811,Mountain Bluebird,
+Greater Yellowlegs,,,,Greater Yellowlegs,Common,ITIS,176619,Greater Yellowlegs,
+Brown Creeper,,,,Brown Creeper,Common,ITIS,178803,Brown Creeper,
+Spotted Towhee,,,,Spotted Towhee,Common,ITIS,554380,Spotted Towhee,
+Unidentified Hummingbird,,,,,,,,,
+Western Bluebird,,,,Western Bluebird,Common,ITIS,179806,Western Bluebird,
+Cassin's Vireo,,,,Cassin's Vireo,Common,ITIS,554456,Cassin's Vireo,
+Slate-colored Junco,,,,,,,,,
+Ruby-crowned Kinglet,,,,Ruby-crowned Kinglet,Common,ITIS,179870,Ruby-crowned Kinglet,
+Ring-billed Gull,,,,Ring-billed Gull,Common,ITIS,176830,Ring-billed Gull,
+Ring-necked Duck,,,,Ring-necked Duck,Common,ITIS,175128,Ring-necked Duck,
+Least Sandpiper,,,,Least Sandpiper,Common,ITIS,176656,Least Sandpiper,
+Lincoln's Sparrow,,,,Lincoln's Sparrow,Common,ITIS,179484,Lincoln's Sparrow,
+Domestic Duck,,,,,,,,,
+Brown Thrasher,,,,Brown Thrasher,Common,ITIS,178627,Brown Thrasher,
+Bushtit,,,,,,,,,
+Common Yellowthroat,,,,Common Yellowthroat,Common,ITIS,178944,Common Yellowthroat,
+Blue-winged Teal,,,,Blue-winged Teal,Common,ITIS,175086,Blue-winged Teal,
+Common Loon,,,,Common Loon,Common,ITIS,174469,Common Loon,
+American Green-winged Teal,,,,,,,,,
+Peregrine Falcon,,,,Peregrine Falcon,Common,ITIS,175604,Peregrine Falcon,
+American Avocet,,,,American Avocet,Common,ITIS,176721,American Avocet,
+Long-billed Dowitcher,,,,Long-billed Dowitcher,Common,ITIS,176679,Long-billed Dowitcher,
+Canyon Wren,,,,Canyon Wren,Common,ITIS,178609,Canyon Wren,
+Western Sandpiper,,,,Western Sandpiper,Common,ITIS,176668,Western Sandpiper,
+Lark Sparrow,,,,Lark Sparrow,Common,ITIS,179371,Lark Sparrow,
+Northern Pintail,,,,Northern Pintail,Common,ITIS,175074,Northern Pintail,
+Northern Shoveler,,,,Northern Shoveler,Common,ITIS,175096,Northern Shoveler,
+Chestnut-collared Longspur,,,,Chestnut-collared Longspur,Common,ITIS,179530,Chestnut-collared Longspur,
+American Bittern,,,,American Bittern,Common,ITIS,174856,American Bittern,
+Rough-legged Hawk,,,,Rough-legged Hawk,Common,ITIS,175373,Rough-legged Hawk,
+Cordilleran Flycatcher,,,,Cordilleran Flycatcher,Common,ITIS,554255,Cordilleran Flycatcher,
+Gray-headed Junco,,,,,,,,,
+Downy Woodpecker,,,,Downy Woodpecker,Common,ITIS,178259,Downy Woodpecker,
+Unidentified Woodpecker,,,,,,,,,
+Wilson's Warbler,,,,Wilson's Warbler,Common,ITIS,950080,Wilson's Warbler,
+Common Black Hawk,,,,Common Black Hawk,Common,ITIS,175402,Common Black Hawk,
+Blue Jay,,,,Blue Jay,Common,ITIS,179680,Blue Jay,
+Burrowing Owl,,,,Burrowing Owl,Common,ITIS,177946,Burrowing Owl,
+Little Blue Heron,,,,Little Blue Heron,Common,ITIS,174827,Little Blue Heron,
+Unidentified Cormorant,,,,,,,,,
+Unidentified Towhee,,,,,,,,,
+Unidentified Raptor,,,,,,,,,
+White-breasted Nuthatch,,,,White-breasted Nuthatch,Common,ITIS,178775,White-breasted Nuthatch,
+Black Vulture,,,,Black Vulture,Common,ITIS,175272,Black Vulture,
+Yellow Warbler,,,,Yellow Warbler,Common,ITIS,950039,Yellow Warbler,
+Bald Eagle,,,,Bald Eagle,Common,ITIS,175420,Bald Eagle,
+Cinnamon Teal,,,,Cinnamon Teal,Common,ITIS,175089,Cinnamon Teal,
+Cliff Swallow,,,,,,,,,
+Barn Swallow,,,,Barn Swallow,Common,ITIS,178448,Barn Swallow,
+Bell's Vireo,,,,Bell's Vireo,Common,ITIS,179003,Bell's Vireo,
+Bewick's Wren,,,,Bewick's Wren,Common,ITIS,178562,Bewick's Wren,
+Bendire's Thrasher,,,,Bendire's Thrasher,Common,ITIS,178636,Bendire's Thrasher,
+Lucy's Warbler,,,,Lucy's Warbler,Common,ITIS,950017,Lucy's Warbler,
+Eurasian Collared-Dove,,,,Eurasian Collared-Dove,Common,ITIS,177139,Eurasian Collared-Dove,
+Eared Grebe,,,,Eared Grebe,Common,ITIS,174485,Eared Grebe,
+Brown-crested Flycatcher,,,,Brown-crested Flycatcher,Common,ITIS,178312,Brown-crested Flycatcher,
+Chipping Sparrow,,,,Chipping Sparrow,Common,ITIS,179435,Chipping Sparrow,
+Lazuli Bunting,,,,Lazuli Bunting,Common,ITIS,179151,Lazuli Bunting,
+Rufous-crowned Sparrow,,,,Rufous-crowned Sparrow,Common,ITIS,179377,Rufous-crowned Sparrow,
+Unidentified Gnatcatcher,,,,,,,,,
+White-faced Ibis,,,,White-faced Ibis,Common,ITIS,174926,White-faced Ibis,
+Cassin's Kingbird,,,,Cassin's Kingbird,Common,ITIS,178288,Cassin's Kingbird,
+Bullock's Oriole,,,,Bullock's Oriole,Common,ITIS,554267,Bullock's Oriole,
+Wilson's Phalarope,,,,Wilson's Phalarope,Common,ITIS,176736,Wilson's Phalarope,
+Bank Swallow,,,,Bank Swallow,Common,ITIS,178436,Bank Swallow,
+Long-billed Curlew,,,,Long-billed Curlew,Common,ITIS,176593,Long-billed Curlew,
+Neotropic Cormorant,,,,Neotropic Cormorant,Common,ITIS,554375,Neotropic Cormorant,
+Hooded Oriole,,,,Hooded Oriole,Common,ITIS,179070,Hooded Oriole,
+Western Grebe,,,,Western Grebe,Common,ITIS,174503,Western Grebe,
+Bronzed Cowbird,,,,Bronzed Cowbird,Common,ITIS,179116,Bronzed Cowbird,
+Summer Tanager,,,,Summer Tanager,Common,ITIS,179888,Summer Tanager,
+Pacific Slope Flycatcher,,,,,,,,,
+Unidentified Duck,,,,,,,,,
+Canyon Towhee,,,,Canyon Towhee,Common,ITIS,997737,Canyon Towhee,
+Cedar Waxwing,,,,Cedar Waxwing,Common,ITIS,178532,Cedar Waxwing,
+Unidentified Thrasher,,,,,,,,,
+Prairie Falcon,,,,Prairie Falcon,Common,ITIS,175603,Prairie Falcon,
+Merlin,,,,Merlin,Common,ITIS,175613,Merlin,
+American Robin,,,,American Robin,Common,ITIS,179759,American Robin,
+Spotted Sandpiper,,,,Spotted Sandpiper,Common,ITIS,726049,Spotted Sandpiper,
+American Pipit,,,,American Pipit,Common,ITIS,554127,American Pipit,
+Yellow-rumped Warbler,,,,Yellow-rumped Warbler,Common,ITIS,950046,Yellow-rumped Warbler,
+Unidentified Empidonax Flycatcher,,,,,,,,,
+Unidentified Flicker,,,,,,,,,
+Unidentified Owl,,,,,,,,,
+Unidentified Yellowlegs,,,,,,,,,
+Bufflehead,,,,Bufflehead,Common,ITIS,175145,Bufflehead,
+Unidentified Bird,,,,,,,,,
+Unidentified Sandpiper,,,,,,,,,
+Wilson's Snipe,,,,Wilson's Snipe,Common,ITIS,726048,Wilson's Snipe,
+Ruddy Duck,,,,Ruddy Duck,Common,ITIS,175175,Ruddy Duck,
+Unidentified Dowitcher,,,,,,,,,
+Unidentified Blackbird,,,,,,,,,
+Common Merganser,,,,Common Merganser,Common,ITIS,175185,Common Merganser,
+Unidentified Egret,,,,,,,,,
+Ferruginous Hawk,,,,Ferruginous Hawk,Common,ITIS,175377,Ferruginous Hawk,
+Unidentified Gull,,,,,,,,,
+Unidentified Swallow,,,,,,,,,
+MacGillivray's Warbler,,,,MacGillivray's Warbler,Common,ITIS,950023,MacGillivray's Warbler,
+Great Horned Owl,,,,Great Horned Owl,Common,ITIS,177884,Great Horned Owl,
+Virginia's Warbler,,,,Virginia's Warbler,Common,ITIS,950019,Virginia's Warbler,
+Unidentified Yellow-rumped Warbler,,,,,,,,,
+Townsend's Warbler,,,,Townsend's Warbler,Common,ITIS,950058,Townsend's Warbler,
+Hermit Warbler,,,,Hermit Warbler,Common,ITIS,950059,Hermit Warbler,
+Black-headed Grosbeak,,,,Black-headed Grosbeak,Common,ITIS,179140,Black-headed Grosbeak,
+Vaux's Swift,,,,Vaux's Swift,Common,ITIS,178002,Vaux's Swift,
+Unidentified Wader,,,,,,,,,
+Unidentified Tanager,,,,,,,,,
+Black-chinned Sparrow,,,,Black-chinned Sparrow,Common,ITIS,179448,Black-chinned Sparrow,
+Western Tanager,,,,Western Tanager,Common,ITIS,179882,Western Tanager,
+Unidentified Kingbird,,,,,,,,,
+Black-bellied Whistling Duck,,,,Black-bellied Whistling Duck,Common,ITIS,175044,Black-bellied Whistling Duck,
+Rufous Hummingbird,,,,Rufous Hummingbird,Common,ITIS,178040,Rufous Hummingbird,
+Black-throated Gray Warbler,,,,Black-throated Gray Warbler,Common,ITIS,950057,Black-throated Gray Warbler,
+Lawrence's Goldfinch,,,,Lawrence's Goldfinch,Common,ITIS,179257,Lawrence's Goldfinch,
+Scott's Oriole,,,,Scott's Oriole,Common,ITIS,179082,Scott's Oriole,
+Gray Flycatcher,,,,Gray Flycatcher,Common,ITIS,178347,Gray Flycatcher,
+Unidentified Falcon,,,,,,,,,
+Unidentified Cowbird,,,,,,,,,
+Sharp-shinned Hawk,,,,Sharp-shinned Hawk,Common,ITIS,175304,Sharp-shinned Hawk,
+Steller's Jay,,,,Steller's Jay,Common,ITIS,179685,Steller's Jay,
+Unidentified Meadowlark,,,,,,,,,
+White-throated Sparrow,,,,White-throated Sparrow,Common,ITIS,179462,White-throated Sparrow,
+Lesser Scaup,,,,Lesser Scaup,Common,ITIS,175134,Lesser Scaup,
+Green-winged Teal,,,,Green-winged Teal,Common,ITIS,175081,Green-winged Teal,
+Lesser Yellowlegs,,,,Lesser Yellowlegs,Common,ITIS,176620,Lesser Yellowlegs,
+Sora,,,,,,,,,
+Unidentified Jay,,,,,,,,,
+Canvasback,,,,Canvasback,Common,ITIS,175129,Canvasback,
+Black-and-white Warbler,,,,Black-and-white Warbler,Common,ITIS,178844,Black-and-white Warbler,
+House Wren,,,,House Wren,Common,ITIS,178541,House Wren,
+Crissal Thrasher,,,,Crissal Thrasher,Common,ITIS,178652,Crissal Thrasher,
+Swamp Sparrow,,,,Swamp Sparrow,Common,ITIS,179488,Swamp Sparrow,
+Unidentified Wren,,,,,,,,,
+Virginia Rail,,,,Virginia Rail,Common,ITIS,176221,Virginia Rail,
+Lark Bunting,,,,Lark Bunting,Common,ITIS,179312,Lark Bunting,
+Vesper Sparrow,,,,Vesper Sparrow,Common,ITIS,179366,Vesper Sparrow,
+Unidentified Oriole,,,,,,,,,
+Common Nighthawk,,,,Common Nighthawk,Common,ITIS,177979,Common Nighthawk,
+Blue Grosbeak,,,,Blue Grosbeak,Common,ITIS,726198,Blue Grosbeak,
+Ovenbird,,,,Ovenbird,Common,ITIS,726205,Ovenbird,
+American White Pelican,,,,American White Pelican,Common,ITIS,174684,American White Pelican,
+Sage Thrasher,,,,Sage Thrasher,Common,ITIS,178654,Sage Thrasher,
+Zone-tailed Hawk,,,,Zone-tailed Hawk,Common,ITIS,175368,Zone-tailed Hawk,
+Cockatiel,,,,Cockatiel,Common,ITIS,177497,Cockatiel,
+African Collared-Dove,,,,,,,,,
+Yellow-breasted Chat,,,,Yellow-breasted Chat,Common,ITIS,178964,Yellow-breasted Chat,
+Common Goldeneye,,,,Common Goldeneye,Common,ITIS,175141,Common Goldeneye,
+Unidentified Accipiter Hawk,,,,,,,,,
+Unidentified Dove,,,,,,,,,
+Mountain Chickadee,,,,Mountain Chickadee,Common,ITIS,554385,Mountain Chickadee,
+Hooded Merganser,,,,Hooded Merganser,Common,ITIS,175183,Hooded Merganser,
+Hammond's Flycatcher,,,,Hammond's Flycatcher,Common,ITIS,554254,Hammond's Flycatcher,
+Bridled Titmouse,,,,Bridled Titmouse,Common,ITIS,554141,Bridled Titmouse,
+Plumbeous Vireo,,,,Plumbeous Vireo,Common,ITIS,554477,Plumbeous Vireo,
+Unidentified Buteo,,,,,,,,,
+Unidentified House Sparrow or Finch,,,,,,,,,
+Pyrrhuloxia,,,,Pyrrhuloxia,Common,ITIS,179132,Pyrrhuloxia,
+Pink-sided Junco,,,,,,,,,
+Warbling Vireo,,,,Warbling Vireo,Common,ITIS,179023,Warbling Vireo,
+Chinese Goose,,,,,,,,,
+Brown Pelican,,,,Brown Pelican,Common,ITIS,174685,Brown Pelican,
+Glossy Ibis,,,,Glossy Ibis,Common,ITIS,174924,Glossy Ibis,
+Yellow-throated Warbler,,,,Yellow-throated Warbler,Common,ITIS,950049,Yellow-throated Warbler,
+Franklin's Gull,,,,Franklin's Gull,Common,ITIS,824082,Franklin's Gull,
+Wood Stork,,,,Wood Stork,Common,ITIS,174897,Wood Stork,
+Hairy Woodpecker,,,,Hairy Woodpecker,Common,ITIS,178262,Hairy Woodpecker,
+Lewis's Woodpecker,,,,Lewis's Woodpecker,Common,ITIS,178196,Lewis's Woodpecker,
+Snow Goose,,,,Snow Goose,Common,ITIS,175038,Snow Goose,
+Unidentified Swift,,,,,,,,,
+Unidentified Parakeet,,,,,,,,,
+Acorn Woodpecker,,,,Acorn Woodpecker,Common,ITIS,178189,Acorn Woodpecker,
+Unidentified Goose,,,,,,,,,
+Magnolia Warbler,,,,Magnolia Warbler,Common,ITIS,950035,Magnolia Warbler,
+Domestic Goose,,,,,,,,,
+Unidentified Stilt,,,,,,,,,
+Townsend's Solitaire,,,,Townsend's Solitaire,Common,ITIS,179824,Townsend's Solitaire,
+Pine Siskin,,,,Pine Siskin,Common,ITIS,179246,Pine Siskin,
+American Crow,,,,American Crow,Common,ITIS,179731,American Crow,
+Common Poorwill,,,,Common Poorwill,Common,ITIS,555544,Common Poorwill,
+Unidentified Heron,,,,,,,,,
+Gray Vireo,,,,Gray Vireo,Common,ITIS,179008,Gray Vireo,
+Unidentified Myiarchus Flycatcher,,,,,,,,,
+Willet,,,,Willet,Common,ITIS,824147,Willet,
+Pacific/Winter Wren,,,,,,,,,
+Unidentified Shorebird,,,,,,,,,
+Broad-tailed Hummingbird,,,,Broad-tailed Hummingbird,Common,ITIS,178038,Broad-tailed Hummingbird,
+Unidentified Calidris Sandpiper,,,,,,,,,
+Unidentified Waterfowl,,,,,,,,,
+Unidentified Chordeiles Nighthawk,,,,,,,,,
+Clay-colored Sparrow,,,,Clay-colored Sparrow,Common,ITIS,179439,Clay-colored Sparrow,
+Willow Flycatcher,,,,Willow Flycatcher,Common,ITIS,178341,Willow Flycatcher,
+Monk Parakeet,,,,Monk Parakeet,Common,ITIS,177723,Monk Parakeet,
+Purple Martin,,,,Purple Martin,Common,ITIS,178464,Purple Martin,
+Myrtle Warbler,,,,Myrtle Warbler,Common,ITIS,950046,Myrtle Warbler,

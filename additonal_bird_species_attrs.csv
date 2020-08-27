@@ -1,0 +1,9 @@
+"attributeName","formatString","unit","numberType","definition","attributeDefinition","columnClasses","minimum","maximum"
+site_code,,,,survey location identifier,survey location identifier,character,,,,
+location_type,,,,,survey site type,factor,,,,
+survey_date,YYYY-MM-DD,,,,survey date,Date,,,,
+time_start,HH:MM:SS,,,survey start time,survey start time,character,,,,
+time_end,HH:MM:SS,,,survey end time,survey end time,character,,,,
+observer_name_part,,,,truncated name of surveyor,truncated name of surveyor,character,,,,
+code,,,,four-letter alpha code of observed taxon,four-letter alpha code of observed taxon,character,,,,
+common_name,,,,common name of observed taxon,common name of observed taxon,character,,,,
