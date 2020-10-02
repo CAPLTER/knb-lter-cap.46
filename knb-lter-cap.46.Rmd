@@ -1,76 +1,14 @@
 ---
-title: "remlTemplate"
-author: "SRE"
 date: Sys.Date()
 output: html_document
 editor_options: 
   chunk_output_type: console
 ---
 
-# notes
+# README
 
-## 2020-08-27 knb-lter-cap.46.17
+content moved to README.md
 
-In addition to a data refresh, knb-lter-cap.46.17 reflects the first
-publication of the other notable bird species data. Of some concern was whether
-to include the survey start and end times as these sightings are not actually
-part of the survey. Opted to include the times for lack of a better approach to
-indicate the approximate time and connection to other survey details, but
-consider other options in future updates.
-
-## 2019-04-04 knb-lter-cap.46.16
-
-- abstract & methods formatting
-
-The abstract & methods are unchanged between knb-lter-cap.46.15 and .16, so I
-simply copied the xml from version 15 into the output for version 16 rather than
-going through and fixing all of the markdown list issues that break the eml.
-Hopefully, EML 2.2 will be released by the time we visit version 17 such that we
-can address the markdown properly and without having to format by hand after
-construction.
-
-- taxonomicCoverage
-
-New approach is to use taxonomyCleanr to build the taxonomicCoverage. Note that
-at the time of this writing (and building knb-lter-cap.46.16), taxonomyCleanr
-had not been ported to rOpenSci EML v2, so I used a modified version.
-
-*Note* that the `taxa_map.csv` built with the `create_taxa_map()` function and
-resolving taxonomic IDs (i.e., `resolve_comm_taxa()`) only needs to be run once
-per version/session -- the taxonomicCoverage can be built as many times as
-needed with `resolve_comm_taxa()` once the `taxa_map.csv` has been generated and
-the taxonomic IDs resolved.
-
-- empty missing values
-
-The problem of NAs as missing values and the empty missingValue code that
-rOpenSci EML v2 produces has not been resolved at this time of this writing and
-constructing knb-lter-cap.46.16 (see https://github.com/CAPLTER/capeml/issues/4
-for more details). In the meantime, using a vim script to remove empty
-`missingValue` nodes from the eml.
-
-- end of line errors
-
-Carriage returns are not being interpreted properly. This is not an R problem as
-this is an issue even when the data are pulled straight from MySQL independently
-of R. I updated the lter34birds database to remove carriage returns from the
-offending fields (surveys.notes, surveys.human_activity_notes, birds.notes),
-which addressed the problem. However, it is possible that carriage returns could
-be used in future entries so be sure to check for this in the final output
-(using vim to search for `\r` is probably easiest).
-
-## 2016-12-02
-
-The meaning of 'flying' in the birds table is unclear. There are 1962 records
-where flying = 1. All of these except for two records have distance = FT.
-However, not all records where distance = FT have a distance = 1 (any any value
-for that matter). Adding confusion, in her metadata, Corinna has listed that
-flying = NULL is true, but then what would be the meaning of flying = 0, and
-that would mean that most birds were flying. I am not certain, but my impression
-is that flying was a precursor to FT. A "flying" option is not on the current
-datasheet, nor on an earlier one revised in 2004. I am going to omit flying from
-the publication of these data as I think it is more confusing than helpful (and
-I cannot explain its meaning).
 
 # libraries
 
@@ -80,7 +18,6 @@ library(tidyverse)
 library(tools)
 library(readxl)
 library(capeml)
-library(gioseml)
 ```
 
 # core birds
@@ -128,7 +65,58 @@ WHERE
   sites.sample LIKE 'riparian' OR
   sites.sample LIKE 'north desert village' OR
   sites.sample LIKE 'capiv' OR
-  (sites.sample LIKE 'SRBP' AND sites.site_code LIKE CONCAT('%','CORE'))
+  surveys.survey_id IN (
+    SELECT
+      srbp_core_ids.survey_id
+    FROM(
+      SELECT
+        surveys.survey_id,
+        sites.site_code,
+        sites.sample AS location_type,
+        surveys.survey_date
+      FROM lter34birds.surveys
+      JOIN lter34birds.sites ON (surveys.site_id = sites.site_id)
+      JOIN (
+        SELECT
+          subquery.site_id,
+          subquery.site_code,
+          subquery.reach,
+          GREATEST(
+            IFNULL(begin_date, '2000-01-01'),
+            IFNULL(begin, '2000-01-01')
+            ) AS begin_date,
+          LEAST(
+            IFNULL(end_date, DATE(NOW())),
+            IFNULL(end, DATE(NOW()))
+            ) AS end_date
+        FROM(
+          SELECT
+            srcs.site_id,
+            sites.site_code,
+            srcs.reach,
+            srcs.begin_date,
+            srcs.end_date,
+            CASE
+              WHEN srcs.end_date IS NULL THEN '2000-01-01'
+            END AS begin,
+            CASE
+              WHEN srcs.end_date IS NULL THEN DATE(NOW())
+            END AS end
+          FROM lter34birds.salt_river_core_sites srcs
+          JOIN lter34birds.sites ON (sites.site_id = srcs.site_id)
+          ) AS subquery
+      ) AS core_site_date ON (
+      surveys.site_id = core_site_date.site_id AND
+      surveys.survey_date BETWEEN core_site_date.begin_date AND core_site_date.end_date
+    )
+    WHERE 
+        (
+          MONTH(surveys.survey_date) IN (1, 2, 3, 4) OR
+            (MONTH(surveys.survey_date) IN (5) AND DAY(surveys.survey_date) <= 20)
+          ) OR
+        MONTH(surveys.survey_date) IN (12) AND DAY(surveys.survey_date) >= 15
+    ) AS srbp_core_ids
+  )
 ORDER BY survey_date
 LIMIT 500000;")
 
@@ -155,9 +143,9 @@ here but should be addressed in the database at some point.
 core_birds <- core_birds %>%
   separate(observer, c("name1", "name2", "name3"), " ", remove = T) %>%
   mutate(
-    namePart1 = toTitleCase(str_extract(name1, "\\b\\w{2}")),
-    namePart2 = toTitleCase(str_extract(name2, "\\b\\w{2}")),
-    namePart3 = toTitleCase(str_extract(name3, "\\b\\w{2}"))
+    namePart1 = tools::toTitleCase(str_extract(name1, "\\b\\w{2}")),
+    namePart2 = tools::toTitleCase(str_extract(name2, "\\b\\w{2}")),
+    namePart3 = tools::toTitleCase(str_extract(name3, "\\b\\w{2}"))
   ) %>%
   mutate(
     observer_name_part = case_when(
@@ -215,7 +203,7 @@ core_birds <- core_birds %>%
 
 ```{r core-birds-DT, eval=TRUE}
 
-# TEMP version 17
+# TEMP version 18
 core_birds <- core_birds %>%
   filter(survey_date <= "2019-05-03")
 
@@ -226,7 +214,8 @@ core_birds_desc <- "bird survey sampling details (site, date, time, observer, si
 
 core_birds_DT <- create_dataTable(
   dfname = core_birds,
-  description = core_birds_desc
+  description = core_birds_desc,
+  dateRangeField = "survey_date"
 )
 
 ```
@@ -254,10 +243,66 @@ WHERE
   sites.sample LIKE 'riparian' OR
   sites.sample LIKE 'north desert village' OR
   sites.sample LIKE 'capiv' OR
-  (sites.sample LIKE 'SRBP' AND sites.site_code LIKE CONCAT('%','CORE'))
-ORDER BY survey_date;")
+  surveys.survey_id IN (
+    SELECT
+      srbp_core_ids.survey_id
+    FROM(
+      SELECT
+        surveys.survey_id,
+        sites.site_code,
+        sites.sample AS location_type,
+        surveys.survey_date
+      FROM lter34birds.surveys
+      JOIN lter34birds.sites ON (surveys.site_id = sites.site_id)
+      JOIN (
+        SELECT
+          subquery.site_id,
+          subquery.site_code,
+          subquery.reach,
+          GREATEST(
+            IFNULL(begin_date, '2000-01-01'),
+            IFNULL(begin, '2000-01-01')
+            ) AS begin_date,
+          LEAST(
+            IFNULL(end_date, DATE(NOW())),
+            IFNULL(end, DATE(NOW()))
+            ) AS end_date
+        FROM(
+          SELECT
+            srcs.site_id,
+            sites.site_code,
+            srcs.reach,
+            srcs.begin_date,
+            srcs.end_date,
+            CASE
+              WHEN srcs.end_date IS NULL THEN '2000-01-01'
+            END AS begin,
+            CASE
+              WHEN srcs.end_date IS NULL THEN DATE(NOW())
+            END AS end
+          FROM lter34birds.salt_river_core_sites srcs
+          JOIN lter34birds.sites ON (sites.site_id = srcs.site_id)
+          ) AS subquery
+      ) AS core_site_date ON (
+      surveys.site_id = core_site_date.site_id AND
+      surveys.survey_date BETWEEN core_site_date.begin_date AND core_site_date.end_date
+    )
+    WHERE 
+        (
+          MONTH(surveys.survey_date) IN (1, 2, 3, 4) OR
+            (MONTH(surveys.survey_date) IN (5) AND DAY(surveys.survey_date) <= 20)
+          ) OR
+        MONTH(surveys.survey_date) IN (12) AND DAY(surveys.survey_date) >= 15
+    ) AS srbp_core_ids
+  )
+ORDER BY survey_date
+LIMIT 500000;")
 
 additonal_bird_species[additonal_bird_species == ""] <- NA # lots of missing values, convert to NA
+
+# TEMP version 18
+additonal_bird_species <- additonal_bird_species %>%
+  filter(survey_date <= "2019-05-03")
 
 additonal_bird_species <- additonal_bird_species %>%
   mutate(observer = toupper(observer)) %>%
@@ -295,7 +340,8 @@ additonal_bird_species_desc <- "additional bird species seen using the habitat b
 
 additonal_bird_species_DT <- create_dataTable(
   dfname = additonal_bird_species,
-  description = additonal_bird_species_desc
+  description = additonal_bird_species_desc,
+  dateRangeField = "survey_date"
 )
 
 ```
@@ -320,83 +366,96 @@ exported it to KML for inclusion here. These spatial data include also the most
 up-to-date SRBP core sites (core sites only!). I will update 160 with a
 reference to this data set.
 
-the purpose of this nightmare query is to:
+The purpose of this query is to:
+
 1. use the NOT NULL record if any end_date_year in a site group is NOT NULL
 2. use the MAX end_date_year record if all records in a site group have an
    end_date_year
+3. SRBP sites are in thier own query to ease referencing the
+   salt_river_core_sites table
 
 ## core-bird-locations-SQL
 
 ```{r core-bird-locations-SQL, eval=TRUE}
 
 core_bird_locations <- dbGetQuery(mysql_prod, "
-(SELECT
-  any_null.count_any_null,
-  s.site_code,
-  CASE
-  WHEN s.sample LIKE '200 point' THEN 'ESCA'
-  WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
-  ELSE s.sample
-  END AS location_type,
-  blh.lat,
-  blh.`long`,
-  blh.end_date_year
-FROM lter34birds.birds_location_histories blh
-JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
-LEFT JOIN
 (
   SELECT
-  s.site_code,
-  COUNT(s.site_code) AS count_any_null
+    s.site_code,
+    CASE
+      WHEN s.sample LIKE '200 point' THEN 'ESCA'
+      WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
+      ELSE s.sample
+    END AS location_type,
+    blh.lat,
+    blh.`long`
   FROM lter34birds.birds_location_histories blh
   JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
-  WHERE blh.end_date_year IS NULL
-  GROUP BY s.site_code
-) AS any_null ON (any_null.site_code = s.site_code)
-WHERE
-(
-  s.sample LIKE '200 point' OR
-  s.sample LIKE 'riparian' OR
-  s.sample LIKE 'capiv' OR
-  s.sample LIKE 'north desert village' OR
-  (s.sample LIKE 'SRBP' AND s.site_code LIKE CONCAT('%','CORE'))
-  ) AND
-  any_null.count_any_null >= 1 AND
-  blh.end_date_year IS NULL)
-UNION
-(SELECT
-  any_null.count_any_null,
-  s.site_code,
-  CASE
-  WHEN s.sample LIKE '200 point' THEN 'ESCA'
-  WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
-  ELSE s.sample
-  END AS location_type,
-  blh.lat,
-  blh.`long`,
-  MAX(blh.end_date_year)
-FROM lter34birds.birds_location_histories blh
-JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
-LEFT JOIN
-(
-  SELECT
-  s.site_code,
-  COUNT(s.site_code) AS count_any_null
-  FROM lter34birds.birds_location_histories blh
-  JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
-  WHERE blh.end_date_year IS NULL
-  GROUP BY s.site_code
-  ) AS any_null ON (any_null.site_code = s.site_code)
-WHERE
+  LEFT JOIN
   (
-  s.sample LIKE '200 point' OR
-  s.sample LIKE 'riparian' OR
-  s.sample LIKE 'capiv' OR
-  s.sample LIKE 'north desert village' OR
-  (s.sample LIKE 'SRBP' AND s.site_code LIKE CONCAT('%','CORE'))
-  ) AND
-  any_null.count_any_null IS NULL
-GROUP BY s.site_code)
+    SELECT
+      s.site_code,
+      COUNT(s.site_code) AS count_any_null
+    FROM lter34birds.birds_location_histories blh
+    JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+    WHERE blh.end_date_year IS NULL
+    GROUP BY s.site_code
+  ) AS any_null ON (any_null.site_code = s.site_code)
+  WHERE
+    s.sample NOT LIKE 'SRBP' AND
+    any_null.count_any_null >= 1 AND
+    blh.end_date_year IS NULL
+)
+UNION
+(
+  SELECT
+    s.site_code,
+    CASE
+      WHEN s.sample LIKE '200 point' THEN 'ESCA'
+      WHEN s.sample LIKE 'North Desert Village' THEN 'NDV'
+      ELSE s.sample
+      END AS location_type,
+    blh.lat,
+    blh.`long`
+  FROM lter34birds.birds_location_histories blh
+  JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+  LEFT JOIN
+  (
+    SELECT
+      s.site_code,
+      COUNT(s.site_code) AS count_any_null
+    FROM lter34birds.birds_location_histories blh
+    JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+    WHERE blh.end_date_year IS NULL
+    GROUP BY s.site_code
+    ) AS any_null ON (any_null.site_code = s.site_code)
+  WHERE
+    s.sample NOT LIKE 'SRBP' AND
+    any_null.count_any_null IS NULL
+  GROUP BY s.site_code
+)
+UNION
+(
+  SELECT
+    sites.site_code,
+    sites.sample AS location_type,
+    coordinates.lat,
+    coordinates.`long`
+  FROM lter34birds.salt_river_core_sites srcs
+  JOIN lter34birds.sites ON (sites.site_id = srcs.site_id)
+  JOIN (
+    SELECT
+      s.site_id,
+      s.site_code,
+      blh.lat,
+      blh.`long`
+    FROM lter34birds.birds_location_histories blh
+    JOIN lter34birds.sites s ON (s.site_id = blh.site_id)
+    WHERE blh.end_date_year IS NULL
+  ) AS coordinates ON (coordinates.site_id = srcs.site_id)
+  WHERE
+    srcs.end_date IS NULL
+)
 ORDER BY location_type, site_code;")
 
 ```
@@ -414,12 +473,14 @@ entities than site codes.
 
 core_bird_locations <- core_bird_locations %>%
   mutate(
-    location_type = replace(location_type, site_code %in% CAPIV_DesFert, "DesertFertilization"),
-    location_type = replace(location_type, site_code %in% CAPIV_PASS, "PASS")
-  ) %>%
-  select(-count_any_null, -end_date_year) %>%
-  rename(Name = site_code) %>%
-  arrange(location_type, Name)
+    location_type = case_when(
+      site_code %in% CAPIV_DesFert ~ "DesertFertilization",
+      site_code %in% CAPIV_PASS ~ "PASS",
+      TRUE ~ location_type 
+    )
+    ) %>%
+rename(Name = site_code) %>%
+arrange(location_type, Name)
 
 ```
 
@@ -451,6 +512,21 @@ core_bird_locations_SV <- create_spatialVector(
 
 ```{r people}
 
+library(gioseml)
+
+# S. Lerman constructed separately to accomodate middle initial
+susannahOrcid <- EML::eml$userId(directory = "https://orcid.org")
+susannahOrcid$userId <- "0000-0002-2331-8439"
+
+susannah <- EML::eml$creator(
+  individualName = EML::eml$individualName(
+    givenName = c("Susannah", "B"),
+    surName = "Lerman"),
+  electronicMailAddress = "slerman@cns.umass.edu",
+  organizationName = "USDA Forest Service Northern Research Station",
+  userId = susannahOrcid
+)
+
 paige <- create_role(
   firstName = "paige",
   lastName = "warren",
@@ -466,11 +542,11 @@ madhu <- create_role(
   lastName = "katti",
   roleType = "creator"
 )
-susannah <- create_role(
-  firstName = "sus",
-  lastName = "lerman",
-  roleType = "creator"
-)
+# susannah <- create_role(
+#   firstName = "sus",
+#   lastName = "lerman",
+#   roleType = "creator"
+# )
 eyal <- create_role(
   firstName = "eyal",
   lastName = "shochat",
@@ -500,14 +576,13 @@ metadataProvider <- list(stevan)
 
 begindate <- as.character(min(core_birds$survey_date))
 enddate <- as.character(max(core_birds$survey_date))
-geographicDescription <- "CAP LTER study area"
-coverage <- set_coverage(begin = begindate,
-                         end = enddate,
-                         # sci_names = c("Salix spp",
-                         #               "Ambrosia deltoidea"),
-                         geographicDescription = geographicDescription,
-                         west = -112.742, east = -111.622,
-                         north = +33.8814, south = +33.2187)
+geographicDescription <- "CAP LTER study area: greater Phoenix, Arizona (USA) metropolitan area and surrounding Sonoran desert region"
+coverage <- set_coverage(
+  begin = begindate,
+  end = enddate,
+  geographicDescription = geographicDescription,
+  west = -112.742, east = -111.622,
+  north = +33.8814, south = +33.2187)
 
 ```
 
@@ -657,6 +732,7 @@ list.files(pattern = paste0(packageNum, "_"))
 Move data and final xml files to respective ASU locations.
 
 ```{r S3_helper_functions}
+
 # functions and setting for uploading to S3
 library(aws.s3)
 source("~/Documents/localSettings/aws.s3")
