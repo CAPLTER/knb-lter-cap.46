@@ -27,6 +27,7 @@ the published data.
   error checking and confirmation is included in this repository as
   `SRBP_core_site_surveys.R`.
 * Include S. Lerman middle initial
+* data limited to most recently QC's set: 2019-05-03
 
 ### knb-lter-cap.46.17 *2020-08-27*
 

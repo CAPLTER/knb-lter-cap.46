@@ -203,10 +203,6 @@ core_birds <- core_birds %>%
 
 ```{r core-birds-DT, eval=TRUE}
 
-# TEMP version 18
-core_birds <- core_birds %>%
-  filter(survey_date <= "2019-05-03")
-
 # write_attributes(core_birds)
 # write_factors(core_birds)
 
@@ -299,10 +295,6 @@ ORDER BY survey_date
 LIMIT 500000;")
 
 additonal_bird_species[additonal_bird_species == ""] <- NA # lots of missing values, convert to NA
-
-# TEMP version 18
-additonal_bird_species <- additonal_bird_species %>%
-  filter(survey_date <= "2019-05-03")
 
 additonal_bird_species <- additonal_bird_species %>%
   mutate(observer = toupper(observer)) %>%
