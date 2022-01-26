@@ -1,0 +1,68 @@
+|
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'survey location identifier'
+    columnClasses: character
+    definition: ''
+  location_type:
+    attributeName: location_type
+    attributeDefinition: 'general physical or research context of the study site'
+    columnClasses: factor
+  lat:
+    attributeName: lat
+    attributeDefinition: 'survey site latitude'
+    unit: 'degree'
+    numberType: real
+    minimum: 33.20731
+    maximum: 33.8814222
+    columnClasses: numeric
+  long:
+    attributeName: long
+    attributeDefinition: 'survey site longitude'
+    unit: 'degree'
+    numberType: real
+    minimum: -112.7419246
+    maximum: -111.57948
+    columnClasses: numeric
+  begin_date:
+    attributeName: begin_date
+    attributeDefinition: 'date that survey site location was repositioned or recalibrated'
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  begin_date_month:
+    attributeName: begin_date_month
+    attributeDefinition: 'month that survey site location was repositioned or recalibrated'
+    unit: 'number'
+    numberType: natural
+    minimum: 1.0
+    maximum: 4.0
+    columnClasses: numeric
+  begin_date_year:
+    attributeName: begin_date_year
+    attributeDefinition: 'year that survey site location was repositioned or recalibrated'
+    unit: 'number'
+    numberType: natural
+    minimum: 2013.0
+    maximum: 2018.0
+    columnClasses: numeric
+  end_date:
+    attributeName: end_date
+    attributeDefinition: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  end_date_month:
+    attributeName: end_date_month
+    attributeDefinition: ''
+    unit: ''
+    numberType: natural
+    minimum: 1.0
+    maximum: 8.0
+    columnClasses: numeric
+  end_date_year:
+    attributeName: end_date_year
+    attributeDefinition: ''
+    unit: ''
+    numberType: natural
+    minimum: 2001.0
+    maximum: 2018.0
+    columnClasses: numeric

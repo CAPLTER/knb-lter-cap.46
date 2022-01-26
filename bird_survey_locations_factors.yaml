@@ -1,0 +1,16 @@
+|
+  - attribute:
+      attributeName: location_type
+      levels:
+      - code: desert_fertilization
+        definition: 'Phoenix area mountain parks that are part of the CAP LTER Desert Fertilization study'
+      - code: ESCA
+        definition: 'colocated with CAP LTER Ecological Survey of Central Arizona (ESCA) project sites'
+      - code: NDV
+        definition: 'colocated with CAP LTER experimental sites at the North Desert Village on the ASU Polytechnic Campus'
+      - code: PASS
+        definition: 'colocated with CAP LTER Phoenix Area Social Survey (PASS) study neighborhoods'
+      - code: riparian
+        definition: 'urban riparian habitat'
+      - code: SRBP
+        definition: 'colocated with CAP LTER Salt River Biological Project (SRBP) study sites'

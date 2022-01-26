@@ -1,0 +1,27 @@
+|
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'survey location identifier'
+    columnClasses: character
+    definition: ''
+  location_type:
+    attributeName: location_type
+    attributeDefinition: 'survey site type'
+    columnClasses: character
+    definition: ''
+  lat:
+    attributeName: lat
+    attributeDefinition: 'latitude'
+    unit: 'degrees'
+    numberType: real
+    minimum: 33.20731
+    maximum: 33.8814222
+    columnClasses: numeric
+  long:
+    attributeName: long
+    attributeDefinition: 'longitude'
+    unit: 'degrees'
+    numberType: real
+    minimum: -112.7419246
+    maximum: -111.57948
+    columnClasses: numeric

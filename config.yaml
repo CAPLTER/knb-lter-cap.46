@@ -1,5 +1,8 @@
 packageNum: 46
-packageIdent: knb-lter-cap.46.18
+packageIdent: knb-lter-cap.46.19
+baseURL: https://data.gios.asu.edu/datasets/cap/
+project: lter
 title: "Point-count bird censusing: long-term monitoring of bird abundance and diversity in central Arizona-Phoenix, ongoing since 2000"
+maintenance: regular
 geographicCoverage:
   geographicDescription: "CAP LTER study area: greater Phoenix, Arizona (USA) metropolitan area and surrounding Sonoran desert region"

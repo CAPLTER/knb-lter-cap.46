@@ -1,0 +1,68 @@
+|
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'survey location identifier'
+    columnClasses: character
+    definition: ''
+  location_type:
+    attributeName: location_type
+    attributeDefinition: 'general physical or research context of the study site'
+    columnClasses: factor
+  lat:
+    attributeName: lat
+    attributeDefinition: 'survey site latitude'
+    unit: 'degree'
+    numberType: real
+    minimum: 33.20731
+    maximum: 33.8814222
+    columnClasses: numeric
+  long:
+    attributeName: long
+    attributeDefinition: 'survey site longitude'
+    unit: 'degree'
+    numberType: real
+    minimum: -112.7419246
+    maximum: -111.57948
+    columnClasses: numeric
+  begin_date:
+    attributeName: begin_date
+    attributeDefinition: 'beginning date of survey site at repositioned or recalibrated location'
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  begin_date_month:
+    attributeName: begin_date_month
+    attributeDefinition: 'beginning month of survey site at repositioned or recalibrated location'
+    unit: 'number'
+    numberType: natural
+    minimum: 1
+    maximum: 4
+    columnClasses: numeric
+  begin_date_year:
+    attributeName: begin_date_year
+    attributeDefinition: 'beginning year of survey site at repositioned or recalibrated location'
+    unit: 'number'
+    numberType: natural
+    minimum: 2013
+    maximum: 2018
+    columnClasses: numeric
+  end_date:
+    attributeName: end_date
+    attributeDefinition: 'ending date of survey at previous or current position'
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  end_date_month:
+    attributeName: end_date_month
+    attributeDefinition: 'ending month of survey at previous or current position'
+    unit: 'number'
+    numberType: natural
+    minimum: 1
+    maximum: 8
+    columnClasses: numeric
+  end_date_year:
+    attributeName: end_date_year
+    attributeDefinition: 'ending year of survey at previous or current position'
+    unit: 'number'
+    numberType: natural
+    minimum: 2001
+    maximum: 2018
+    columnClasses: numeric

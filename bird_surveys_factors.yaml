@@ -1,0 +1,67 @@
+|
+  - attribute:
+      attributeName: location_type
+      levels:
+      - code: desert_fertilization
+        definition: 'Phoenix area mountain parks that are part of the CAP LTER Desert Fertilization study'
+      - code: ESCA
+        definition: 'colocated with CAP LTER Ecological Survey of Central Arizona (ESCA) project sites'
+      - code: NDV
+        definition: 'colocated with CAP LTER experimental sites at the North Desert Village on the ASU Polytechnic Campus'
+      - code: PASS
+        definition: 'colocated with CAP LTER Phoenix Area Social Survey (PASS) study neighborhoods'
+      - code: riparian
+        definition: 'urban riparian habitat'
+      - code: SRBP
+        definition: 'colocated with CAP LTER Salt River Biological Project (SRBP) study sites'
+  - attribute:
+      attributeName: wind_dir
+      levels:
+      - code: E
+        definition: east
+      - code: 'N'
+        definition: north
+      - code: NE
+        definition: northeast
+      - code: NW
+        definition: northwest
+      - code: S
+        definition: south
+      - code: SE
+        definition: southeast
+      - code: SW
+        definition: southwest
+      - code: W
+        definition: west
+  - attribute:
+      attributeName: wind
+      levels:
+      - code: gusts
+        definition: 'wind gusts during the survey window'
+      - code: light
+        definition: 'light wind during the survey window'
+      - code: none
+        definition: 'no perceptible wind during the survey window'
+  - attribute:
+      attributeName: precipitation
+      levels:
+      - code: light_rain
+        definition: 'light rain during the survey window'
+      - code: none
+        definition: 'no precipitation during the survey window'
+  - attribute:
+      attributeName: disturbances
+      levels:
+      - code: 'FALSE'
+        definition: 'no perceptible disturbance to observer or in the vicinity during the survey window'
+      - code: 'TRUE'
+        definition: 'disturbance occurred during the survey'
+  - attribute:
+      attributeName: noise_level
+      levels:
+      - code: high
+        definition: 'high level of noise during the survey'
+      - code: low
+        definition: 'low level noise during the survey'
+      - code: none
+        definition: 'no noise during survey'

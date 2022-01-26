@@ -13,6 +13,30 @@ datasheet, nor on an earlier one revised in 2004. Given that the meaning of
 "flying" is not clear nor particularly additive, those data are not included in
 the published data.
 
+### knb-lter-cap.46.19 *2021-01-21*
+
+This version reflects the first to be based on the new database migrated from
+MySQL::lter34birds to postgresql::core_birds. Data quality and structure were
+greatly improved as part of the migration, which translated into reduced and
+more efficient code at this publishing step.
+
+- unfortunately, this version does not include new data as, even at this time,
+  spring 2019 are still the most recently QC'd data
+- core_birds that had reflected both survey details and bird observations was
+  split into separate bird_observations and bird_surveys data tables
+- additional_bird_observations was merged as a single field into bird_surveys
+- full location history provided
+  + the only practical way to do this is in tabular form so location data are
+    now included as a tabular resource with latitudes and longitudes
+  + because any given site can have multiple locations, there was not a
+    practical way to present the locations as a spatial resource without
+    somehow incorporating begin and end dates so these are now presented only
+    in tabular form
+  - also because of the aforementioned, only a single bounding box for all
+    sites is included for the geographic coverage (rather than a point for each
+    site)
+* data limited to most recently QC'd set: 2019-05-03
+
 ### knb-lter-cap.46.18 *2020-10-02*
 
 * data refresh
@@ -27,7 +51,7 @@ the published data.
   error checking and confirmation is included in this repository as
   `SRBP_core_site_surveys.R`.
 * Include S. Lerman middle initial
-* data limited to most recently QC's set: 2019-05-03
+* data limited to most recently QC'd set: 2019-05-03
 
 ### knb-lter-cap.46.17 *2020-08-27*
 
@@ -38,7 +62,7 @@ the published data.
   lack of a better approach to indicate the approximate time and connection to
   other survey details, but consider other options in future updates.
 
-## knb-lter-cap.46.16 *2019-04-04*
+### knb-lter-cap.46.16 *2019-04-04*
 
 - abstract & methods formatting
 
