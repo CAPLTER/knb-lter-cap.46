@@ -174,7 +174,7 @@ in the above chunk.
 ```{r bird-observations-filter, eval=TRUE}
 
 bird_observations <- bird_observations |>
-  dplyr::filter(survey_date <= "2019-09-01")
+  dplyr::filter(survey_date <= "2021-03-01")
 
 ```
 
@@ -367,7 +367,7 @@ in the above chunk.
 ```{r bird-surveys-filter, eval=TRUE}
 
 bird_surveys <- bird_surveys |>
-  dplyr::filter(survey_date <= "2019-09-01")
+  dplyr::filter(survey_date <= "2021-03-01")
 
 ```
 
@@ -620,10 +620,10 @@ coverage <- EML::set_coverage(
   begin                 = begindate,
   end                   = enddate,
   geographicDescription = geo_desc,
-  west                  = min(bird_survey_locations$long),
-  east                  = max(bird_survey_locations$long),
-  north                 = max(bird_survey_locations$lat),
-  south                 = min(bird_survey_locations$lat)
+  west                  = sf::st_bbox(bird_survey_locations)[["xmin"]],
+  east                  = sf::st_bbox(bird_survey_locations)[["xmax"]],
+  north                 = sf::st_bbox(bird_survey_locations)[["ymax"]],
+  south                 = sf::st_bbox(bird_survey_locations)[["ymin"]]
 )
 
 # as_spatial <- sf::st_as_sf(
@@ -754,23 +754,6 @@ source("~/Documents/localSettings/aws.s3")
 lapply(list.files(pattern = paste0(packageNum, "_")), gioseml::data_to_amz)
 ```
 
-```{r clean_up}
-
-# remove data files
-dataFilesToRemove <- dir(pattern = paste0(packageNum, "_"))
-file.remove(dataFilesToRemove)
-
-# EML to S3
-gioseml::eml_to_amz(paste0(packageIdent, ".xml"))
-
-# EML to cap-data-eml and remove file from project
-file.copy(
-  from = paste0(packageIdent, ".xml"),
-  to   = "/home/srearl/localRepos/cap-metadata/cap-data-eml/"
-)
-file.remove(paste0(packageIdent, ".xml"))
-
-```
 
 # EDI
 
@@ -792,14 +775,14 @@ EDIutils::login(
 evaluation <- EDIutils::evaluate_data_package(
   eml         = paste0(packageIdent, ".xml"),
   useChecksum = FALSE,
-  env         = "production"
+  env         = "staging"
 )
 
 Sys.sleep(10)
 
 eval_status <- EDIutils::check_status_evaluate(
   transaction = evaluation,
-  env         = "production"
+  env         = "staging"
 )
 
 if (eval_status) {
@@ -808,7 +791,7 @@ if (eval_status) {
 
   EDIutils::read_evaluate_report_summary(
     transaction = evaluation,
-    env         = "production"
+    env         = "staging"
   )
 
 }
@@ -838,5 +821,25 @@ EDIutils::update_data_package(
 ```{r edi-logout, eval=TRUE, echo=TRUE, message=TRUE}
 
 EDIutils::logout()
+
+```
+
+# post processing
+
+```{r clean_up}
+
+# remove data files
+dataFilesToRemove <- dir(pattern = paste0(packageNum, "_"))
+file.remove(dataFilesToRemove)
+
+# EML to S3
+gioseml::eml_to_amz(paste0(packageIdent, ".xml"))
+
+# EML to cap-data-eml and remove file from project
+file.copy(
+  from = paste0(packageIdent, ".xml"),
+  to   = "/home/srearl/localRepos/cap-metadata/cap-data-eml/"
+)
+file.remove(paste0(packageIdent, ".xml"))
 
 ```

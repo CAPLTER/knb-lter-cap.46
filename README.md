@@ -13,6 +13,10 @@ datasheet, nor on an earlier one revised in 2004. Given that the meaning of
 "flying" is not clear nor particularly additive, those data are not included in
 the published data.
 
+### knb-lter-cap.46.20 *2022-05-12*
+
+* data refresh
+
 ### knb-lter-cap.46.19 *2021-01-21*
 
 This version reflects the first to be based on the new database migrated from
