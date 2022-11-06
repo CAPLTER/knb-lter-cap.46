@@ -187,14 +187,6 @@ try({
   capeml::write_factors(bird_observations, overwrite = FALSE)
 })
 
-bird_observations_desc <- "bird survey sampling details (site, date, time, observer) and birds observed during the survey windows (type, number, distance from observer, behavior)"
-
-bird_observations_DT <- capeml::create_dataTable(
-  dfname         = bird_observations,
-  description    = bird_observations_desc,
-  dateRangeField = "survey_date"
-)
-
 ```
 
 # bird surveys
@@ -364,7 +356,7 @@ the full sample set to only those data that are QC'd in this workflow.
 Addressed at this step as survey_date has been explicitly declared a date type
 in the above chunk.
 
-```{r bird-surveys-filter, eval=TRUE}
+```{r bird-surveys-filter, eval=FALSE}
 
 bird_surveys <- bird_surveys |>
   dplyr::filter(survey_date <= "2021-03-01")
@@ -375,20 +367,10 @@ bird_surveys <- bird_surveys |>
 
 ```{r bird-surveys, eval=TRUE}
 
-dplyr::glimpse(bird_surveys)
-
 try({
   capeml::write_attributes(bird_surveys, overwrite = FALSE)
   capeml::write_factors(bird_surveys, overwrite = FALSE)
 })
-
-bird_surveys_desc <- "bird survey sampling details including survey location, date, times, observer, conditions at the site during the survey, and birds and other animals observed at the survey site but outside the designated survey window"
-
-bird_surveys_DT <- capeml::create_dataTable(
-  dfname         = bird_surveys,
-  description    = bird_surveys_desc,
-  dateRangeField = "survey_date"
-)
 
 ```
 
@@ -497,44 +479,38 @@ bird_survey_locations <- bird_survey_locations |>
 
 ```{r bird-survey-locations, eval=TRUE}
 
-dplyr::glimpse(bird_survey_locations)
-
 try({
   capeml::write_attributes(bird_survey_locations, overwrite = FALSE)
   capeml::write_factors(bird_survey_locations, overwrite = FALSE)
 })
 
-bird_survey_locations_desc <- "Geographic position of bird survey locations. The precise position of many survey locations has changed over the course of the study, either intentionally to accommodate changes at or near the study site or indirectly reflecting updated GPS positions. Survey sites that have moved have an associated end date corresponding to when the position moved or was recalibrated, either as a date or month and year if the exact day of repositioning is not known. Begin dates correspond to the earliest survey at that position or, in the case of sites that have moved (i.e., have an end date), the earliest survey after the end date."
-
-bird_survey_locations_DT <- capeml::create_dataTable(
-  dfname      = bird_survey_locations,
-  description = bird_survey_locations_desc
-)
-
 ```
 
-## locations: as spatial
+# locations: as spatial
 
 Locations presented only as tabular data beginning with version 19, code is
 left here for posterity and possible future use.
 
 ```{r bird_survey_locations-convert-to-spatial, eval=FALSE}
 
-bird_survey_locations <- sf::st_as_sf(
-  x      = bird_survey_locations,
+bird_survey_locations_spatial <- bird_survey_locations |>
+  dplyr::mutate(location_type = as.character(location_type))
+
+bird_survey_locations_spatial <- sf::st_as_sf(
+  x      = bird_survey_locations_spatial,
   coords = c("long", "lat"),
   crs    = 4326
 )
 
 try({
-  capeml::write_attributes(bird_survey_locations, overwrite = FALSE)
+  capeml::write_attributes(bird_survey_locations_spatial, overwrite = FALSE)
 })
 
-core_bird_locations_desc <- "bird survey locations at select locations in and around the greater Phoenix metropolitan area"
+bird_survey_locations_spatial_desc <- "bird survey locations at select locations in and around the greater Phoenix metropolitan area"
 
 core_bird_locations_SV <- capemlGIS::create_vector(
-  vector_nam     = bird_survey_locations,
-  description    = core_bird_locations_desc,
+  vector_nam     = bird_survey_locations_spatial,
+  description    = bird_survey_locations_spatial_desc,
   driver         = "GeoJSON"
 )
 
@@ -603,7 +579,7 @@ metadataProvider <- list(stevan)
 
 As the only practical way to present the birding location with their histories
 is in tabular form, those data are now presented as a table with their
-latitutes and longitudes, a spatialVector is not included. Correspondingly,
+latitudes and longitudes, a spatialVector is not included. Correspondingly,
 only a single bounding box for all sites is included for the geographic
 coverage (rather than a point for each site); commented code is included to
 detail coverages as point data but required would be a way to distinguish sites
@@ -614,16 +590,16 @@ configured, the site_code is the description.
 
 begindate <- as.character(min(bird_surveys$survey_date))
 enddate   <- as.character(max(bird_surveys$survey_date))
-geo_desc  <- yaml::yaml.load_file("config.yaml")$geographicCoverage$geographicDescription
+geo_desc  <- yaml::yaml.load_file("config.yaml")$geographic_description
 
 coverage <- EML::set_coverage(
   begin                 = begindate,
   end                   = enddate,
   geographicDescription = geo_desc,
-  west                  = sf::st_bbox(bird_survey_locations)[["xmin"]],
-  east                  = sf::st_bbox(bird_survey_locations)[["xmax"]],
-  north                 = sf::st_bbox(bird_survey_locations)[["ymax"]],
-  south                 = sf::st_bbox(bird_survey_locations)[["ymin"]]
+  west                  = sf::st_bbox(bird_survey_locations_spatial)[["xmin"]],
+  east                  = sf::st_bbox(bird_survey_locations_spatial)[["xmax"]],
+  north                 = sf::st_bbox(bird_survey_locations_spatial)[["ymax"]],
+  south                 = sf::st_bbox(bird_survey_locations_spatial)[["ymin"]]
 )
 
 # as_spatial <- sf::st_as_sf(
@@ -696,6 +672,7 @@ coverage$taxonomicCoverage <- taxaCoverage
 
 ```
 
+
 # dataset
 
 ```{r construct-dataset}
@@ -721,6 +698,7 @@ EML::eml_validate(eml)
 capeml::write_cap_eml()
 ```
 
+
 # file placement
 
 ```{r package-details, eval=TRUE}
@@ -729,14 +707,21 @@ capeml::write_cap_eml()
 if (!file.exists("config.yaml")) {
   stop("config.yaml not found")
 }
-packageIdent <- yaml::yaml.load_file("config.yaml")$packageIdent
-packageNum   <- yaml::yaml.load_file("config.yaml")$packageNum
+package_configs <- capeml::read_package_configuration()
+identifier      <- package_configs$identifier
+scope           <- package_configs$scope
+
+version <- capeml::get_next_version(
+  provided_scope      = scope,
+  provided_identifier = identifier
+)
+
 ```
 
 ```{r preview_data_file_to_upload}
 
 # preview data set files that will be uploaded to S3
-list.files(pattern = paste0(packageNum, "_"))
+(data_files_to_upload <- list.files(pattern = "^46_"))
 ```
 
 Move data and final xml files to respective ASU locations.
@@ -751,9 +736,8 @@ source("~/Documents/localSettings/aws.s3")
 ```{r upload_data_S3}
 
 # upload files to S3
-lapply(list.files(pattern = paste0(packageNum, "_")), gioseml::data_to_amz)
+lapply(data_files_to_upload, gioseml::data_to_amz)
 ```
-
 
 # EDI
 
@@ -762,8 +746,8 @@ lapply(list.files(pattern = paste0(packageNum, "_")), gioseml::data_to_amz)
 ```{r edi-login, eval=TRUE, echo=TRUE, message=TRUE}
 
 EDIutils::login(
-  userId   = keyring::key_get("edi_user"),
-  userPass = keyring::key_get("edi_pass")
+  userId   = keyring::key_get("edi_user", keyring = "edi"),
+  userPass = keyring::key_get("edi_pass", keyring = "edi")
 )
 
 ```
@@ -773,12 +757,12 @@ EDIutils::login(
 ```{r edi-evaluate, eval=TRUE, echo=TRUE, message=TRUE}
 
 evaluation <- EDIutils::evaluate_data_package(
-  eml         = paste0(packageIdent, ".xml"),
+  eml         = paste(scope, identifier, version, "xml", sep = "."),
   useChecksum = FALSE,
   env         = "staging"
 )
 
-Sys.sleep(10)
+Sys.sleep(8)
 
 eval_status <- EDIutils::check_status_evaluate(
   transaction = evaluation,
@@ -787,7 +771,7 @@ eval_status <- EDIutils::check_status_evaluate(
 
 if (eval_status) {
 
-  # evalution summary
+  # evaluation summary
 
   EDIutils::read_evaluate_report_summary(
     transaction = evaluation,
@@ -796,11 +780,11 @@ if (eval_status) {
 
 }
 
-# evalution detailed
+# evaluation detailed
 
 # EDIutils::read_evaluate_report(
 #   transaction = evaluation,
-#   env         = "production"
+#   env         = "staging"
 # )
 
 ```
@@ -810,7 +794,8 @@ if (eval_status) {
 ```{r edi-update, eval=TRUE, echo=TRUE, message=TRUE}
 
 EDIutils::update_data_package(
-  eml         = paste0(packageIdent, ".xml"),
+  eml         = paste(scope, identifier, version, "xml", sep = "."),
+  useChecksum = TRUE,
   env         = "production"
 )
 
@@ -824,22 +809,22 @@ EDIutils::logout()
 
 ```
 
+
 # post processing
 
-```{r clean_up}
+remove data files (if desired)
 
-# remove data files
-dataFilesToRemove <- dir(pattern = paste0(packageNum, "_"))
-file.remove(dataFilesToRemove)
+```{r delete-data-files}
 
-# EML to S3
-gioseml::eml_to_amz(paste0(packageIdent, ".xml"))
+file.remove(data_files_to_upload)
+```
 
-# EML to cap-data-eml and remove file from project
-file.copy(
-  from = paste0(packageIdent, ".xml"),
-  to   = "/home/srearl/localRepos/cap-metadata/cap-data-eml/"
-)
-file.remove(paste0(packageIdent, ".xml"))
+XML/EML file to Amazon and cap-metadata
 
+```{r delete-data-files}
+
+gioseml::eml_to_amz(list.files(pattern = "knb.+xml"))
+
+file.copy(list.files(pattern = "knb.+xml"), "/home/srearl/localRepos/cap-metadata/cap-data-eml/")
+file.remove(list.files(pattern = "knb.+xml"))
 ```

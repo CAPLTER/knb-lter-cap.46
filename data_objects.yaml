@@ -1,0 +1,27 @@
+bird_observations:
+  type: table
+  dfname: bird_observations
+  description: "bird survey sampling details (site, date, time, observer) and birds observed during the survey windows (type, number, distance from observer, behavior)"
+  dateRangeField: "survey_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: NULL
+  additional_information: NULL
+bird_surveys:
+  type: table
+  dfname: bird_surveys
+  description: "bird survey sampling details including survey location, date, times, observer, conditions at the site during the survey, and birds and other animals observed at the survey site but outside the designated survey window"
+  dateRangeField: "survey_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: NULL
+  additional_information: NULL
+bird_survey_locations:
+  type: table
+  dfname: bird_survey_locations
+  description: "Geographic position of bird survey locations. The precise position of many survey locations has changed over the course of the study, either intentionally to accommodate changes at or near the study site or indirectly reflecting updated GPS positions. Survey sites that have moved have an associated end date corresponding to when the position moved or was recalibrated, either as a date or month and year if the exact day of repositioning is not known. Begin dates correspond to the earliest survey at that position or, in the case of sites that have moved (i.e., have an end date), the earliest survey after the end date."
+  dateRangeField: NULL
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: NULL
+  additional_information: NULL

@@ -13,6 +13,14 @@ datasheet, nor on an earlier one revised in 2004. Given that the meaning of
 "flying" is not clear nor particularly additive, those data are not included in
 the published data.
 
+### knb-lter-cap.46.21 *2022-11-06*
+
+* data refresh
+- workflow modified to adopt capeml data_objects.yaml approach for building
+  tables.
+- spatial representation of bird_survey_locations made explicitly distinct from
+  tabular version as bird_survey_locations_spatial
+
 ### knb-lter-cap.46.20 *2022-05-12*
 
 * data refresh
