@@ -1,8 +1,6 @@
 ---
-date: Sys.Date()
-output: html_document
-editor_options: 
-  chunk_output_type: console
+title: knb-lter-cap.46
+author: CAP LTER
 ---
 
 # README
@@ -118,7 +116,7 @@ full name.
 
 ## observations: observers
 
-```{r bird-observations-observers, eval=TRUE}
+```{r bird-observations-observers}
 
 bird_observations <- bird_observations |>
   tidyr::separate(observer, c("name1", "name2", "name3"), " ", remove = T) |>
@@ -174,7 +172,7 @@ in the above chunk.
 ```{r bird-observations-filter, eval=TRUE}
 
 bird_observations <- bird_observations |>
-  dplyr::filter(survey_date <= "2021-03-01")
+  dplyr::filter(survey_date <= "2023-02-03")
 
 ```
 
@@ -182,10 +180,12 @@ bird_observations <- bird_observations |>
 
 ```{r bird-observations-DT, eval=TRUE}
 
-try({
-  capeml::write_attributes(bird_observations, overwrite = FALSE)
-  capeml::write_factors(bird_observations, overwrite = FALSE)
-})
+capeml::update_attributes(bird_observations)
+
+# try({
+#   capeml::write_attributes(bird_observations, overwrite = FALSE)
+#   capeml::write_factors(bird_observations, overwrite = FALSE)
+# })
 
 ```
 
@@ -359,7 +359,7 @@ in the above chunk.
 ```{r bird-surveys-filter, eval=FALSE}
 
 bird_surveys <- bird_surveys |>
-  dplyr::filter(survey_date <= "2021-03-01")
+  dplyr::filter(survey_date <= "2023-02-03")
 
 ```
 
@@ -367,10 +367,12 @@ bird_surveys <- bird_surveys |>
 
 ```{r bird-surveys, eval=TRUE}
 
-try({
-  capeml::write_attributes(bird_surveys, overwrite = FALSE)
-  capeml::write_factors(bird_surveys, overwrite = FALSE)
-})
+capeml::update_attributes(bird_surveys)
+
+# try({
+#   capeml::write_attributes(bird_surveys, overwrite = FALSE)
+#   capeml::write_factors(bird_surveys, overwrite = FALSE)
+# })
 
 ```
 
@@ -479,10 +481,12 @@ bird_survey_locations <- bird_survey_locations |>
 
 ```{r bird-survey-locations, eval=TRUE}
 
-try({
-  capeml::write_attributes(bird_survey_locations, overwrite = FALSE)
-  capeml::write_factors(bird_survey_locations, overwrite = FALSE)
-})
+capeml::update_attributes(bird_survey_locations)
+
+# try({
+#   capeml::write_attributes(bird_survey_locations, overwrite = FALSE)
+#   capeml::write_factors(bird_survey_locations, overwrite = FALSE)
+# })
 
 ```
 
@@ -491,7 +495,9 @@ try({
 Locations presented only as tabular data beginning with version 19, code is
 left here for posterity and possible future use.
 
-```{r bird_survey_locations-convert-to-spatial, eval=FALSE}
+## locations (spatial): SF
+
+```{r bird-survey-locations-convert-to-spatial, eval=FALSE}
 
 bird_survey_locations_spatial <- bird_survey_locations |>
   dplyr::mutate(location_type = as.character(location_type))
@@ -502,9 +508,17 @@ bird_survey_locations_spatial <- sf::st_as_sf(
   crs    = 4326
 )
 
-try({
-  capeml::write_attributes(bird_survey_locations_spatial, overwrite = FALSE)
-})
+```
+
+## locations (spatial): vector
+
+```{r bird-survey-locations-create-vector, eval=FALSE}
+
+capeml::update_attributes(bird_survey_locations_spatial)
+
+# try({
+#   capeml::write_attributes(bird_survey_locations_spatial, overwrite = FALSE)
+# })
 
 bird_survey_locations_spatial_desc <- "bird survey locations at select locations in and around the greater Phoenix metropolitan area"
 
@@ -520,6 +534,8 @@ core_bird_locations_SV <- capemlGIS::create_vector(
 
 ```{r people}
 
+ds <- "~/Dropbox/floating/cap_authors.csv"
+
 # S. Lerman constructed separately to accommodate middle initial
 
 susannahOrcid        <- EML::eml$userId(directory = "https://orcid.org")
@@ -534,27 +550,39 @@ susannah <- EML::eml$creator(
   userId                = susannahOrcid
 )
 
+
+susannah <- gioseml::create_role(
+  lastName   = "lerman",
+  dataSource = ds,
+  roleType   = "creator"
+)
+
+
 paige <- gioseml::create_role(
-  firstName = "paige",
   lastName  = "warren",
+  firstName = "paige",
+  dataSource = ds,
   roleType  = "creator"
 )
 
 heather <- gioseml::create_role(
-  firstName = "hea",
   lastName  = "bateman",
+  firstName = "hea",
+  dataSource = ds,
   roleType  = "creator"
 )
 
 madhu <- gioseml::create_role(
-  firstName = "ma",
   lastName  = "katti",
+  firstName = "ma",
+  dataSource = ds,
   roleType  = "creator"
 )
 
 eyal <- gioseml::create_role(
-  firstName = "eyal",
   lastName  = "shochat",
+  firstName = "eyal",
+  dataSource = ds,
   roleType  = "creator"
 )
 
@@ -567,10 +595,12 @@ creators <- list(
 )
 
 stevan <- gioseml::create_role(
-  firstName = "stevan",
   lastName  = "earl",
+  firstName = "stevan",
+  dataSource = ds,
   roleType  = "metadata"
 )
+
 metadataProvider <- list(stevan)
 
 ```
@@ -644,25 +674,32 @@ per version/session -- the taxonomicCoverage can be built as many times as
 needed with `resolve_comm_taxa()` once the `taxa_map.csv` has been generated
 and the taxonomic IDs resolved.
 
-```{r set_taxonomic_coverage, eval=TRUE}
+```{r set_taxonomic_coverage}
 
 my_path <- getwd() # taxonomyCleanr requires a path (to build the taxa_map)
 
 # create or update map. A taxa_map.csv is the heart of taxonomyCleanr. This
 # function will build the taxa_map.csv and put it in the path identified with
 # my_path.
+
 taxonomyCleanr::create_taxa_map(
   path = my_path,
-  x    = bird_observations,
+  x    = bird_observations |>
+  dplyr::mutate(
+    common_name = gsub("unidentified", "", common_name, ignore.case = TRUE),
+    common_name = stringr::str_trim(common_name, side = c("both"))
+    ),
   col  = "common_name"
 )
 
 # resolve_comm_taxa will resolve the taxa by attempting to match the taxon's
-# common name - note that this function applies only to common names. There is
-# a separate function for matching scientific names. In this case, data.source
-# 3 is ITIS, which is the only authority taxonomyCleanr will allow for common
-# names.
-taxonomyCleanr::resolve_comm_taxa(path = my_path, data.sources = 3) # in this case, 3 is ITIS
+# common name. The parameter data.source 3 is ITIS, which is the only authority
+# taxonomyCleanr will allow for common names.
+
+taxonomyCleanr::resolve_comm_taxa(
+  path         = my_path,
+  data.sources = 3 # ITIS
+)
 
 # build the EML taxonomomic coverage
 taxaCoverage <- taxonomyCleanr::make_taxonomicCoverage(path = my_path)

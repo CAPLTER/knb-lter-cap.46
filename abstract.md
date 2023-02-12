@@ -1,4 +1,4 @@
-## project overview
+### project overview
 
 Over the past half-century, the greater Phoenix metropolitan area (GPMA)
 has been one of the fastest growing regions in the US, experiencing
@@ -75,7 +75,7 @@ include six general site groupings:
     the PASS survey as done previously, provides more data on bird
     populations found in the neighborhoods of the CAP LTER study area.
 
-## method overview
+### method overview
 
 In a given season, each bird survey location is visited independently by
 three birders who count all birds seen or heard within a 15-minute

@@ -13,6 +13,17 @@ datasheet, nor on an earlier one revised in 2004. Given that the meaning of
 "flying" is not clear nor particularly additive, those data are not included in
 the published data.
 
+### knb-lter-cap.46.22 *2023-02-12*
+
+* data refresh
+- workflow modified to adopt capeml `update_attributes` function
+- Rmd to qmd
+- update workflow to use local data file for gioseml people functions (had the
+  side effect of for the first time including Paige's middle initial)
+- removed "unidentified" from common names to improve taxonomic name service
+  resolution
+- slight edit to abstract formatting (header levels)
+
 ### knb-lter-cap.46.21 *2022-11-06*
 
 * data refresh
