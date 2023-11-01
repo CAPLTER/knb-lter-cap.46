@@ -13,6 +13,15 @@ datasheet, nor on an earlier one revised in 2004. Given that the meaning of
 "flying" is not clear nor particularly additive, those data are not included in
 the published data.
 
+### knb-lter-cap.46.23 *2023-11-01*
+
+- data refresh
+- incorporates more of the yaml approach, here data entities (except the spatial vector) and people are documented via yaml configuration files
+- incorporates QUDT units
+- adds for the first time, albeit limited, annotations, mostly in conjunction with the move to QUDT units but also annotations are added to some attributes (mostly dates)
+- SQL to isolate CORE surveys at the SRBP sites is broken out into a single, temporary table rather than duplicating the code for both the surveys and observations queries.
+- Omits duplicate surveys and counts identified by J. Haight
+
 ### knb-lter-cap.46.22 *2023-02-12*
 
 * data refresh

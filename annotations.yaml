@@ -1,0 +1,42 @@
+- name: NUM
+  valueLabel: Number
+  valueURI: http://qudt.org/vocab/unit/NUM
+  references: 827d7ca01a2add89353fb76f96d5c21c_10
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: DEG_C
+  valueLabel: degree Celsius
+  valueURI: http://qudt.org/vocab/unit/DEG_C
+  references: 3cd1f76594b9652d1cd28aae5465e32c_10
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: PERCENT
+  valueLabel: Percent
+  valueURI: http://qudt.org/vocab/unit/PERCENT
+  references: 3cd1f76594b9652d1cd28aae5465e32c_11
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: PERCENT
+  valueLabel: Percent
+  valueURI: http://qudt.org/vocab/unit/PERCENT
+  references: 3cd1f76594b9652d1cd28aae5465e32c_17
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: KiloM-PER-HR
+  valueLabel: Kilometer per Hour
+  valueURI: http://qudt.org/vocab/unit/KiloM-PER-HR
+  references: 3cd1f76594b9652d1cd28aae5465e32c_8
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: DEG
+  valueLabel: Degree
+  valueURI: http://qudt.org/vocab/unit/DEG
+  references: 39ed763963e7a514d0593b1376a3ac5a_3
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: DEG
+  valueLabel: Degree
+  valueURI: http://qudt.org/vocab/unit/DEG
+  references: 39ed763963e7a514d0593b1376a3ac5a_4
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit

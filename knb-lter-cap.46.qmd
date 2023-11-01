@@ -7,46 +7,15 @@ author: CAP LTER
 
 content moved to README.md
 
+# isolate SRBP core site surveys
 
-# bird observations
+Generate a temporary reference table of surveys at SRBP sites that are part of
+the CORE set of surveys (i.e., not SRBP surveys at those same sites).
 
-## observations: query
+```{r isolate-SRBP-core-site-surveys, eval=TRUE}
 
-```{r bird-observations-query, eval=TRUE}
-
-bird_observations <- DBI::dbGetQuery(pg, "
-SELECT
-  surveys.id AS survey_id,
-  sites.site_code,
-  surveys.survey_date,
-  surveys.time_start,
-  surveys.time_end,
-  observers.observer,
-  bird_taxa.code,
-  bird_taxa.common_name,
-  bird_observations.distance,
-  bird_observations.bird_count,
-  bird_observations.notes AS observation_notes,
-  bird_observations.seen,
-  bird_observations.heard,
-  bird_observations.direction,
-  bird_observations.qccomment
-FROM core_birds.surveys
-JOIN core_birds.sites ON (surveys.site_id = sites.id)
-JOIN core_birds.bird_observations ON (surveys.id = bird_observations.survey_id)
-JOIN core_birds.bird_taxa ON (bird_observations.bird_taxon_id = bird_taxa.id)
-JOIN core_birds.observers ON (observers.id = surveys.observer_id)
-WHERE
-  sites.location_type ~~* 'ESCA' OR
-  sites.location_type ~~* 'riparian' OR
-  sites.location_type ~~* 'NDV' OR
-  sites.location_type ~~* 'desert_fertilization' OR
-  sites.location_type ~~* 'PASS' OR
-  surveys.id IN (
-    SELECT
-      srbp_core_ids.id
-    FROM
-    (
+DBI::dbExecute(pg, "
+  CREATE TEMPORARY TABLE srbp_core_ids AS
       SELECT
         surveys.id,
         sites.site_code,
@@ -94,8 +63,46 @@ WHERE
         )
       ) OR
       EXTRACT(MONTH FROM surveys.survey_date) IN (12) AND EXTRACT(DAY FROM surveys.survey_date) >= 15
-    ) AS srbp_core_ids
-  )
+  ;
+  ")
+
+```
+
+# bird observations
+
+## observations: query
+
+```{r bird-observations-query, eval=TRUE}
+
+bird_observations <- DBI::dbGetQuery(pg, "
+SELECT
+  surveys.id AS survey_id,
+  sites.site_code,
+  surveys.survey_date,
+  surveys.time_start,
+  surveys.time_end,
+  observers.observer,
+  bird_taxa.code,
+  bird_taxa.common_name,
+  bird_observations.distance,
+  bird_observations.bird_count,
+  bird_observations.notes AS observation_notes,
+  bird_observations.seen,
+  bird_observations.heard,
+  bird_observations.direction,
+  bird_observations.qccomment
+FROM core_birds.surveys
+JOIN core_birds.sites ON (surveys.site_id = sites.id)
+JOIN core_birds.bird_observations ON (surveys.id = bird_observations.survey_id)
+JOIN core_birds.bird_taxa ON (bird_observations.bird_taxon_id = bird_taxa.id)
+JOIN core_birds.observers ON (observers.id = surveys.observer_id)
+WHERE
+  sites.location_type ~~* 'ESCA' OR
+  sites.location_type ~~* 'riparian' OR
+  sites.location_type ~~* 'NDV' OR
+  sites.location_type ~~* 'desert_fertilization' OR
+  sites.location_type ~~* 'PASS' OR
+  surveys.id IN (SELECT id FROM srbp_core_ids)
 ORDER BY survey_date
 LIMIT 500000
 ;
@@ -172,15 +179,19 @@ in the above chunk.
 ```{r bird-observations-filter, eval=TRUE}
 
 bird_observations <- bird_observations |>
-  dplyr::filter(survey_date <= "2023-02-03")
+  dplyr::filter(survey_date <= "2023-06-13")
 
 ```
 
 ## observations: data table
 
-```{r bird-observations-DT, eval=TRUE}
+`bird_count` is the only numeric variable in `bird_observations` with a current
+maximum of 3200, which is unlikely to be surpassed so updating
+`bird_observations` attributes is generally not needed.
 
-capeml::update_attributes(bird_observations)
+```{r bird-observations-DT, eval=FALSE}
+
+# capeml::update_attributes(bird_observations)
 
 # try({
 #   capeml::write_attributes(bird_observations, overwrite = FALSE)
@@ -235,60 +246,7 @@ WHERE
   sites.location_type ~~* 'NDV' OR
   sites.location_type ~~* 'desert_fertilization' OR
   sites.location_type ~~* 'PASS' OR
-  surveys.id IN (
-    SELECT
-      srbp_core_ids.id
-    FROM
-    (
-      SELECT
-        surveys.id,
-        sites.site_code,
-        sites.location_type,
-        surveys.survey_date
-      FROM core_birds.surveys
-      JOIN core_birds.sites ON (surveys.site_id = sites.id)
-      JOIN (
-        SELECT
-          subquery.site_id,
-          subquery.site_code,
-          subquery.reach,
-          GREATEST(
-            COALESCE(subquery.begin_date, '2000-01-01'),
-            COALESCE(subquery.begin, '2000-01-01')
-          ) AS begin_date,
-          LEAST(
-            COALESCE(subquery.end_date, DATE(NOW())),
-            COALESCE(subquery.end, DATE(NOW()))
-          ) AS end_date
-        FROM(
-          SELECT
-            srcs.site_id,
-            sites.site_code,
-            srcs.reach,
-            srcs.begin_date,
-            srcs.end_date,
-            CASE
-              WHEN srcs.end_date IS NULL THEN DATE('2000-01-01')
-            END AS begin,
-            CASE
-              WHEN srcs.end_date IS NULL THEN DATE(NOW())
-            END AS end
-          FROM core_birds.salt_river_core_sites srcs
-          JOIN core_birds.sites ON (sites.id = srcs.site_id)
-        ) AS subquery
-        ) AS core_site_date ON (
-        surveys.site_id = core_site_date.site_id AND
-        surveys.survey_date BETWEEN core_site_date.begin_date AND core_site_date.end_date
-      )
-      WHERE
-      (
-        EXTRACT(MONTH FROM surveys.survey_date) IN (1, 2, 3, 4) OR (
-        EXTRACT(MONTH FROM surveys.survey_date) IN (5) AND EXTRACT(DAY FROM surveys.survey_date) <= 20
-        )
-      ) OR
-      EXTRACT(MONTH FROM surveys.survey_date) IN (12) AND EXTRACT(DAY FROM surveys.survey_date) >= 15
-    ) AS srbp_core_ids
-  )
+  surveys.id IN (SELECT id FROM srbp_core_ids)
 ORDER BY survey_date
 LIMIT 500000
 ;
@@ -359,15 +317,19 @@ in the above chunk.
 ```{r bird-surveys-filter, eval=FALSE}
 
 bird_surveys <- bird_surveys |>
-  dplyr::filter(survey_date <= "2023-02-03")
+  dplyr::filter(survey_date <= "2023-06-13")
 
 ```
 
 ## surveys: data table
 
-```{r bird-surveys, eval=TRUE}
+Weather conditions are the only numeric variables among `bird_surveys`, with
+new values unlikely to exceed the current ranges of values so updating
+`bird_surveys` attributes is generally not needed.
 
-capeml::update_attributes(bird_surveys)
+```{r bird-surveys, eval=FALSE}
+
+# capeml::update_attributes(bird_surveys)
 
 # try({
 #   capeml::write_attributes(bird_surveys, overwrite = FALSE)
@@ -479,9 +441,14 @@ bird_survey_locations <- bird_survey_locations |>
 
 ## locations: data table
 
+Site latitudes and longitudes are the only numeric variables among
+`bird_survey_locations`. The current ranges of those variables would only
+change if a new site was added. As such, updating `bird_survey_locations`
+attributes is generally not needed.
+
 ```{r bird-survey-locations, eval=TRUE}
 
-capeml::update_attributes(bird_survey_locations)
+# capeml::update_attributes(bird_survey_locations)
 
 # try({
 #   capeml::write_attributes(bird_survey_locations, overwrite = FALSE)
@@ -514,7 +481,7 @@ bird_survey_locations_spatial <- sf::st_as_sf(
 
 ```{r bird-survey-locations-create-vector, eval=FALSE}
 
-capeml::update_attributes(bird_survey_locations_spatial)
+# capeml::update_attributes(bird_survey_locations_spatial)
 
 # try({
 #   capeml::write_attributes(bird_survey_locations_spatial, overwrite = FALSE)
@@ -757,7 +724,6 @@ version <- capeml::get_next_version(
 
 ```{r preview_data_file_to_upload}
 
-# preview data set files that will be uploaded to S3
 (data_files_to_upload <- list.files(pattern = "^46_"))
 ```
 
@@ -765,15 +731,12 @@ Move data and final xml files to respective ASU locations.
 
 ```{r S3_helper_functions}
 
-# functions and setting for uploading to S3
-library(aws.s3)
 source("~/Documents/localSettings/aws.s3")
 ```
 
 ```{r upload_data_S3}
 
-# upload files to S3
-lapply(data_files_to_upload, gioseml::data_to_amz)
+lapply(data_files_to_upload, capeml::data_to_amz)
 ```
 
 # EDI
@@ -782,60 +745,24 @@ lapply(data_files_to_upload, gioseml::data_to_amz)
 
 ```{r edi-login, eval=TRUE, echo=TRUE, message=TRUE}
 
-EDIutils::login(
-  userId   = keyring::key_get("edi_user", keyring = "edi"),
-  userPass = keyring::key_get("edi_pass", keyring = "edi")
-)
-
+source("~/Documents/localSettings/edi.R")
 ```
 
 ## EDI: evaluate
 
 ```{r edi-evaluate, eval=TRUE, echo=TRUE, message=TRUE}
 
-evaluation <- EDIutils::evaluate_data_package(
-  eml         = paste(scope, identifier, version, "xml", sep = "."),
-  useChecksum = FALSE,
-  env         = "staging"
-)
-
-Sys.sleep(8)
-
-eval_status <- EDIutils::check_status_evaluate(
-  transaction = evaluation,
-  env         = "staging"
-)
-
-if (eval_status) {
-
-  # evaluation summary
-
-  EDIutils::read_evaluate_report_summary(
-    transaction = evaluation,
-    env         = "staging"
-  )
-
-}
-
-# evaluation detailed
-
-# EDIutils::read_evaluate_report(
-#   transaction = evaluation,
-#   env         = "staging"
-# )
-
+report <- capeml::get_package_evaluation(full_report = TRUE)
 ```
 
 ## EDI: update
 
 ```{r edi-update, eval=TRUE, echo=TRUE, message=TRUE}
 
-EDIutils::update_data_package(
-  eml         = paste(scope, identifier, version, "xml", sep = "."),
-  useChecksum = TRUE,
-  env         = "production"
+capeml::create_package(
+  environment = "production",
+  update = TRUE
 )
-
 ```
 
 ## EDI: logout
@@ -843,7 +770,6 @@ EDIutils::update_data_package(
 ```{r edi-logout, eval=TRUE, echo=TRUE, message=TRUE}
 
 EDIutils::logout()
-
 ```
 
 
@@ -860,7 +786,7 @@ XML/EML file to Amazon and cap-metadata
 
 ```{r delete-data-files}
 
-gioseml::eml_to_amz(list.files(pattern = "knb.+xml"))
+capeml::eml_to_amz(list.files(pattern = "knb.+xml"))
 
 file.copy(list.files(pattern = "knb.+xml"), "/home/srearl/localRepos/cap-metadata/cap-data-eml/")
 file.remove(list.files(pattern = "knb.+xml"))

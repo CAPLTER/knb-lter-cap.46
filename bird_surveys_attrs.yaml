@@ -36,7 +36,7 @@
   wind_speed:
     attributeName: wind_speed
     attributeDefinition: 'wind speed (not recorded after 2004-08-07)'
-    unit: 'kilometersPerHour'
+    unit: KiloM-PER-HR
     numberType: whole
     minimum: 0
     maximum: 97
@@ -48,7 +48,7 @@
   air_temp:
     attributeName: air_temp
     attributeDefinition: 'air temperature (not recorded after 2004-08-07)'
-    unit: 'celsius'
+    unit: DEG_C
     numberType: integer
     minimum: -16
     maximum: 85
@@ -56,7 +56,7 @@
   cloud_cover:
     attributeName: cloud_cover
     attributeDefinition: 'per cent cloud cover  (not recorded after 2004-08-07)'
-    unit: 'percent'
+    unit: PERCENT
     numberType: whole
     minimum: 0
     maximum: 100
@@ -70,7 +70,7 @@
     attributeName: human_activity_notes
     attributeDefinition: 'notes regarding any human activity during the survey'
     columnClasses: character
-    definition: ''
+    definition:
   wind:
     attributeName: wind
     attributeDefinition: 'qualitative assessment of wind speed during the survey (not recorded prior to 2004-10-02)'
@@ -86,7 +86,7 @@
   sight_obstruct:
     attributeName: sight_obstruct
     attributeDefinition: 'per cent of the view obstructed during the survey (not recorded prior to 2004-10-02)'
-    unit: 'percent'
+    unit: PERCENT
     numberType: whole
     minimum: 0
     maximum: 270

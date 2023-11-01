@@ -17,19 +17,13 @@
   begin_date_month:
     attributeName: begin_date_month
     attributeDefinition: 'beginning month of survey site at repositioned or recalibrated location'
-    unit: 'number'
-    numberType: natural
-    minimum: 1
-    maximum: 4
-    columnClasses: numeric
+    columnClasses: Date
+    formatString: MM
   begin_date_year:
     attributeName: begin_date_year
     attributeDefinition: 'beginning year of survey site at repositioned or recalibrated location'
-    unit: 'number'
-    numberType: natural
-    minimum: 2013
-    maximum: 2018
-    columnClasses: numeric
+    columnClasses: Date
+    formatString: YYYY
   end_date:
     attributeName: end_date
     attributeDefinition: 'ending date of survey at previous or current position'
@@ -38,16 +32,10 @@
   end_date_month:
     attributeName: end_date_month
     attributeDefinition: 'ending month of survey at previous or current position'
-    unit: 'number'
-    numberType: natural
-    minimum: 1
-    maximum: 8
-    columnClasses: numeric
+    columnClasses: Date
+    formatString: MM
   end_date_year:
     attributeName: end_date_year
     attributeDefinition: 'ending year of survey at previous or current position'
-    unit: 'number'
-    numberType: natural
-    minimum: 2001
-    maximum: 2018
-    columnClasses: numeric
+    columnClasses: Date
+    formatString: YYYY
