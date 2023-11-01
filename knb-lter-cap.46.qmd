@@ -497,80 +497,6 @@ core_bird_locations_SV <- capemlGIS::create_vector(
 
 ```
 
-# people
-
-```{r people}
-
-ds <- "~/Dropbox/floating/cap_authors.csv"
-
-# S. Lerman constructed separately to accommodate middle initial
-
-susannahOrcid        <- EML::eml$userId(directory = "https://orcid.org")
-susannahOrcid$userId <- "0000-0002-2331-8439"
-
-susannah <- EML::eml$creator(
-  individualName = EML::eml$individualName(
-    givenName = c("Susannah", "B"),
-    surName   = "Lerman"),
-  electronicMailAddress = "slerman@cns.umass.edu",
-  organizationName      = "USDA Forest Service Northern Research Station",
-  userId                = susannahOrcid
-)
-
-
-susannah <- gioseml::create_role(
-  lastName   = "lerman",
-  dataSource = ds,
-  roleType   = "creator"
-)
-
-
-paige <- gioseml::create_role(
-  lastName  = "warren",
-  firstName = "paige",
-  dataSource = ds,
-  roleType  = "creator"
-)
-
-heather <- gioseml::create_role(
-  lastName  = "bateman",
-  firstName = "hea",
-  dataSource = ds,
-  roleType  = "creator"
-)
-
-madhu <- gioseml::create_role(
-  lastName  = "katti",
-  firstName = "ma",
-  dataSource = ds,
-  roleType  = "creator"
-)
-
-eyal <- gioseml::create_role(
-  lastName  = "shochat",
-  firstName = "eyal",
-  dataSource = ds,
-  roleType  = "creator"
-)
-
-creators <- list(
-  paige,
-  susannah,
-  heather,
-  madhu,
-  eyal
-)
-
-stevan <- gioseml::create_role(
-  lastName  = "earl",
-  firstName = "stevan",
-  dataSource = ds,
-  roleType  = "metadata"
-)
-
-metadataProvider <- list(stevan)
-
-```
 
 # coverages
 
@@ -598,38 +524,6 @@ coverage <- EML::set_coverage(
   north                 = sf::st_bbox(bird_survey_locations_spatial)[["ymax"]],
   south                 = sf::st_bbox(bird_survey_locations_spatial)[["ymin"]]
 )
-
-# as_spatial <- sf::st_as_sf(
-#   x = bird_survey_locations |>
-#   dplyr::group_by(site_code) |>
-#   dplyr::summarise(
-#     lat = max(lat),
-#     long = max(long)
-#     ),
-#   coords = c("long", "lat"),
-#   crs    = 4326
-# )
-# 
-# geographic_coverage <- split(
-#   x = as_spatial,
-#   f = as_spatial$site_code
-# ) |>
-# {\(site) purrr::map(.x = site, ~ capeml::create_geographic_coverage(.x, description = .x$site_code))}() |>
-# unname()
-
-# coverage <- list(
-#   temporalCoverage = list(
-#     rangeOfDates = list(
-#       beginDate = list(
-#         calendarDate = begin_date
-#         ),
-#       endDate = list(
-#         calendarDate = end_date
-#       )
-#     )
-#   ), # close temporalCoverage
-# geographicCoverage = geographic_coverage
-# ) # close coverage
 
 ```
 
@@ -704,23 +598,6 @@ capeml::write_cap_eml()
 
 
 # file placement
-
-```{r package-details, eval=TRUE}
-
-# retrieve package details from config.yaml
-if (!file.exists("config.yaml")) {
-  stop("config.yaml not found")
-}
-package_configs <- capeml::read_package_configuration()
-identifier      <- package_configs$identifier
-scope           <- package_configs$scope
-
-version <- capeml::get_next_version(
-  provided_scope      = scope,
-  provided_identifier = identifier
-)
-
-```
 
 ```{r preview_data_file_to_upload}
 
