@@ -189,7 +189,7 @@ Addressed at this step as survey_date has been explicitly declared a date type
 in the above chunk.
 
 ```{r}
-#| eval = TRUE
+#| eval = FALSE
 #| label = bird_observations_filter
 
 bird_observations <- bird_observations |>
@@ -340,7 +340,7 @@ Addressed at this step as survey_date has been explicitly declared a date type
 in the above chunk.
 
 ```{r}
-#| eval = TRUE
+#| eval = FALSE
 #| label = bird_surveys_filter
 
 bird_surveys <- bird_surveys |>
@@ -531,9 +531,9 @@ bird_survey_locations_spatial <- sf::st_as_sf(
 bird_survey_locations_spatial_desc <- "bird survey locations at select locations in and around the greater Phoenix metropolitan area"
 
 core_bird_locations_SV <- capemlGIS::create_vector(
-  vector_nam     = bird_survey_locations_spatial,
-  description    = bird_survey_locations_spatial_desc,
-  driver         = "GeoJSON"
+  vector_nam  = bird_survey_locations_spatial,
+  description = bird_survey_locations_spatial_desc,
+  driver      = "GeoJSON"
 )
 
 ```
