@@ -193,7 +193,7 @@ in the above chunk.
 #| label = bird_observations_filter
 
 bird_observations <- bird_observations |>
-  dplyr::filter(survey_date <= "2023-06-13")
+  dplyr::filter(survey_date <= "2024-02-22")
 
 ```
 
@@ -344,7 +344,7 @@ in the above chunk.
 #| label = bird_surveys_filter
 
 bird_surveys <- bird_surveys |>
-  dplyr::filter(survey_date <= "2023-06-13")
+  dplyr::filter(survey_date <= "2024-02-22")
 
 ```
 
@@ -625,7 +625,6 @@ coverage$taxonomicCoverage <- taxaCoverage
 dataset <- capeml::create_dataset()
 ```
 
-
 # eml
 
 ```{r}
@@ -694,7 +693,8 @@ source("~/Documents/localSettings/edi.R")
 #| message = TRUE
 #| label = edi_evaluate
 
-report <- capeml::get_package_evaluation(full_report = TRUE)
+capeml::get_package_evaluation(full_report = FALSE)
+# report <- capeml::get_package_evaluation(full_report = TRUE)
 ```
 
 ## EDI: update

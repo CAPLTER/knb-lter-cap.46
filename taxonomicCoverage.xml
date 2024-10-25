@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="ba8eeacc-8a6c-4806-94c9-e25711995126" system="uuid" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="16b201fc-f857-4ed8-b18a-27d7e6086928" system="uuid" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
@@ -1675,14 +1675,18 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Passeriformes</taxonRankValue>
+                    <commonName>Perching Birds</commonName>
                     <taxonId provider="https://itis.gov">178265</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Remizidae</taxonRankValue>
+                      <commonName>Penduline Tits</commonName>
+                      <commonName>Verdins</commonName>
                       <taxonId provider="https://itis.gov">178696</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>genus</taxonRankName>
@@ -1691,6 +1695,7 @@
                         <taxonomicClassification>
                           <taxonRankName>species</taxonRankName>
                           <taxonRankValue>Auriparus flaviceps</taxonRankValue>
+                          <commonName>Verdin</commonName>
                           <taxonId provider="https://itis.gov">178759</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
@@ -1707,10 +1712,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -1719,10 +1726,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -1735,22 +1744,28 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Passeriformes</taxonRankValue>
+                    <commonName>Perching Birds</commonName>
                     <taxonId provider="https://itis.gov">178265</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Mimidae</taxonRankValue>
+                      <commonName>Mockingbirds</commonName>
+                      <commonName>Thrashers</commonName>
                       <taxonId provider="https://itis.gov">178618</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>genus</taxonRankName>
                         <taxonRankValue>Mimus</taxonRankValue>
+                        <commonName>Mockingbirds</commonName>
                         <taxonId provider="https://itis.gov">178619</taxonId>
                         <taxonomicClassification>
                           <taxonRankName>species</taxonRankName>
                           <taxonRankValue>Mimus polyglottos</taxonRankValue>
+                          <commonName>Northern Mockingbird</commonName>
                           <taxonId provider="https://itis.gov">178620</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
@@ -1767,10 +1782,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -1779,10 +1796,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -1795,22 +1814,29 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Accipitriformes</taxonRankValue>
+                    <commonName>Hawks</commonName>
                     <taxonId provider="https://itis.gov">823961</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Accipitridae</taxonRankValue>
+                      <commonName>Eagles</commonName>
+                      <commonName>Hawks</commonName>
+                      <commonName>Kites</commonName>
                       <taxonId provider="https://itis.gov">175280</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>genus</taxonRankName>
                         <taxonRankValue>Buteo</taxonRankValue>
+                        <commonName>Buteonine Hawks</commonName>
                         <taxonId provider="https://itis.gov">175349</taxonId>
                         <taxonomicClassification>
                           <taxonRankName>species</taxonRankName>
                           <taxonRankValue>Buteo jamaicensis</taxonRankValue>
+                          <commonName>Red-tailed Hawk</commonName>
                           <taxonId provider="https://itis.gov">175350</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
@@ -1827,10 +1853,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -1839,10 +1867,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -1855,14 +1885,18 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Columbiformes</taxonRankValue>
+                    <commonName>Doves</commonName>
+                    <commonName>Pigeons</commonName>
                     <taxonId provider="https://itis.gov">177038</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Columbidae</taxonRankValue>
+                      <commonName>Doves</commonName>
                       <taxonId provider="https://itis.gov">177061</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>subfamily</taxonRankName>
@@ -1871,10 +1905,14 @@
                         <taxonomicClassification>
                           <taxonRankName>genus</taxonRankName>
                           <taxonRankValue>Columba</taxonRankValue>
+                          <commonName>Pigeons</commonName>
                           <taxonId provider="https://itis.gov">177062</taxonId>
                           <taxonomicClassification>
                             <taxonRankName>species</taxonRankName>
                             <taxonRankValue>Columba livia</taxonRankValue>
+                            <commonName>Rock Dove</commonName>
+                            <commonName>Common Pigeon</commonName>
+                            <commonName>Rock Pigeon</commonName>
                             <taxonId provider="https://itis.gov">177071</taxonId>
                           </taxonomicClassification>
                         </taxonomicClassification>
@@ -1892,10 +1930,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -1904,10 +1944,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -1920,22 +1962,29 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Passeriformes</taxonRankValue>
+                    <commonName>Perching Birds</commonName>
                     <taxonId provider="https://itis.gov">178265</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Icteridae</taxonRankValue>
+                      <commonName>American Blackbirds</commonName>
+                      <commonName>Orioles</commonName>
+                      <commonName>New World Blackbirds</commonName>
                       <taxonId provider="https://itis.gov">179030</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>genus</taxonRankName>
                         <taxonRankValue>Agelaius</taxonRankValue>
+                        <commonName>Red-winged Blackbirds</commonName>
                         <taxonId provider="https://itis.gov">179044</taxonId>
                         <taxonomicClassification>
                           <taxonRankName>species</taxonRankName>
                           <taxonRankValue>Agelaius phoeniceus</taxonRankValue>
+                          <commonName>Red-winged Blackbird</commonName>
                           <taxonId provider="https://itis.gov">179045</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
@@ -1952,10 +2001,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -1964,10 +2015,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -1980,28 +2033,29 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Psittaciformes</taxonRankValue>
+                    <commonName>Parrots</commonName>
                     <taxonId provider="https://itis.gov">177404</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
-                      <taxonRankValue>Psittacidae</taxonRankValue>
-                      <taxonId provider="https://itis.gov">177405</taxonId>
+                      <taxonRankValue>Psittaculidae</taxonRankValue>
+                      <commonName>Old World Parrots</commonName>
+                      <commonName>Lories</commonName>
+                      <taxonId provider="https://itis.gov">1222592</taxonId>
                       <taxonomicClassification>
-                        <taxonRankName>subfamily</taxonRankName>
-                        <taxonRankValue>Psittacinae</taxonRankValue>
-                        <taxonId provider="https://itis.gov">714007</taxonId>
+                        <taxonRankName>genus</taxonRankName>
+                        <taxonRankValue>Agapornis</taxonRankValue>
+                        <commonName>Lovebirds</commonName>
+                        <taxonId provider="https://itis.gov">177619</taxonId>
                         <taxonomicClassification>
-                          <taxonRankName>genus</taxonRankName>
-                          <taxonRankValue>Agapornis</taxonRankValue>
-                          <taxonId provider="https://itis.gov">177619</taxonId>
-                          <taxonomicClassification>
-                            <taxonRankName>species</taxonRankName>
-                            <taxonRankValue>Agapornis roseicollis</taxonRankValue>
-                            <taxonId provider="https://itis.gov">177626</taxonId>
-                          </taxonomicClassification>
+                          <taxonRankName>species</taxonRankName>
+                          <taxonRankValue>Agapornis roseicollis</taxonRankValue>
+                          <commonName>Rosy-faced Lovebird</commonName>
+                          <taxonId provider="https://itis.gov">177626</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
                     </taxonomicClassification>
@@ -2017,10 +2071,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -2029,10 +2085,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -2045,14 +2103,18 @@
                 <taxonomicClassification>
                   <taxonRankName>class</taxonRankName>
                   <taxonRankValue>Aves</taxonRankValue>
+                  <commonName>Birds</commonName>
                   <taxonId provider="https://itis.gov">174371</taxonId>
                   <taxonomicClassification>
                     <taxonRankName>order</taxonRankName>
                     <taxonRankValue>Apodiformes</taxonRankValue>
+                    <commonName>Swifts</commonName>
+                    <commonName>Hummingbirds</commonName>
                     <taxonId provider="https://itis.gov">177993</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Trochilidae</taxonRankValue>
+                      <commonName>Hummingbirds</commonName>
                       <taxonId provider="https://itis.gov">178028</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>subfamily</taxonRankName>
@@ -2061,10 +2123,12 @@
                         <taxonomicClassification>
                           <taxonRankName>genus</taxonRankName>
                           <taxonRankValue>Calypte</taxonRankValue>
+                          <commonName>Capped Hummingbirds</commonName>
                           <taxonId provider="https://itis.gov">178034</taxonId>
                           <taxonomicClassification>
                             <taxonRankName>species</taxonRankName>
                             <taxonRankValue>Calypte costae</taxonRankValue>
+                            <commonName>Costa's Hummingbird</commonName>
                             <taxonId provider="https://itis.gov">178035</taxonId>
                           </taxonomicClassification>
                         </taxonomicClassification>
@@ -2082,10 +2146,12 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
+    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
+      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -2094,10 +2160,12 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
+          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
             <taxonRankValue>Vertebrata</taxonRankValue>
+            <commonName>vertebrates</commonName>
             <taxonId provider="https://itis.gov">331030</taxonId>
             <taxonomicClassification>
               <taxonRankName>infraphylum</taxonRankName>
@@ -7024,9 +7092,6 @@
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Anatidae</taxonRankValue>
-                      <commonName>Ducks</commonName>
-                      <commonName>Geese</commonName>
-                      <commonName>Swans</commonName>
                       <taxonId provider="https://itis.gov">174983</taxonId>
                       <taxonomicClassification>
                         <taxonRankName>genus</taxonRankName>
@@ -7035,7 +7100,6 @@
                         <taxonomicClassification>
                           <taxonRankName>species</taxonRankName>
                           <taxonRankValue>Spatula discors</taxonRankValue>
-                          <commonName>Blue-winged Teal</commonName>
                           <taxonId provider="https://itis.gov">1192577</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
@@ -7052,12 +7116,10 @@
   <taxonomicClassification>
     <taxonRankName>kingdom</taxonRankName>
     <taxonRankValue>Animalia</taxonRankValue>
-    <commonName>animals</commonName>
     <taxonId provider="https://itis.gov">202423</taxonId>
     <taxonomicClassification>
       <taxonRankName>subkingdom</taxonRankName>
       <taxonRankValue>Bilateria</taxonRankValue>
-      <commonName>triploblasts</commonName>
       <taxonId provider="https://itis.gov">914154</taxonId>
       <taxonomicClassification>
         <taxonRankName>infrakingdom</taxonRankName>
@@ -7066,7 +7128,6 @@
         <taxonomicClassification>
           <taxonRankName>phylum</taxonRankName>
           <taxonRankValue>Chordata</taxonRankValue>
-          <commonName>chordates</commonName>
           <taxonId provider="https://itis.gov">158852</taxonId>
           <taxonomicClassification>
             <taxonRankName>subphylum</taxonRankName>
@@ -13854,26 +13915,18 @@
                     <taxonId provider="https://itis.gov">177404</taxonId>
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
-                      <taxonRankValue>Psittacidae</taxonRankValue>
+                      <taxonRankValue>Cacatuidae</taxonRankValue>
                       <commonName>Cockatoos</commonName>
-                      <commonName>Lories</commonName>
-                      <commonName>Macaws</commonName>
-                      <commonName>Parrots</commonName>
-                      <taxonId provider="https://itis.gov">177405</taxonId>
+                      <taxonId provider="https://itis.gov">1222591</taxonId>
                       <taxonomicClassification>
-                        <taxonRankName>subfamily</taxonRankName>
-                        <taxonRankValue>Cacatuinae</taxonRankValue>
-                        <taxonId provider="https://itis.gov">714005</taxonId>
+                        <taxonRankName>genus</taxonRankName>
+                        <taxonRankValue>Nymphicus</taxonRankValue>
+                        <taxonId provider="https://itis.gov">177496</taxonId>
                         <taxonomicClassification>
-                          <taxonRankName>genus</taxonRankName>
-                          <taxonRankValue>Nymphicus</taxonRankValue>
-                          <taxonId provider="https://itis.gov">177496</taxonId>
-                          <taxonomicClassification>
-                            <taxonRankName>species</taxonRankName>
-                            <taxonRankValue>Nymphicus hollandicus</taxonRankValue>
-                            <commonName>Cockatiel</commonName>
-                            <taxonId provider="https://itis.gov">177497</taxonId>
-                          </taxonomicClassification>
+                          <taxonRankName>species</taxonRankName>
+                          <taxonRankValue>Nymphicus hollandicus</taxonRankValue>
+                          <commonName>Cockatiel</commonName>
+                          <taxonId provider="https://itis.gov">177497</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
                     </taxonomicClassification>
@@ -16141,26 +16194,19 @@
                     <taxonomicClassification>
                       <taxonRankName>family</taxonRankName>
                       <taxonRankValue>Psittacidae</taxonRankValue>
-                      <commonName>Cockatoos</commonName>
-                      <commonName>Lories</commonName>
                       <commonName>Macaws</commonName>
                       <commonName>Parrots</commonName>
                       <taxonId provider="https://itis.gov">177405</taxonId>
                       <taxonomicClassification>
-                        <taxonRankName>subfamily</taxonRankName>
-                        <taxonRankValue>Psittacinae</taxonRankValue>
-                        <taxonId provider="https://itis.gov">714007</taxonId>
+                        <taxonRankName>genus</taxonRankName>
+                        <taxonRankValue>Myiopsitta</taxonRankValue>
+                        <commonName>Monk Parakeets</commonName>
+                        <taxonId provider="https://itis.gov">177722</taxonId>
                         <taxonomicClassification>
-                          <taxonRankName>genus</taxonRankName>
-                          <taxonRankValue>Myiopsitta</taxonRankValue>
-                          <commonName>Monk Parakeets</commonName>
-                          <taxonId provider="https://itis.gov">177722</taxonId>
-                          <taxonomicClassification>
-                            <taxonRankName>species</taxonRankName>
-                            <taxonRankValue>Myiopsitta monachus</taxonRankValue>
-                            <commonName>Monk Parakeet</commonName>
-                            <taxonId provider="https://itis.gov">177723</taxonId>
-                          </taxonomicClassification>
+                          <taxonRankName>species</taxonRankName>
+                          <taxonRankValue>Myiopsitta monachus</taxonRankValue>
+                          <commonName>Monk Parakeet</commonName>
+                          <taxonId provider="https://itis.gov">177723</taxonId>
                         </taxonomicClassification>
                       </taxonomicClassification>
                     </taxonomicClassification>

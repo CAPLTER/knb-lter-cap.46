@@ -14,8 +14,10 @@ particularly additive, those data are not included in the published data.
 
 ### history
 
-- knb-lter-cap.46.24 *2024-10-2x*
+- knb-lter-cap.46.24 *2024-10-24*
   + data refresh
+  + update the baseurl parameter in the config file
+  + update the r chunk structure to the qmd format
 
 - knb-lter-cap.46.23 *2023-11-01*
   + data refresh
