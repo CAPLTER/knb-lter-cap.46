@@ -14,6 +14,10 @@ particularly additive, those data are not included in the published data.
 
 ### history
 
+- knb-lter-cap.46.25 *2024-11-12*
+  + fixes errors in data sheets #11258 and #10916 identified by technicians
+  + added `licensed` element
+
 - knb-lter-cap.46.24 *2024-10-24*
   + data refresh
   + update the baseurl parameter in the config file
@@ -96,7 +100,7 @@ particularly additive, those data are not included in the published data.
   lack of a better approach to indicate the approximate time and connection to
   other survey details, but consider other options in future updates.
 
--knb-lter-cap.46.16 *2019-04-04*
+- knb-lter-cap.46.16 *2019-04-04*
   + *abstract & methods formatting*: The abstract & methods are unchanged
   between knb-lter-cap.46.15 and .16, so I simply copied the xml from version 15
   into the output for version 16 rather than going through and fixing all of the

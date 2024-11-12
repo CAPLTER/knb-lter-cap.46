@@ -687,6 +687,9 @@ source("~/Documents/localSettings/edi.R")
 
 ## EDI: evaluate
 
+Note that there are baseline 5 warns that related to dateTime format mismatches
+where date parts (e.g. MM for month) is not in keeping with the ISO standard.
+
 ```{r}
 #| eval = TRUE
 #| echo = TRUE
@@ -694,7 +697,16 @@ source("~/Documents/localSettings/edi.R")
 #| label = edi_evaluate
 
 capeml::get_package_evaluation(full_report = FALSE)
-# report <- capeml::get_package_evaluation(full_report = TRUE)
+```
+
+```{r}
+#| eval = FALSE
+#| echo = TRUE
+#| message = TRUE
+#| label = edi_evaluate_full
+
+report <- capeml::get_package_evaluation(full_report = TRUE)
+xml2::write_xml(report, "/tmp/edi_evaluation_report.xml")
 ```
 
 ## EDI: update
